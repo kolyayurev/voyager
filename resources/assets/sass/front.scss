@@ -1,0 +1,43 @@
+@import "fonts";
+
+body{
+    position: relative;
+}
+.admin-controls{
+    position: sticky;
+    top: 0;
+    background-color: #313131;
+    z-index: 4;
+}
+.admin-controls{
+    a,button,.admin-controls__button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: .2vw;
+        padding: .2vw .7vw;
+        font-size: .7vw;
+        line-height: .7vw;
+        text-align: center;
+        color: black;
+        white-space: nowrap;
+        cursor: pointer;
+        // transition: all 1s ease;
+
+        &.-light{
+            background-color: white;
+        }
+        &:active,&:hover{
+            transition: all 1s ease;
+        }
+    }
+    [class^="voyager-"]{
+        display: inline-flex;
+    }
+}
+.admin-controls__container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding: .2vw 1vw;
+}
