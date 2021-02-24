@@ -254,6 +254,20 @@ class VoyagerSettingsController extends Controller
 
         return back()->with($data);
     }
+    public function createGroupPermissions()
+    {
+        $groups = Voyager::model('Setting')->groupBy('group')->pluck('group');
+
+        $groups->each(function ($item, $key) {
+           Permission::generateSettingsGroup(Str::lower($item));
+        });
+        // dd($groups);
+        return redirect()->route('voyager.settings.index')->with([
+            'message'    => __('voyager::settings.successfully_created'),
+            'alert-type' => 'success',
+        ]);
+
+    }
     protected function refreshGroupPermissions($group_name)
     {
         if(!Permission::checkSettingsGroup($group_name))

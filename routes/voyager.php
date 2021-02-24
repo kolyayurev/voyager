@@ -85,6 +85,7 @@ Route::group(['as' => 'voyager.'], function () {
             Route::get('{id}/move_up', ['uses' => $namespacePrefix.'VoyagerSettingsController@move_up',      'as' => 'move_up']);
             Route::get('{id}/move_down', ['uses' => $namespacePrefix.'VoyagerSettingsController@move_down',    'as' => 'move_down']);
             Route::put('{id}/delete_value', ['uses' => $namespacePrefix.'VoyagerSettingsController@delete_value', 'as' => 'delete_value']);
+            Route::get('/create_group_permissions', ['uses' => $namespacePrefix.'VoyagerSettingsController@createGroupPermissions',        'as' => 'create_group_permissions']);
         });
 
         // Admin Media
