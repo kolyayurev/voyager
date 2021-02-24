@@ -2,6 +2,8 @@
 
 namespace TCG\Voyager\Models;
 
+use Str;
+
 use Illuminate\Database\Eloquent\Model;
 use TCG\Voyager\Facades\Voyager;
 
@@ -32,11 +34,11 @@ class Permission extends Model
     }
     public static function generateSettingsGroup($group_name)
     {
-        self::firstOrCreate(['key' => 'browse_group_'.$group_name.'_settings', 'table_name' => 'settings']);
+        self::firstOrCreate(['key' => 'browse_group_'.Str::lower($group_name).'_settings', 'table_name' => 'settings']);
     }
     public static function checkSettingsGroup($group_name)
     {
-       return self::check('browse_group_'.$group_name.'_settings');
+       return self::check('browse_group_'.Str::lower($group_name).'_settings');
     }
     public static function check($key)
     {
