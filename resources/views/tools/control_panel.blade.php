@@ -25,6 +25,18 @@
 
                 </div>
             </div>
+            <div class="panel panel-bordered">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Другое</h3>
+                </div>
+                <div class="panel-body">
+                    <el-row class="" style="margin-bottom: 1rem; ">
+                        <a href="{{route('voyager.settings.create_group_permissions')}}" class="btn btn-primary ">
+                            Создать права для групп настроек
+                        </a>
+                    </el-row>
+                </div>
+            </div>
         </div>
     </div>
 </div>
