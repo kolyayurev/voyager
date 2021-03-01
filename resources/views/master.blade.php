@@ -53,7 +53,10 @@
     @yield('head')
 </head>
 
-<body class="voyager @if(isset($dataType) && isset($dataType->slug)){{ $dataType->slug }}@endif">
+<body class="voyager 
+{{-- @if(isset($dataType) && isset($dataType->slug)){{ $dataType->slug }}@endif --}}
+"
+>
 
 <div id="voyager-loader">
     <?php $admin_loader_img = Voyager::setting('admin.loader', ''); ?>
@@ -141,6 +144,7 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
     @endif
 </script>
 @include('voyager::media.manager')
+@yield('vue')
 @yield('javascript')
 @stack('javascript')
 @if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->

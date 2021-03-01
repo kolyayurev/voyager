@@ -1,6 +1,4 @@
-<div class="list-formfield" id="terms">
-
-
+<div class="list-formfield" id="list">
     <fieldset class=" row" v-for="(item, key) in items" :key="'preview_'+key">
         <div class=" col-xs-10" >
             <input type="text" class="form-control" v-model="item.text"  disabled/>
@@ -10,7 +8,6 @@
             <button type="button" class="btn btn-xs btn-danger btn-delete" style="margin-top:0px;" @click="deleteItem(key)"><i class="voyager-trash"></i></button>
         </div>
     </fieldset>
-
     <legend></legend>
     <el-form 
         :model="model" 
@@ -31,13 +28,11 @@
 </div>
 
 
-@push('javascript')
+@section('vue')
 <script>
 
-    document.addEventListener('DOMContentLoaded', function(){
-
         new Vue({
-            el:'#terms',
+            el:'#list',
             data(){
                 return {
                     model:{
@@ -56,7 +51,6 @@
                     editIndex:false,
                 }
             },
-            
             methods:{
                 addItem(){
                     this.$refs.form.validate((valid) => {
@@ -101,7 +95,6 @@
             }
         });
 
-    });
     
 </script>
-@endpush
+@endsection

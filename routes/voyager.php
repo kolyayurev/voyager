@@ -85,8 +85,18 @@ Route::group(['as' => 'voyager.'], function () {
             Route::get('{id}/move_up', ['uses' => $namespacePrefix.'VoyagerSettingsController@move_up',      'as' => 'move_up']);
             Route::get('{id}/move_down', ['uses' => $namespacePrefix.'VoyagerSettingsController@move_down',    'as' => 'move_down']);
             Route::put('{id}/delete_value', ['uses' => $namespacePrefix.'VoyagerSettingsController@delete_value', 'as' => 'delete_value']);
-            Route::get('/create_group_permissions', ['uses' => $namespacePrefix.'VoyagerSettingsController@createGroupPermissions',        'as' => 'create_group_permissions']);
+            Route::get('/create_group_permissions', ['uses' => $namespacePrefix.'VoyagerSettingsController@create_group_permissions',        'as' => 'create_group_permissions']);
         });
+
+        // Widgets
+        Route::group([
+            'as'     => 'widgets.',
+            'prefix' => 'widgets',
+        ], function () use ($namespacePrefix) {
+            Route::get('{id}/builder', ['uses' => $namespacePrefix.'VoyagerWidgetController@builder',        'as' => 'builder']);
+            Route::post('{id}/builder', ['uses' => $namespacePrefix.'VoyagerWidgetController@builder_store',        'as' => 'builder_store']);
+        });
+
 
         // Admin Media
         Route::group([

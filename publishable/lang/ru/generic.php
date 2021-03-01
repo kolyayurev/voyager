@@ -104,6 +104,7 @@ return [
     'upload'                 => 'Загрузка',
     'url'                    => 'URL',
     'view'                   => 'Просмотр',
+    'view_not_found'         => 'Шаблон не найден',
     'viewing'                => 'Просмотр',
     'whoopsie'               => 'Ой!',
     'yes'                    => 'Да',

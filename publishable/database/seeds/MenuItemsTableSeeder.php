@@ -205,5 +205,20 @@ class MenuItemsTableSeeder extends Seeder
                 'order'      => 15,
             ])->save();
         }
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('voyager::seeders.menu_items.widgets'),
+            'url'     => '',
+            'route'   => 'voyager.widgets.index',
+        ]);
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-paint-bucket',
+                'color'      => null,
+                'parent_id'  => null,
+                'order'      => 16,
+            ])->save();
+        }
     }
 }

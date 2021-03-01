@@ -2,7 +2,7 @@
 
 namespace TCG\Voyager;
 
-use Arrilot\Widgets\Facade as Widget;
+use Arrilot\Widgets\Facade as ArrilotWidget;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
@@ -29,6 +29,7 @@ use TCG\Voyager\Models\Role;
 use TCG\Voyager\Models\Setting;
 use TCG\Voyager\Models\Translation;
 use TCG\Voyager\Models\User;
+use TCG\Voyager\Models\Widget;
 use TCG\Voyager\Traits\Translatable;
 
 class Voyager
@@ -64,6 +65,7 @@ class Voyager
         'Setting'     => Setting::class,
         'User'        => User::class,
         'Translation' => Translation::class,
+        'Widget'      => Widget::class,
     ];
 
     public $setting_cache = null;
@@ -194,7 +196,7 @@ class Voyager
         $widgetClasses = config('voyager.dashboard.widgets');
         $dimmerGroups = [];
         $dimmerCount = 0;
-        $dimmers = Widget::group("voyager::dimmers-{$dimmerCount}");
+        $dimmers = ArrilotWidget::group("voyager::dimmers-{$dimmerCount}");
 
         foreach ($widgetClasses as $widgetClass) {
             $widget = app($widgetClass);
@@ -206,7 +208,7 @@ class Voyager
                 if ($dimmerCount % 3 === 0 && $dimmerCount !== 0) {
                     $dimmerGroups[] = $dimmers;
                     $dimmerGroupTag = ceil($dimmerCount / 3);
-                    $dimmers = Widget::group("voyager::dimmers-{$dimmerGroupTag}");
+                    $dimmers = ArrilotWidget::group("voyager::dimmers-{$dimmerGroupTag}");
                 }
 
                 $dimmers->addWidget($widgetClass);

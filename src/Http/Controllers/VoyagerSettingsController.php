@@ -254,7 +254,7 @@ class VoyagerSettingsController extends Controller
 
         return back()->with($data);
     }
-    public function createGroupPermissions()
+    public function create_group_permissions()
     {
         $groups = Voyager::model('Setting')->groupBy('group')->pluck('group');
 

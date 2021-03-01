@@ -7,12 +7,15 @@ return [
         'body'             => 'Содержимое',
         'category'         => 'Категория',
         'created_at'       => 'Дата создания',
+        'description'      => 'Описание',
         'display_name'     => 'Отображаемое имя',
         'email'            => 'Email',
         'excerpt'          => 'Отрывок',
         'featured'         => 'Рекомендовано',
+        'foreign_key'      => 'Внешний ключ',
         'id'               => 'ID',
         'key'              => 'Ключ',
+        'handler'          => 'Обработчик',
         'meta_description' => 'Meta Description',
         'meta_keywords'    => 'Meta Keywords',
         'name'             => 'Имя',
@@ -28,6 +31,7 @@ return [
         'status'           => 'Статус',
         'table_name'       => 'Название таблицы',
         'title'            => 'Название',
+        'value'            => 'Значение',
         'updated_at'       => 'Дата обновления',
     ],
     'data_types' => [
@@ -59,6 +63,10 @@ return [
             'singular' => 'Пользователь',
             'plural'   => 'Пользователи',
         ],
+        'widget'     => [
+            'singular' => 'Виджет',
+            'plural'   => 'Виджеты',
+        ],
     ],
     'menu_items' => [
         'bread'        => 'BREAD',
@@ -77,6 +85,7 @@ return [
         'settings'     => 'Настройки',
         'tools'        => 'Инструменты',
         'users'        => 'Пользователи',
+        'widgets'        => 'Виджеты',
     ],
     'roles'      => [
         'admin' => 'Администратор',

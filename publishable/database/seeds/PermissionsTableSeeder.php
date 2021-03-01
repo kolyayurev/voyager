@@ -36,6 +36,9 @@ class PermissionsTableSeeder extends Seeder
 
         Permission::generateForSettings();
 
+        Permission::generateFor('widgets');
+        
+
 
     }
 }

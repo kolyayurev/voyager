@@ -66,6 +66,19 @@ class DataTypesTableSeeder extends Seeder
                 'description'           => '',
             ])->save();
         }
+        $dataType = $this->dataType('slug', 'widgets');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'widgets',
+                'display_name_singular' => __('voyager::seeders.data_types.widget.singular'),
+                'display_name_plural'   => __('voyager::seeders.data_types.widget.plural'),
+                'icon'                  => 'voyager-paint-bucket',
+                'model_name'            => 'TCG\\Voyager\\Models\\Widget',
+                'controller'            => 'TCG\\Voyager\\Http\\Controllers\\VoyagerWidgetController',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
     }
 
     /**
