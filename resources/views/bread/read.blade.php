@@ -126,6 +126,17 @@
                                         {{ __('voyager::generic.download') }}
                                     </a>
                                 @endif
+                            @elseif($row->type == 'list')
+                                @php
+                                    $list = $dataTypeContent->{$row->field};
+                                @endphp
+                                <ul>
+                                    @if (!empty($list))
+                                        @foreach($list as $item)
+                                            <li>{{ $item->text }}</li> 
+                                        @endforeach
+                                    @endif
+                                </ul>
                             @else
                                 @include('voyager::multilingual.input-hidden-bread-read')
                                 <p>{{ $dataTypeContent->{$row->field} }}</p>

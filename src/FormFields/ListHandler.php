@@ -3,7 +3,7 @@
 namespace TCG\Voyager\FormFields;
 
 
-class ListFormField extends AbstractHandler
+class ListHandler extends AbstractHandler
 {
     protected $codename = 'list';
 

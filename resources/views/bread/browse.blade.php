@@ -244,6 +244,17 @@
                                                     @else
                                                         {{ trans_choice('voyager::media.files', 0) }}
                                                     @endif
+                                                @elseif($row->type == 'list')
+                                                    @php
+                                                        $list = $data->{$row->field};
+                                                    @endphp
+                                                    <ul>
+                                                        @if (!empty($list))
+                                                            @foreach($list as $item)
+                                                                <li>{{ $item->text }}</li> 
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
                                                 @else
                                                     @include('voyager::multilingual.input-hidden-bread-browse')
                                                     <span>{{ $data->{$row->field} }}</span>

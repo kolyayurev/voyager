@@ -1,94 +1,107 @@
-@php
-    $old_parameters = [];
-    if($dataTypeContent->{$row->field}){
-        if(!is_array($dataTypeContent->{$row->field}))
-            $old_parameters = json_decode($dataTypeContent->{$row->field});
-        else {
-            $old_parameters = $dataTypeContent->{$row->field};
-        }
-    }
-    $end_id = 0;
-@endphp
+<div class="list-formfield" id="terms">
 
 
-<div class="list-formfield">
-@if(!empty($old_parameters))
-
-    @foreach($old_parameters as $parameter)
-        <div class="form-group row" row-id="{{$loop->index}}">
-            <div class="col-xs-6" style="margin-bottom:0;">
-                <input type="text" class="form-control" name="{{ $row->field }}[{{$loop->index}}]" value="{{ $parameter }}" id="value"/>
-            </div>
-            
-            <div class="col-xs-1" style="margin-bottom:0;">
-                <button type="button" class="btn btn-xs btn-delete" style="margin-top:0px;" ><i class="voyager-trash"></i></button>
-            </div>
+    <fieldset class=" row" v-for="(item, key) in items" :key="'preview_'+key">
+        <div class=" col-xs-10" >
+            <input type="text" class="form-control" v-model="item.text"  disabled/>
         </div>
-        @php 
-            $end_id = $loop->index + 1;
-        @endphp
-    @endforeach
-@endif
-    <div class="form-group row" row-id="{{ $end_id }}">
-        <div class="col-xs-6" style="margin-bottom:0;">
-            <input type="text" class="form-control" 
-            future-name="{{ $row->field }}[{{ $end_id }}]" 
-            value="" id="value"/>
+        <div class="col-xs-2" >
+            <button type="button" class="btn btn-xs btn-primary btn-edit" style="margin-top:0px;" @click="editItem(key)"><i class="voyager-edit"></i></button>
+            <button type="button" class="btn btn-xs btn-danger btn-delete" style="margin-top:0px;" @click="deleteItem(key)"><i class="voyager-trash"></i></button>
         </div>
-        <div class="col-xs-1" style="margin-bottom:0;">
-            <button type="button" class="btn btn-success btn-xs btn-add" style="margin-top:0px;"><i class="voyager-plus"></i></button>
-        </div>
-    </div>
+    </fieldset>
 
-    <input type="hidden" name="list" value="{{$row->field}}"/>
+    <legend></legend>
+    <el-form 
+        :model="model" 
+        :rules="rules" 
+        ref="form" 
+        label-position="top">
+        <el-form-item prop="text">
+            <el-input type="text"   v-model="model.text" placeholder="Текст"> </el-input>
+        </el-form-item>
+
+        <div class="col-xs-12" >
+            <button type="button" class="btn btn-success btn-xs btn-add" style="margin-top:0px;" @click="addItem" v-if="!isEdit"><i class="voyager-plus"></i>Добавить</button>
+            <button type="button" class="btn btn-success btn-xs btn-add" style="margin-top:0px;" @click="saveItem" v-if="isEdit"><i class="voyager-check"></i>Сохранить</button>
+        </div>
+    </el-form>
+
+    <input type="hidden" name="{{$row->field}}" :value="printObject(items)"/>
 </div>
 
 
-
+@push('javascript')
 <script>
 
-    function editNameCount(el){
-        var str = el.getAttribute('future-name');
-        var old_id = parseInt(el.parentNode.parentNode.getAttribute('row-id'));
-        new_str = str.substring(0,str.indexOf('[')+1)
-                    + (old_id+1)
-                    + str.substring(str.indexOf(']'), str.length);
-        return(new_str);
-    }
+    document.addEventListener('DOMContentLoaded', function(){
 
-    function addRow(){
-        var that_row = this.parentNode.parentNode;
-        var new_row = this.parentNode.parentNode.cloneNode(true);
-        
-        if(that_row.querySelector("#value").value == '')
-            return;
-        // that_row.querySelector("#key").setAttribute('name', new_row.querySelector("#key").getAttribute('future-name'));
-        that_row.querySelector("#value").setAttribute('name',new_row.querySelector("#value").getAttribute('future-name') );
-        
-        // new_row.querySelector("#key").setAttribute('future-name', editNameCount(new_row.querySelector("#key")));
-        // new_row.querySelector("#key").value = '';
-        new_row.querySelector("#value").setAttribute('future-name', editNameCount(new_row.querySelector("#value")));
-        new_row.querySelector("#value").value = '';
-        new_row.setAttribute('row-id', parseInt(this.parentNode.parentNode.getAttribute('row-id'))+1)
-        
-        this.classList.remove('btn-success');
-        this.innerHTML = '<i class="voyager-trash"></i>';
-        new_row.querySelector('.btn-success').onclick = this.onclick;
-        this.onclick = removeRow;
-        this.parentNode.parentNode.parentNode.appendChild(new_row);
-    };
+        new Vue({
+            el:'#terms',
+            data(){
+                return {
+                    model:{
+                        text: '',
+                    },
+                   
+                    rules: {
+                        text: [
+                            { required: true, message: 'Обязательное поле', trigger: 'blur' },
+                        ],
+                    },
+                    
+                    items: {!! printArray($dataTypeContent->{$row->field}) !!},
 
-    function removeRow() {
-        this.parentNode.parentNode.remove();
-    }
+                    isEdit:false,
+                    editIndex:false,
+                }
+            },
+            
+            methods:{
+                addItem(){
+                    this.$refs.form.validate((valid) => {
+                    if (valid) {
+                        this.items.push({...this.model}) 
+                        this.clearForm() 
+                    } else {
+                        return false;
+                    }
+                    });
+                    
+                },
+                editItem(key){
+                    this.isEdit = true
+                    this.editIndex = key
+                    this.model = {...this.items[key]}
+                },
+                saveItem(){
+                    this.$refs.form.validate((valid) => {
+                    if (valid) {
+                        this.items[this.editIndex] =  {...this.model}
+                        this.editIndex = false
+                        this.isEdit= false
+                        this.clearForm()
+                    } else {
+                        return false;
+                    }
+                    });
+                   
+                },
+                deleteItem(key){
+                    this.items.splice(key, 1);
+                },
+                clearForm(){
+                    for (var key in this.model) {
+                        this.model[key] = '';
+                    }
+                },
+                printObject(obj){
+                    return JSON.stringify(obj);
+                }
+            }
+        });
 
-    var deleteButtons = document.querySelectorAll('.list-formfield .btn-delete');
-    for (var i = 0; i < deleteButtons.length; i++) deleteButtons[i].onclick = removeRow;
-
-
-    var addButtons = document.querySelectorAll('.list-formfield .btn-add');
-    addButtons[addButtons.length - 1].onclick = addRow;
+    });
     
 </script>
-
-
+@endpush
