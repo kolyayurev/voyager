@@ -1,3 +1,4 @@
+{{-- @dd($options) --}}
 @if(isset($options->model) && isset($options->type))
 
     @if(class_exists($options->model))
@@ -21,7 +22,30 @@
                 @endif
 
             @else
+                @php
+                    $model = app($options->model);
+                    $query = $model::where($options->key, old($options->column, $dataTypeContent->{$options->column}))->get();
+                @endphp
+                @if(isset($options->readonly)) 
+                    @php
+                        $value = null;//trans('common.no');
+                        $visible_value = null;
+                    @endphp
+                    {{-- @dd($dataTypeContent,$query) --}}
+                    @foreach($query as $relationshipData)
+                         @if( $dataTypeContent->{$options->column} == $relationshipData->{$options->key}) 
+                            @php
+                                $value = $dataTypeContent->{$options->column};
+                                $visible_value = $relationshipData->{$options->label};
+                            @endphp
+                         @endif
+                    @endforeach
 
+                <input   
+                    type="hidden" name="{{ $options->column}}"  value="{{ $value }}">
+                <input  readonly 
+                    type="text" class="form-control"  value="{{ $visible_value ?? '' }}">
+                @else
                 <select
                     class="form-control select2-ajax" name="{{ $options->column }}"
                     data-get-items-route="{{route('voyager.' . $dataType->slug.'.relation')}}"
@@ -29,11 +53,6 @@
                     @if(!is_null($dataTypeContent->getKey())) data-id="{{$dataTypeContent->getKey()}}" @endif
                     data-method="{{ !is_null($dataTypeContent->getKey()) ? 'edit' : 'add' }}"
                 >
-                    @php
-                        $model = app($options->model);
-                        $query = $model::where($options->key, old($options->column, $dataTypeContent->{$options->column}))->get();
-                    @endphp
-
                     @if(!$row->required)
                         <option value="">{{__('voyager::generic.none')}}</option>
                     @endif
@@ -42,6 +61,7 @@
                         <option value="{{ $relationshipData->{$options->key} }}" @if(old($options->column, $dataTypeContent->{$options->column}) == $relationshipData->{$options->key}) selected="selected" @endif>{{ $relationshipData->{$options->label} }}</option>
                     @endforeach
                 </select>
+                @endif
 
             @endif
 
@@ -106,7 +126,7 @@
                 @if(isset($query))
                     <ul>
                         @foreach($query as $query_res)
-                            <li>{{ $query_res->{$options->label} }}</li>
+                            <li><a href="{{ route('voyager.'.Str::slug($options->table).'.edit',['id'=>$query_res->{$options->key}]) }}" target="_blank"> {{ $query_res->{$options->label} }}</a></li>
                         @endforeach
                     </ul>
 

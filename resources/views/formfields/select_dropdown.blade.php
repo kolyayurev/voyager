@@ -1,3 +1,5 @@
+
+
 @if(isset($options->relationship))
 
     {{-- If this is a relationship and the method does not exist, show a warning message --}}
@@ -11,8 +13,11 @@
         @else
             <?php $selected_value = old($row->field); ?>
         @endif
-
-        <select class="form-control select2" name="{{ $row->field }}">
+       
+        <select class="form-control select2" 
+                @if(isset($options->disabled)) disabled @endif
+                @if(isset($options->readonly)) readonly @endif
+                name="{{ $row->field }}">
             <?php $default = (isset($options->default) && !isset($dataTypeContent->{$row->field})) ? $options->default : null; ?>
 
             @if(isset($options->options))
@@ -55,12 +60,36 @@
             @endforeach
             </optgroup>
         </select>
+
     @else
-        <select class="form-control select2" name="{{ $row->field }}"></select>
+                
+        <select class="form-control select2" name="{{ $row->field }}" @if(isset($options->disabled)) disabled @endif ></select>
     @endif
 @else
     <?php $selected_value = (isset($dataTypeContent->{$row->field}) && !is_null(old($row->field, $dataTypeContent->{$row->field}))) ? old($row->field, $dataTypeContent->{$row->field}) : old($row->field); ?>
-    <select class="form-control select2" name="{{ $row->field }}">
+    @if(isset($options->readonly)) 
+        @php
+            $value = null;
+            $visible_value = null;
+        @endphp
+        @foreach($options->options as $key => $option)
+            @if($selected_value == $key) 
+                @php
+                    $value = $selected_value;
+                    $visible_value = $option;
+                @endphp
+            @endif
+        @endforeach
+
+    <input   
+        type="hidden" name="{{ $row->field }}"  value="{{ $value }}">
+    <input  readonly 
+        type="text" class="form-control" value="{{ $visible_value }}">
+    @else
+    
+    <select class="form-control select2" name="{{ $row->field }}"
+        {{-- @if(isset($options->disabled)) disabled @endif --}}
+    >
         <?php $default = (isset($options->default) && !isset($dataTypeContent->{$row->field})) ? $options->default : null; ?>
         @if(isset($options->options))
             @foreach($options->options as $key => $option)
@@ -68,4 +97,5 @@
             @endforeach
         @endif
     </select>
+    @endif
 @endif

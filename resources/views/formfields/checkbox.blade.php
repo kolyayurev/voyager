@@ -11,9 +11,14 @@
 
 @if(isset($options->on) && isset($options->off))
     <input type="checkbox" name="{{ $row->field }}" class="{{ $class }}"
+        @if(isset($options->disabled)) disabled @endif
+        @if(isset($options->readonly)) readonly @endif
         data-on="{{ $options->on }}" {!! $checked ? 'checked="checked"' : '' !!}
         data-off="{{ $options->off }}">
 @else
-    <input type="checkbox" name="{{ $row->field }}" class="{{ $class }}"
+    <input type="checkbox" name="{{ $row->field }}" 
+        @if(isset($options->disabled)) disabled @endif 
+        @if(isset($options->readonly)) readonly @endif
+        class="{{ $class }}"
         @if($checked) checked @endif>
 @endif
