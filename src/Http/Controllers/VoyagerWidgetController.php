@@ -19,18 +19,20 @@ class VoyagerWidgetController extends VoyagerBaseController
         // Check permission
         $this->authorize('edit', Voyager::model('Widget'));
 
-        $data = Voyager::model('Widget')->findOrFail($id);
+        $widget = Voyager::model('Widget')->findOrFail($id);
 
-        $handler = $data->getHandler();
+        $handler = $widget->getHandler();
 
-        dd( $handler);
+        $view = $handler->getView();
+
         if (!view()->exists($view)) {
             return redirect()->route('voyager.widgets.index')->with([
                 'message'    => __('voyager::generic.view_not_found'),
                 'alert-type' => 'error',
             ]);
         }
-        return Voyager::view($view,compact('data'));
+
+        return Voyager::view($view,compact('widget'));
     }
     public function builder_store($id)
     {

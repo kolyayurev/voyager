@@ -1,6 +1,8 @@
 <?php
 
-namespace TCG\Voyager\FormFields;
+namespace TCG\Voyager\Widgets;
+
+use Illuminate\Http\Request;
 
 
 abstract class BaseWidgetHandler
@@ -8,8 +10,8 @@ abstract class BaseWidgetHandler
 
     protected $view;
 
-    abstract public function view();
+    abstract public function getView();
 
-    abstract public function handle();
+    abstract public function handle(Request $request);
   
 }

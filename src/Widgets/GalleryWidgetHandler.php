@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\FormFields;
+namespace TCG\Voyager\Widgets;
 
 use Illuminate\Http\Request;
 
