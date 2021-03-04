@@ -88,15 +88,6 @@ Route::group(['as' => 'voyager.'], function () {
             Route::get('/create_group_permissions', ['uses' => $namespacePrefix.'VoyagerSettingsController@create_group_permissions',        'as' => 'create_group_permissions']);
         });
 
-        // Widgets
-        Route::group([
-            'as'     => 'widgets.',
-            'prefix' => 'widgets',
-        ], function () use ($namespacePrefix) {
-            Route::get('{id}/builder', ['uses' => $namespacePrefix.'VoyagerWidgetController@builder',        'as' => 'builder']);
-            Route::post('{id}/builder', ['uses' => $namespacePrefix.'VoyagerWidgetController@builder_store',        'as' => 'builder_store']);
-        });
-
 
         // Admin Media
         Route::group([
