@@ -245,6 +245,7 @@
                                                         {{ trans_choice('voyager::media.files', 0) }}
                                                     @endif
                                                 @elseif($row->type == 'list')
+
                                                     @php
                                                         $list = $data->{$row->field};
                                                     @endphp
