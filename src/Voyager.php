@@ -31,6 +31,8 @@ use TCG\Voyager\Models\Translation;
 use TCG\Voyager\Models\User;
 use TCG\Voyager\Models\Widget;
 use TCG\Voyager\Traits\Translatable;
+use TCG\Voyager\Widgets\WidgetInterface;
+
 
 class Voyager
 {
@@ -42,6 +44,8 @@ class Voyager
 
     protected $formFields = [];
     protected $afterFormFields = [];
+
+    protected $widgets = [];
 
     protected $viewLoadingEvents = [];
 
@@ -120,6 +124,37 @@ class Voyager
         }
 
         $this->viewLoadingEvents[$name][] = $closure;
+    }
+
+    /**
+     * @return TCG\Voyager\Widgets\WidgetInterface
+     */
+    public function widget($name)
+    {
+        return $this->widgets[$name];
+    }
+
+    public function widgets()
+    {
+        return  collect($this->widgets);
+    }
+
+    public function widgetView($name)
+    {
+        $widget = $this->widgets[$name];
+
+        return $widget->getView();
+    }
+
+    public function addWidget($handler)
+    {
+        if (!$handler instanceof WidgetInterface) {
+            $handler = app($handler);
+        }
+
+        $this->widgets[$handler->getCodename()] = $handler;
+
+        return $this;
     }
 
     public function formField($row, $dataType, $dataTypeContent)

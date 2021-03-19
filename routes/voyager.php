@@ -94,7 +94,7 @@ Route::group(['as' => 'voyager.'], function () {
             'prefix' => 'widgets',
         ], function () use ($namespacePrefix) {
             Route::get('{id}/builder', ['uses' => $namespacePrefix.'VoyagerWidgetController@builder',        'as' => 'builder']);
-            Route::post('{id}/builder', ['uses' => $namespacePrefix.'VoyagerWidgetController@builder_store',        'as' => 'builder_store']);
+            Route::put('{id}/builder', ['uses' => $namespacePrefix.'VoyagerWidgetController@builder_store',        'as' => 'builder_store']);
         });
 
 

@@ -19,9 +19,13 @@ class VoyagerWidgetController extends VoyagerBaseController
         // Check permission
         $this->authorize('edit', Voyager::model('Widget'));
 
-        $widget = Voyager::model('Widget')->findOrFail($id);
+        $dataType = Voyager::model('DataType')->where('slug', 'widgets')->first();
 
-        $handler = $widget->getHandler();
+        $dataTypeContent = Voyager::model('Widget')->findOrFail($id);
+
+        $isModelTranslatable = is_bread_translatable($dataTypeContent);
+
+        $handler = $dataTypeContent->getHandler();
 
         $view = $handler->getView();
 
@@ -32,7 +36,7 @@ class VoyagerWidgetController extends VoyagerBaseController
             ]);
         }
 
-        return Voyager::view($view,compact('widget'));
+        return Voyager::view($view,compact('dataType','dataTypeContent','isModelTranslatable'));
     }
     public function builder_store($id)
     {

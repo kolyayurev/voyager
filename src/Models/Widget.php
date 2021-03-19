@@ -3,13 +3,17 @@
 namespace TCG\Voyager\Models;
 
 use Str;
+use Voyager;
 
 use TCG\Voyager\Casts\JsonCast;
+use TCG\Voyager\Traits\Translatable;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Widget extends Model
 {
+    use Translatable;
+
     protected $table = 'widgets';
 
     protected $guarded = [];
@@ -18,8 +22,10 @@ class Widget extends Model
 
     public $casts = ['value' => JsonCast::class];
 
+    protected $translatable = ['name'];
+
     public function getHandler()
     {
-       return app($this->handler);
+       return Voyager::widget($this->handler);
     }
 }

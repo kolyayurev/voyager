@@ -86,6 +86,7 @@ class VoyagerServiceProvider extends ServiceProvider
 
         $this->registerAlertComponents();
         $this->registerFormFields();
+        $this->registerWidgets();
 
         $this->registerConfigs();
 
@@ -325,6 +326,17 @@ class VoyagerServiceProvider extends ServiceProvider
         }
     }
 
+    protected function registerWidgets()
+    {
+        $widgets = [
+            'Gallery',
+        ];
+
+        foreach ($widgets as $widget) {
+            $class = Str::studly("{$widget}_widget_handler");
+            VoyagerFacade::addWidget("TCG\\Voyager\\Widgets\\{$class}");
+        }
+    }
     protected function registerFormFields()
     {
         $formFields = [

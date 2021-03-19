@@ -7,17 +7,15 @@ use Illuminate\Http\Request;
 class GalleryWidgetHandler extends BaseWidgetHandler
 {
 
+    
     public function __construct()
     {
-        $this->view ='voyager::widgets.widgets.gallery';
+        $this->view = 'voyager::widgets.widgets.gallery';
+        $this->name = 'gallery';
+        $this->codename = 'gallery';
     }
 
-    public function getView()
-    {
-        return $this->view;
-    }
-
-    public function handle(Request $request)
+    public function handleRequest(Request $request)
     {
         dd($request);
     }
