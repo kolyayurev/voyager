@@ -74,7 +74,6 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
     $user_avatar = Voyager::image(Auth::user()->avatar);
 }
 ?>
-
 <div class="app-container">
     <div class="fadetoblack visible-xs"></div>
     <div class="row content-container">
@@ -90,6 +89,9 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
                         sidebarTransition = sidebar.style.transition,
                         navbarTransition = navbar.style.transition,
                         containerTransition = appContainer.style.transition;
+                        containerTransition = appContainer.style.transition;
+                        {{--  // Array of Vue formfield instance--}}
+                        vueFieldInstances = []; 
 
                     sidebar.style.WebkitTransition = sidebar.style.MozTransition = sidebar.style.transition =
                     appContainer.style.WebkitTransition = appContainer.style.MozTransition = appContainer.style.transition =
@@ -144,7 +146,7 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
     @endif
 </script>
 @include('voyager::media.manager')
-@yield('vue')
+@stack('vue')
 @yield('javascript')
 @stack('javascript')
 @if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->

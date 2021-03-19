@@ -96,13 +96,17 @@
                 var _inp   = $(inp),
                     inpUsr = _inp.nextAll(_this.settings.editing ? '.form-control' : '');
 
+
                 inpUsr.data("inp", _inp);
                 _inp.data("inpUsr", inpUsr);
 
+
                 // Load and Save data in hidden input
                 var $_data = _this.loadJsonField(_inp.val());
+
                 if (_this.settings.editing) {
                     _inp.val(JSON.stringify($_data));
+
                 }
 
                 _this.langSelectors.each(function(i, btn) {
@@ -164,7 +168,7 @@
         selectLanguage: function(e) {
             var _this = this,
                 lang  = e.target.id;
-
+            
             this.transInputs.each(function(i, inp) {
                 if (_this.settings.editing) {
                     _this.updateInputCache($(inp));
@@ -230,7 +234,10 @@
                 var _mce = tinymce.get('richtext'+inpUsr.prop('name'));
                 if (inpUsr.hasClass('richTextBox') && _mce && _mce.initialized) {
                     _mce.setContent(_val);
-                } else {
+                } else if(inpUsr.hasClass('is-vue')){
+                    this.settings.vueInstances[inpUsr.data('vue-instance')].updateLocaleData(_val)
+                }else {
+                    
                     inpUsr.val(_val);
                     if (inpUsr.hasClass('easymde')) {
                         var $codemirror = inpUsr.nextAll('.CodeMirror')[0].CodeMirror;

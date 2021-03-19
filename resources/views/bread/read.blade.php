@@ -127,6 +127,7 @@
                                     </a>
                                 @endif
                             @elseif($row->type == 'list')
+
                                 @php
                                     $list = $dataTypeContent->{$row->field};
                                 @endphp

@@ -64,7 +64,15 @@ export default{
                     this.stopLoading()
                     finallyCallback()
                 }) 
-        }
+        },
+        isJsonValid: function(str) {
+            try {
+                JSON.parse(str);
+            } catch (ex) {
+                return false;
+            }
+            return true;
+        },
     }
 }
   

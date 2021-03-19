@@ -1,4 +1,6 @@
-<div class="list-formfield" id="list">
+<div class="list-formfield" id="list_{{$row->field}}">
+    @include('voyager::multilingual.input-hidden-bread-edit-add')
+    <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="vue_{{$row->field}}_i18n"/>
     <fieldset class=" row" v-for="(item, key) in items" :key="'preview_'+key">
         <div class=" col-xs-10" >
             <input type="text" class="form-control" v-model="item.text"  disabled/>
@@ -23,78 +25,83 @@
             <button type="button" class="btn btn-success btn-xs btn-add" style="margin-top:0px;" @click="saveItem" v-if="isEdit"><i class="voyager-check"></i>Сохранить</button>
         </div>
     </el-form>
-
-    <input type="hidden" name="{{$row->field}}" :value="printObject(items)"/>
+   
 </div>
+@php
+    $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n ':'');
+@endphp
 
-
-@section('vue')
+@push('vue')
 <script>
 
-        new Vue({
-            el:'#list',
-            data(){
-                return {
-                    model:{
-                        text: '',
-                    },
-                   
-                    rules: {
-                        text: [
-                            { required: true, message: 'Обязательное поле', trigger: 'blur' },
-                        ],
-                    },
-                    
-                    items: {!! printArray($dataTypeContent->{$row->field}) !!},
-
-                    isEdit:false,
-                    editIndex:false,
+    var {{$vue_instance_name}} = new Vue({
+        el:'#list_{{$row->field}}',
+        data(){
+            return {
+                model:{
+                    text: '',
+                },
+                rules: {
+                    text: [
+                        { required: true, message: 'Обязательное поле', trigger: 'blur' },
+                    ],
+                },
+                items: {!! printArray($dataTypeContent->{$row->field}) !!},
+                isEdit:false,
+                editIndex:false,
+            }
+        },
+        mounted(){
+            vueFieldInstances['vue_{{$row->field}}_i18n']=this
+        },
+        methods:{
+            addItem(){
+                this.$refs.form.validate((valid) => {
+                if (valid) {
+                    this.items.push({...this.model}) 
+                    this.clearForm() 
+                } else {
+                    return false;
+                }
+                });
+                
+            },
+            editItem(key){
+                this.isEdit = true
+                this.editIndex = key
+                this.model = {...this.items[key]}
+            },
+            saveItem(){
+                this.$refs.form.validate((valid) => {
+                if (valid) {
+                    this.items[this.editIndex] =  {...this.model}
+                    this.editIndex = false
+                    this.isEdit= false
+                    this.clearForm()
+                } else {
+                    return false;
+                }
+                });
+                
+            },
+            deleteItem(key){
+                this.items.splice(key, 1);
+            },
+            clearForm(){
+                for (var key in this.model) {
+                    this.model[key] = '';
                 }
             },
-            methods:{
-                addItem(){
-                    this.$refs.form.validate((valid) => {
-                    if (valid) {
-                        this.items.push({...this.model}) 
-                        this.clearForm() 
-                    } else {
-                        return false;
-                    }
-                    });
-                    
-                },
-                editItem(key){
-                    this.isEdit = true
-                    this.editIndex = key
-                    this.model = {...this.items[key]}
-                },
-                saveItem(){
-                    this.$refs.form.validate((valid) => {
-                    if (valid) {
-                        this.items[this.editIndex] =  {...this.model}
-                        this.editIndex = false
-                        this.isEdit= false
-                        this.clearForm()
-                    } else {
-                        return false;
-                    }
-                    });
-                   
-                },
-                deleteItem(key){
-                    this.items.splice(key, 1);
-                },
-                clearForm(){
-                    for (var key in this.model) {
-                        this.model[key] = '';
-                    }
-                },
-                printObject(obj){
-                    return JSON.stringify(obj);
-                }
+            printObject(obj){
+                return JSON.stringify(obj);
+            },
+            @if (is_field_translatable($dataTypeContent, $row) )
+            updateLocaleData(items){
+                this.items = this.isJsonValid(items)?JSON.parse(items):items
             }
-        });
+            @endif
+        }
+    });    
 
-    
 </script>
-@endsection
+@endpush
