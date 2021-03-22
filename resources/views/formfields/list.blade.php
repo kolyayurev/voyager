@@ -1,6 +1,10 @@
+@php
+    $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n ':'');
+@endphp
+
 <div class="list-formfield" id="list_{{$row->field}}">
     @include('voyager::multilingual.input-hidden-bread-edit-add')
-    <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="vue_{{$row->field}}_i18n"/>
+    <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
     <fieldset class=" row" v-for="(item, key) in items" :key="'preview_'+key">
         <div class=" col-xs-10" >
             <input type="text" class="form-control" v-model="item.text"  disabled/>
@@ -27,9 +31,7 @@
     </el-form>
    
 </div>
-@php
-    $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n ':'');
-@endphp
+
 
 @push('vue')
 <script>
@@ -52,7 +54,7 @@
             }
         },
         mounted(){
-            vueFieldInstances['vue_{{$row->field}}_i18n']=this
+            vueFieldInstances['{{$vue_instance_name}}']=this
         },
         methods:{
             addItem(){
@@ -97,7 +99,7 @@
             },
             @if (is_field_translatable($dataTypeContent, $row) )
             updateLocaleData(items){
-                this.items = this.isJsonValid(items)?JSON.parse(items):items
+                this.items = this.isJsonValid(items)?JSON.parse(items):(items?items:[])
             }
             @endif
         }

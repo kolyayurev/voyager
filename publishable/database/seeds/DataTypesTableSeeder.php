@@ -72,6 +72,7 @@ class DataTypesTableSeeder extends Seeder
                 'name'                  => 'widgets',
                 'display_name_singular' => __('voyager::seeders.data_types.widget.singular'),
                 'display_name_plural'   => __('voyager::seeders.data_types.widget.plural'),
+                'policy_name'           => 'TCG\\Voyager\\Policies\\WidgetPolicy',
                 'icon'                  => 'voyager-paint-bucket',
                 'model_name'            => 'TCG\\Voyager\\Models\\Widget',
                 'controller'            => 'TCG\\Voyager\\Http\\Controllers\\VoyagerWidgetController',

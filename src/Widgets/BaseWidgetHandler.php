@@ -2,12 +2,15 @@
 
 namespace TCG\Voyager\Widgets;
 
-use Illuminate\Http\Request;
+use TCG\Voyager\Traits\Renderable;
 
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+
 
 abstract class BaseWidgetHandler implements WidgetInterface
 {
+    use Renderable;
 
     protected $name;
     protected $view;
@@ -40,6 +43,29 @@ abstract class BaseWidgetHandler implements WidgetInterface
         }
 
         return Str::title($this->name);
+    }
+
+    public function handle($dataType, $dataTypeContent)
+    {
+        $content = $this->createContent(
+            $dataType,
+            $dataTypeContent,
+            $dataTypeContent->getDetails()
+        );
+
+        return $this->render($content);
+    }
+
+    public function createContent($dataType, $dataTypeContent, $options)
+    {
+        $isModelTranslatable = is_bread_translatable($dataTypeContent);
+
+        return view($this->getView(), [
+            'options' => $options,
+            'dataType' => $dataType,
+            'dataTypeContent' => $dataTypeContent,
+            'isModelTranslatable' => $isModelTranslatable
+        ]);
     }
   
 }

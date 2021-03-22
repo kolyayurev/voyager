@@ -16,13 +16,18 @@ class Permission extends Model
         return $this->belongsToMany(Voyager::modelClass('Role'));
     }
 
+    public static function generate($key,$table_name)
+    {
+        self::firstOrCreate(['key' => $key, 'table_name' => $table_name]);
+    }
+
     public static function generateFor($table_name)
     {
-        self::firstOrCreate(['key' => 'browse_'.$table_name, 'table_name' => $table_name]);
-        self::firstOrCreate(['key' => 'read_'.$table_name, 'table_name' => $table_name]);
-        self::firstOrCreate(['key' => 'edit_'.$table_name, 'table_name' => $table_name]);
-        self::firstOrCreate(['key' => 'add_'.$table_name, 'table_name' => $table_name]);
-        self::firstOrCreate(['key' => 'delete_'.$table_name, 'table_name' => $table_name]);
+        self::generate('browse_'.$table_name, $table_name);
+        self::generate('read_'.$table_name, $table_name);
+        self::generate('edit_'.$table_name, $table_name);
+        self::generate('add_'.$table_name, $table_name);
+        self::generate('delete_'.$table_name, $table_name);
     }
 
     public static function generateForSettings()
@@ -32,9 +37,15 @@ class Permission extends Model
         self::generateSettingsGroup('site');
         self::generateSettingsGroup('admin');
     }
+    public static function generateForWidgets()
+    {
+        $table_name = 'widgets';
+        self::generateFor($table_name);
+        self::generate('moderate_'.$table_name, $table_name);
+    }
     public static function generateSettingsGroup($group_name)
     {
-        self::firstOrCreate(['key' => 'browse_group_'.Str::lower($group_name).'_settings', 'table_name' => 'settings']);
+        self::generate('browse_group_'.Str::lower($group_name).'_settings','settings');
     }
     public static function checkSettingsGroup($group_name)
     {

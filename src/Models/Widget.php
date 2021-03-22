@@ -22,10 +22,20 @@ class Widget extends Model
 
     public $casts = ['value' => JsonCast::class];
 
-    protected $translatable = ['name'];
+    protected $translatable = ['name','value'];
 
     public function getHandler()
     {
-       return Voyager::widget($this->handler);
+       return Voyager::widgetHandler($this->handler);
+    }
+
+    public function setDetailsAttribute($value)
+    {
+        $this->attributes['details'] = !is_string($value)?json_encode($value,JSON_UNESCAPED_UNICODE):$value;
+    }
+
+    public function getDetails()
+    {
+        return json_decode(!empty($this->details) ? $this->details : '{}');
     }
 }

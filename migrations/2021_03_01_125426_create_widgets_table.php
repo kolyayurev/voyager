@@ -16,10 +16,12 @@ class CreateWidgetsTable extends Migration
         Schema::create('widgets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('handler');
             $table->text('description')->nullable();
             $table->string('table_name')->nullable();
             $table->integer('foreign_key')->unsigned()->nullable();
+            $table->text('details')->nullable();
             $table->json('value')->nullable();
         });
     }

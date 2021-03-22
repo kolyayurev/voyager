@@ -22,6 +22,7 @@
                 :element="'input[name=&quot;{{ $row->field }}&quot;]'"
                 :details="{{ json_encode($options ?? []) }}"
             ></media-manager>
+            {{-- @dd($content) --}}
             <input type="hidden" :value="{{ $content }}" name="{{ $row->field }}">
         </div>
     </div>

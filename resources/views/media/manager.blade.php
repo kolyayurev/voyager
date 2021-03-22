@@ -435,6 +435,10 @@
                 type: Boolean,
                 default: true,
             },
+            value: {
+                validator: v => true,
+                required: true,
+            },
         },
         data: function() {
             return {
@@ -451,12 +455,26 @@
                     move_files: {
                         destination: ''
                     }
-                }
+                },
+                
             };
         },
         computed: {
             selected_file: function() {
                 return this.selected_files[0];
+            },
+            localValue: {
+                get() {
+                    return this.value;
+                },
+                set(localState) {
+                    this.$emit('input', localState);
+                },
+            },
+        },
+        watch:{
+            localValue(value){
+                this.hidden_element.value = value
             }
         },
         methods: {
@@ -596,7 +614,8 @@
             addFileToInput: function(file) {
                 if (file.type != 'folder') {
                     if (!this.allowMultiSelect) {
-                        this.hidden_element.value = file.relative_path;
+                        this.hidden_element.value = this.localValue = file.relative_path;
+                         
                     } else {
                         var content = JSON.parse(this.hidden_element.value);
                         if (content.indexOf(file.relative_path) !== -1) {
@@ -612,7 +631,7 @@
                             }
                         } else {
                             content.push(file.relative_path);
-                            this.hidden_element.value = JSON.stringify(content);
+                            this.hidden_element.value =  this.localValue = JSON.stringify(content);
                         }
                     }
                     this.$forceUpdate();
@@ -623,11 +642,12 @@
                     var content = JSON.parse(this.hidden_element.value);
                     if (content.indexOf(path) !== -1) {
                         content.splice(content.indexOf(path), 1);
-                        this.hidden_element.value = JSON.stringify(content);
+                        this.hidden_element.value =  this.localValue = JSON.stringify(content);
                         this.$forceUpdate();
                     }
                 } else {
                     this.hidden_element.value = '';
+                    this.$forceUpdate();
                 }
             },
             getSelectedFiles: function() {
@@ -801,7 +821,7 @@
                     console.error('Element "'+this.element+'" could not be found.');
                 } else {
                     if (this.maxSelectedFiles > 1 && this.hidden_element.value == '') {
-                        this.hidden_element.value = '[]';
+                        this.hidden_element.value =  this.localValue = '[]';
                     }
                 }
             }
@@ -940,7 +960,7 @@
                             for (var key in object) {
                                 new_content.push(object[key].url);
                             }
-                            vm.hidden_element.value = JSON.stringify(new_content);
+                            vm.hidden_element.value =  vm.localValue = JSON.stringify(new_content);
                         }
                     }
                 });

@@ -93,8 +93,8 @@ Route::group(['as' => 'voyager.'], function () {
             'as'     => 'widgets.',
             'prefix' => 'widgets',
         ], function () use ($namespacePrefix) {
-            Route::get('{id}/builder', ['uses' => $namespacePrefix.'VoyagerWidgetController@builder',        'as' => 'builder']);
-            Route::put('{id}/builder', ['uses' => $namespacePrefix.'VoyagerWidgetController@builder_store',        'as' => 'builder_store']);
+            Route::get('{id}/moderate', ['uses' => $namespacePrefix.'VoyagerWidgetController@moderate',        'as' => 'moderate']);
+            Route::put('{id}/moderate', ['uses' => $namespacePrefix.'VoyagerWidgetController@moderate_update',        'as' => 'moderate_update']);
         });
 
 

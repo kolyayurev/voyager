@@ -435,9 +435,9 @@ class DataRowsTableSeeder extends Seeder
             ])->save();
         }
        
-        $roleDataType = DataType::where('slug', 'widgets')->firstOrFail();
+        $widgetDataType = DataType::where('slug', 'widgets')->firstOrFail();
 
-        $dataRow = $this->dataRow($roleDataType, 'id');
+        $dataRow = $this->dataRow($widgetDataType, 'id');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'number',
@@ -452,7 +452,7 @@ class DataRowsTableSeeder extends Seeder
             ])->save();
         }
 
-        $dataRow = $this->dataRow($roleDataType, 'name');
+        $dataRow = $this->dataRow($widgetDataType, 'name');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'text',
@@ -466,7 +466,30 @@ class DataRowsTableSeeder extends Seeder
                 'order'        => 2,
             ])->save();
         }
-        $dataRow = $this->dataRow($roleDataType, 'handler');
+        $dataRow = $this->dataRow($widgetDataType, 'slug');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'text',
+                'display_name' => __('voyager::seeders.data_rows.slug'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details'      => [
+                    'slugify' => [
+                        'origin'      => 'name',
+                        'forceUpdate' => true,
+                    ],
+                    'validation' => [
+                        'rule'  => 'unique:widgets,slug',
+                    ],
+                ],
+                'order' => 3,
+            ])->save();
+        }
+        $dataRow = $this->dataRow($widgetDataType, 'handler');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'text',
@@ -477,10 +500,10 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 3,
+                'order'        => 4,
             ])->save();
         }
-        $dataRow = $this->dataRow($roleDataType, 'description');
+        $dataRow = $this->dataRow($widgetDataType, 'description');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'text',
@@ -491,10 +514,10 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 4,
+                'order'        => 5,
             ])->save();
         }
-        $dataRow = $this->dataRow($roleDataType, 'table_name');
+        $dataRow = $this->dataRow($widgetDataType, 'table_name');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'hidden',
@@ -505,10 +528,10 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'order'        => 5,
+                'order'        => 6,
             ])->save();
         }
-        $dataRow = $this->dataRow($roleDataType, 'foreign_key');
+        $dataRow = $this->dataRow($widgetDataType, 'foreign_key');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'hidden',
@@ -519,10 +542,27 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'order'        => 6,
+                'order'        => 7,
             ])->save();
         }
-        $dataRow = $this->dataRow($roleDataType, 'value');
+        $dataRow = $this->dataRow($widgetDataType, 'details');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'code_editor',
+                'display_name' => __('voyager::seeders.data_rows.options'),
+                'required'     => 0,
+                'browse'       => 0,
+                'read'         => 0,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'order'        => 8,
+                'details'      => [
+                    "language" => "json"
+                ]
+            ])->save();
+        }
+        $dataRow = $this->dataRow($widgetDataType, 'value');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'text',
@@ -533,11 +573,9 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'order'        => 7,
+                'order'        => 9,
             ])->save();
         }
-
-
     }
 
     /**

@@ -126,33 +126,40 @@ class Voyager
         $this->viewLoadingEvents[$name][] = $closure;
     }
 
+
+    public function widget($dataType, $dataTypeContent)
+    {
+        $widgetHandler = $this->widgetHandlers[$dataTypeContent->handler];
+
+        return $widgetHandler->handle($dataType, $dataTypeContent);
+    }
     /**
      * @return TCG\Voyager\Widgets\WidgetInterface
      */
-    public function widget($name)
+    public function widgetHandler($name)
     {
-        return $this->widgets[$name];
+        return $this->widgetHandlers[$name];
     }
 
-    public function widgets()
+    public function widgetHandlers()
     {
-        return  collect($this->widgets);
+        return  collect($this->widgetHandlers);
     }
 
-    public function widgetView($name)
+    public function widgetHandlerView($name)
     {
-        $widget = $this->widgets[$name];
+        $widgetHandler = $this->widgetHandlers[$name];
 
-        return $widget->getView();
+        return $widgetHandler->getView();
     }
 
-    public function addWidget($handler)
+    public function addWidgetHandler($handler)
     {
         if (!$handler instanceof WidgetInterface) {
             $handler = app($handler);
         }
 
-        $this->widgets[$handler->getCodename()] = $handler;
+        $this->widgetHandlers[$handler->getCodename()] = $handler;
 
         return $this;
     }

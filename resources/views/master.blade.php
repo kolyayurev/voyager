@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ voyager_asset('css/element-ui.css') }}">
 
     @yield('css')
+    @stack('css')
     @if(__('voyager::generic.is_rtl') == 'true')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css">
         <link rel="stylesheet" href="{{ voyager_asset('css/rtl.css') }}">

@@ -277,9 +277,9 @@
                                                     <i class="voyager-edit"></i> {{ __('voyager::generic.edit') }}
                                                 </a>
                                             @endcan
-                                            @can('edit', $data)
-                                                <a href="{{ route('voyager.'.$dataType->slug.'.builder',['id'=>$data->{$data->getKeyName()}]) }}" class="btn btn-sm btn-success pull-right">
-                                                    <i class="voyager-list"></i> {{ __('voyager::generic.builder') }}
+                                            @can('moderate', $data)
+                                                <a href="{{ route('voyager.'.$dataType->slug.'.moderate',['id'=>$data->{$data->getKeyName()}]) }}" class="btn btn-sm btn-success pull-right">
+                                                    <i class="voyager-edit"></i> {{ __('voyager::generic.moderate') }}
                                                 </a>
                                             @endcan
                                         </td>
