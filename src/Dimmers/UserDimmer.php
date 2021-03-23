@@ -1,12 +1,12 @@
 <?php
 
-namespace TCG\Voyager\Widgets;
+namespace TCG\Voyager\Dimmers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use TCG\Voyager\Facades\Voyager;
 
-class PageDimmer extends BaseDimmer
+class UserDimmer extends BaseDimmer
 {
     /**
      * The configuration array.
@@ -21,18 +21,18 @@ class PageDimmer extends BaseDimmer
      */
     public function run()
     {
-        $count = Voyager::model('Page')->count();
-        $string = trans_choice('voyager::dimmer.page', $count);
+        $count = Voyager::model('User')->count();
+        $string = trans_choice('voyager::dimmer.user', $count);
 
         return view('voyager::dimmer', array_merge($this->config, [
-            'icon'   => 'voyager-file-text',
+            'icon'   => 'voyager-group',
             'title'  => "{$count} {$string}",
-            'text'   => __('voyager::dimmer.page_text', ['count' => $count, 'string' => Str::lower($string)]),
+            'text'   => __('voyager::dimmer.user_text', ['count' => $count, 'string' => Str::lower($string)]),
             'button' => [
-                'text' => __('voyager::dimmer.page_link_text'),
-                'link' => route('voyager.pages.index'),
+                'text' => __('voyager::dimmer.user_link_text'),
+                'link' => route('voyager.users.index'),
             ],
-            'image' => voyager_asset('images/widget-backgrounds/03.jpg'),
+            'image' => voyager_asset('images/widget-backgrounds/01.jpg'),
         ]));
     }
 
@@ -43,6 +43,6 @@ class PageDimmer extends BaseDimmer
      */
     public function shouldBeDisplayed()
     {
-        return Auth::user()->can('browse', Voyager::model('Page'));
+        return Auth::user()->can('browse', Voyager::model('User'));
     }
 }

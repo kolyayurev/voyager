@@ -15,6 +15,7 @@ abstract class BaseWidgetHandler implements WidgetInterface
     protected $name;
     protected $view;
     protected $codename;
+    protected $default;
 
     public function getView()
     {
@@ -67,5 +68,17 @@ abstract class BaseWidgetHandler implements WidgetInterface
             'isModelTranslatable' => $isModelTranslatable
         ]);
     }
+
+    public function handleValue($value)
+    {
+        return $value;
+    }
+    public function getValue($value, $default = null)
+    {
+        $default = $default ?? $this->default;
+
+        return $value ?? $default;
+    }
+  
   
 }

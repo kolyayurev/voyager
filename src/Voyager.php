@@ -125,9 +125,31 @@ class Voyager
 
         $this->viewLoadingEvents[$name][] = $closure;
     }
+    /**
+     * Return widget data 
+     * 
+     * @param String $slug 
+     */
+    public function widgetData($slug,$default = null)
+    {
+        $model = Voyager::model('Widget');
 
+        if(is_bread_translatable($model))
+            $model->withTranslation();
 
-    public function widget($dataType, $dataTypeContent)
+        $widget = $model->where('slug','=',$slug)->first();
+        
+        if(empty($widget))
+            return $default;
+            
+        $value = is_bread_translatable($model)? $widget->getTranslatedAttribute('value') : $widget->value;        
+
+        $handler = $widget->getHandler();
+
+        return $handler->getValue($value,$default);
+    }
+
+    public function widgetDisplay($dataType, $dataTypeContent)
     {
         $widgetHandler = $this->widgetHandlers[$dataTypeContent->handler];
 
@@ -235,7 +257,7 @@ class Voyager
      */
     public function dimmers()
     {
-        $widgetClasses = config('voyager.dashboard.widgets');
+        $widgetClasses = config('voyager.dashboard.dimmers');
         $dimmerGroups = [];
         $dimmerCount = 0;
         $dimmers = ArrilotWidget::group("voyager::dimmers-{$dimmerCount}");

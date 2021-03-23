@@ -7,6 +7,13 @@ if (!function_exists('setting')) {
     }
 }
 
+if (!function_exists('widget')) {
+    function widget($slug, $default = null)
+    {
+        return TCG\Voyager\Facades\Voyager::widgetData($slug, $default);
+    }
+}
+
 if (!function_exists('menu')) {
     function menu($menuName, $type = null, array $options = [])
     {

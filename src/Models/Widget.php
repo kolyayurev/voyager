@@ -20,7 +20,6 @@ class Widget extends Model
 
     public $timestamps = false;
 
-    public $casts = ['value' => JsonCast::class];
 
     protected $translatable = ['name','value'];
 

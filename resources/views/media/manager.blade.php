@@ -614,10 +614,12 @@
             addFileToInput: function(file) {
                 if (file.type != 'folder') {
                     if (!this.allowMultiSelect) {
-                        this.hidden_element.value = this.localValue = file.relative_path;
+                        this.localValue = file.relative_path;
+                        // this.hidden_element.value = this.localValue = file.relative_path;
                          
                     } else {
-                        var content = JSON.parse(this.hidden_element.value);
+                        // var content = JSON.parse(this.hidden_element.value);
+                        var content = this.localValue;
                         if (content.indexOf(file.relative_path) !== -1) {
                             return;
                         }
@@ -631,7 +633,8 @@
                             }
                         } else {
                             content.push(file.relative_path);
-                            this.hidden_element.value =  this.localValue = JSON.stringify(content);
+                            // this.hidden_element.value =  this.localValue = JSON.stringify(content);
+                            this.localValue = JSON.stringify(content);
                         }
                     }
                     this.$forceUpdate();
@@ -639,27 +642,32 @@
             },
             removeFileFromInput: function(path) {
                 if (this.allowMultiSelect) {
-                    var content = JSON.parse(this.hidden_element.value);
+                    // var content = JSON.parse(this.hidden_element.value);
+                    var content = this.localValue;
                     if (content.indexOf(path) !== -1) {
                         content.splice(content.indexOf(path), 1);
-                        this.hidden_element.value =  this.localValue = JSON.stringify(content);
+                        // this.hidden_element.value =  this.localValue = JSON.stringify(content);
+                        this.localValue = JSON.stringify(content);
                         this.$forceUpdate();
                     }
                 } else {
-                    this.hidden_element.value = '';
+                    // this.hidden_element.value = '';
+                    this.localValue = '';
                     this.$forceUpdate();
                 }
             },
             getSelectedFiles: function() {
                 if (!this.allowMultiSelect) {
                     var content = [];
-                    if (this.hidden_element.value != '') {
-                        content.push(this.hidden_element.value);
+                    // if (this.hidden_element.value != '') {
+                    if (this.localValue != '') {
+                        // content.push(this.hidden_element.value);
+                        content.push(this.localValue);
                     }
-
                     return content;
                 } else {
-                    return JSON.parse(this.hidden_element.value);
+                    // return JSON.parse(this.hidden_element.value);
+                    return JSON.parse(this.localValue);
                 }
             },
             renameFile: function(object) {
@@ -809,6 +817,12 @@
                 return suffixes.some(function (suffix) {
                     return string.endsWith(suffix);
                 });
+            },
+            close(){
+                this.isExpanded = false
+            },
+            open(){
+                this.isExpanded = true
             }
         },
         mounted: function() {
@@ -820,8 +834,10 @@
                 if (!this.hidden_element) {
                     console.error('Element "'+this.element+'" could not be found.');
                 } else {
-                    if (this.maxSelectedFiles > 1 && this.hidden_element.value == '') {
-                        this.hidden_element.value =  this.localValue = '[]';
+                    // if (this.maxSelectedFiles > 1 && this.hidden_element.value == '') {
+                    if (this.maxSelectedFiles > 1 && this.localValue == '') {
+                        // this.hidden_element.value =  this.localValue = '[]';
+                        this.localValue = '[]';
                     }
                 }
             }
@@ -927,7 +943,8 @@
                 $(".form-edit-add").submit(function (e) {
                     if (vm.hidden_element) {
                         if (vm.maxSelectedFiles > 1) {
-                            var content = JSON.parse(vm.hidden_element.value);
+                            // var content = JSON.parse(vm.hidden_element.value);
+                            var content = JSON.parse(vm.localValue);
                             if (content.length < vm.minSelectedFiles) {
                                 e.preventDefault();
                                 var msg_sing = "{{ trans_choice('voyager::media.min_files_select', 1) }}";
@@ -939,7 +956,8 @@
                                 }
                             }
                         } else {
-                            if (vm.minSelectedFiles > 0 && vm.hidden_element.value == '') {
+                            // if (vm.minSelectedFiles > 0 && vm.hidden_element.value == '') {
+                            if (vm.minSelectedFiles > 0 && vm.localValue == '') {
                                 e.preventDefault();
                                 toastr.error("{{ trans_choice('voyager::media.min_files_select', 1) }}");
                             }
@@ -960,7 +978,8 @@
                             for (var key in object) {
                                 new_content.push(object[key].url);
                             }
-                            vm.hidden_element.value =  vm.localValue = JSON.stringify(new_content);
+                            // vm.hidden_element.value =  vm.localValue = JSON.stringify(new_content);
+                            vm.localValue = JSON.stringify(new_content);
                         }
                     }
                 });

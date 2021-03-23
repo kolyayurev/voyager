@@ -46,7 +46,7 @@
                        
                         <div class="panel-footer">
                             @section('submit-buttons')
-                                <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
+                                <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }} {{ __('voyager::seeders.data_types.widget.singular') }}</button>
                             @stop
                             @yield('submit-buttons')
                         </div>

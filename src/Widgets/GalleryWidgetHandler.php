@@ -15,8 +15,15 @@ class GalleryWidgetHandler extends BaseWidgetHandler
         $this->codename = 'gallery';
     }
 
-    public function handleRequest(Request $request)
+    public function handleValue($value)
     {
-        dd($request);
+        return !is_string($value)?json_encode($value,JSON_UNESCAPED_UNICODE):$value;
+    }
+
+    public function getValue($value, $default = null)
+    {
+        $default = $default ?? $this->default;
+
+        return (is_string($value)?json_decode($value, FALSE):$value) ?? $default;
     }
 }

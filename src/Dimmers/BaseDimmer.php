@@ -1,6 +1,6 @@
 <?php
 
-namespace TCG\Voyager\Widgets;
+namespace TCG\Voyager\Dimmers;
 
 use Arrilot\Widgets\AbstractWidget;
 

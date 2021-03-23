@@ -11,7 +11,9 @@ interface WidgetInterface
 
     public function getCodename();
 
-    public function handleRequest(Request $request);
+    public function handleValue($value);
+
+    public function getValue($value,$default);
 
     public function handle($dataType, $dataTypeContent);
 

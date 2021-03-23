@@ -229,9 +229,9 @@
 
             if (!this.settings.editing) {
                 inpUsr.text(_val);
-
             } else {
                 var _mce = tinymce.get('richtext'+inpUsr.prop('name'));
+                console.log(inpUsr)
                 if (inpUsr.hasClass('richTextBox') && _mce && _mce.initialized) {
                     _mce.setContent(_val);
                 } else if(inpUsr.hasClass('is-vue')){

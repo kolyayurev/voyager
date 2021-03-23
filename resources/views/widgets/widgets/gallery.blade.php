@@ -2,8 +2,6 @@
 
 @php
     $dataTypeRows = $dataType->rows;
-    $row = $dataTypeRows->where('field', 'value')->first();
-    $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n ':'');
 @endphp
 
 @push('css')
@@ -12,9 +10,18 @@
     .el-card{
         max-width: 400px;
     }
+    .el-form{
+        margin-top: .5rem;
+        padding: .5rem 1rem;
+        border: 1px solid #dcdfe6;
+        border-radius: 4px;
+    }
     .el-carousel__item{
         display: flex;
         justify-content: center;
+    }
+    .el-form--label-top .el-form-item__label{
+        padding: 0;
     }
     .language-label{
         display: none;
@@ -53,8 +60,20 @@
     }
   </style>
 @endpush
-[{title:"dsf",url:"sdfdf/asdsa/sad.jpg"},{title:"dsf",url:"sdfdf/asdsa/sad.jpg"},{title:"dsf",url:"sdfdf/asdsa/sad.jpg"}]
+
 @section('form')
+    <div>
+        @php
+        $row = $dataTypeRows->where('field', 'name')->first();
+        @endphp
+        @include('voyager::multilingual.input-hidden-bread-edit-add')
+        <input type="hidden" name="{{$row->field}}" class="form-control"  value="{{ old($row->field, $dataTypeContent->{$row->field} ?? '') }}"/>
+    </div>
+    
+    @php
+        $row = $dataTypeRows->where('field', 'value')->first();
+        $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n':'');
+    @endphp
     @include('voyager::multilingual.input-hidden-bread-edit-add')
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
     <el-carousel :autoplay="false" type="card" v-if="items.length" trigger="click">
@@ -73,20 +92,30 @@
             </el-card>
         </el-carousel-item>
     </el-carousel>
-    <el-divider></el-divider>
+    <el-alert
+        v-else
+        title="@lang('voyager::widgets.messages.empty_data')"
+        type="info"
+        description="@lang('voyager::widgets.messages.add_data')"
+        show-icon
+        :closable="false">
+    </el-alert>
     <el-form 
         :model="model" 
         :rules="rules" 
         ref="form" 
         label-position="top">
-        <el-form-item prop="title">
-            <el-input type="text" v-model="model.title" placeholder="Заголовок"> </el-input>
+        <el-divider>@lang('voyager::widgets.messages.add_new_item')</el-divider>
+
+        <el-form-item label="@lang('voyager::fields.title')" prop="title">
+            <el-input type="text" v-model="model.title" placeholder="@lang('voyager::fields.title')"> </el-input>
         </el-form-item>
         @php
             $manager_options =  isset($options->media_manager)?$options->media_manager:[];
         @endphp
-        <el-form-item prop="url">
+        <el-form-item label="@lang('voyager::fields.image')" prop="url">
             <media-manager
+                ref="mediaManager"
                 base-path="{{ $manager_options->base_path ?? '/'.$dataType->slug.'/'. $dataTypeContent->getKey()}}"
                 filename="{{ $manager_options->rename ?? 'null' }}"
                 :allow-multi-select="false"
@@ -131,13 +160,13 @@
                     },
                     rules: {
                         title: [
-                            { required: true, message: 'Обязательное поле', trigger: 'blur' },
+                            { required: true, message: 'Обязательное поле', trigger: 'change' },
                         ],
                         url: [
-                            { required: true, message: 'Обязательное поле', trigger: 'blur' },
+                            { required: true, message: 'Обязательное поле', trigger: 'change' },
                         ],
                     },
-                    items: {!! printArray($dataTypeContent->{$row->field}) !!},
+                    items: {!! printArray(old('value',$dataTypeContent->value)) !!},
                     isEdit:false,
                     editIndex:false,
                     
@@ -150,7 +179,8 @@
                 addItem(){
                     this.$refs.form.validate((valid) => {
                         if (valid) {
-                            this.items.push({...this.model}) 
+                            this.items.push({...this.model})
+                            this.$refs.mediaManager.close() 
                             this.clearForm() 
                         } else {
                             return false;
@@ -162,6 +192,7 @@
                     this.isEdit = true
                     this.editIndex = key
                     this.model = {...this.items[key]}
+                    this.$refs.mediaManager.open() 
                 },
                 saveItem(){
                     this.$refs.form.validate((valid) => {
@@ -169,6 +200,7 @@
                         this.items[this.editIndex] =  {...this.model}
                         this.editIndex = false
                         this.isEdit= false
+                        this.$refs.mediaManager.close() 
                         this.clearForm()
                     } else {
                         return false;

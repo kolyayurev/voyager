@@ -16,7 +16,7 @@ class VoyagerTest extends TestCase
      */
     public function testDimmersReturnsCollectionOfConfiguredWidgets()
     {
-        Config::set('voyager.dashboard.widgets', [
+        Config::set('voyager.dashboard.dimmers', [
             'TCG\\Voyager\\Tests\\Stubs\\Widgets\\AccessibleDimmer',
             'TCG\\Voyager\\Tests\\Stubs\\Widgets\\AccessibleDimmer',
         ]);
@@ -34,7 +34,7 @@ class VoyagerTest extends TestCase
      */
     public function testDimmersReturnsCollectionOfConfiguredWidgetsWhichShouldBeDisplayed()
     {
-        Config::set('voyager.dashboard.widgets', [
+        Config::set('voyager.dashboard.dimmers', [
             'TCG\\Voyager\\Tests\\Stubs\\Widgets\\AccessibleDimmer',
             'TCG\\Voyager\\Tests\\Stubs\\Widgets\\InAccessibleDimmer',
             'TCG\\Voyager\\Tests\\Stubs\\Widgets\\InAccessibleDimmer',
@@ -53,7 +53,7 @@ class VoyagerTest extends TestCase
      */
     public function testCreateEnoughDimmerCollectionsToContainAllAvailableDimmers()
     {
-        Config::set('voyager.dashboard.widgets', [
+        Config::set('voyager.dashboard.dimmers', [
             'TCG\\Voyager\\Tests\\Stubs\\Widgets\\AccessibleDimmer',
             'TCG\\Voyager\\Tests\\Stubs\\Widgets\\AccessibleDimmer',
             'TCG\\Voyager\\Tests\\Stubs\\Widgets\\AccessibleDimmer',
