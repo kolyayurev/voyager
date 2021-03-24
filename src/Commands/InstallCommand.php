@@ -74,9 +74,6 @@ class InstallCommand extends Command
 
         $this->call('vendor:publish', ['--provider' => VoyagerServiceProvider::class, '--tag' => $tags]);
 
-        $this->info('Publishing the modules config');
-        $this->call('vendor:publish', ['--provider' => LaravelModulesServiceProvider::class]);
-
         $this->info('Migrating the database tables into your application');
         $this->call('migrate', ['--force' => $this->option('force')]);
 
