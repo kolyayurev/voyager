@@ -480,7 +480,7 @@ class DataRowsTableSeeder extends Seeder
                 'details'      => [
                     'slugify' => [
                         'origin'      => 'name',
-                        'forceUpdate' => true,
+                        'forceUpdate' => false,
                     ],
                     'validation' => [
                         'rule'  => 'unique:widgets,slug',
