@@ -110,8 +110,8 @@
                 <div style="padding: 14px;">
                   <span>@{{ item.title }}</span>
                   <div class="bottom clearfix">
-                    <el-button type="primary" icon="el-icon-edit"  @click="editItem(key)" plain></el-button>
-                    <el-button type="danger" icon="el-icon-delete" @click="deleteItem(key)" plain></el-button>
+                    <el-button type="primary" icon="el-icon-edit"  @click="editItem(key)" ></el-button>
+                    <el-button type="danger" icon="el-icon-delete" @click="deleteItem(key)" ></el-button>
                   </div>
                 </div>
             </el-card>
@@ -167,7 +167,7 @@
             <input type="hidden" name="url"/>
         </el-form-item>
 
-        <el-button type="success" icon="el-icon-circle-plus-outline" @click="addItem" v-if="!isEdit" plain>@lang('voyager::generic.add')</el-button>
+        <el-button type="success" icon="el-icon-circle-plus-outline" @click="addItem" v-if="!isEdit" >@lang('voyager::generic.add')</el-button>
         <el-button type="success" icon="el-icon-check" @click="saveItem" v-if="isEdit">@lang('voyager::generic.save')</el-button>
     </el-form>
 @endsection
