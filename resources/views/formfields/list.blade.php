@@ -1,3 +1,31 @@
+@push('css')
+<style>
+    .item{
+        position: relative;
+        display: inline-block;
+        margin-bottom: .5rem;
+        width: 100%;
+        height: 34px;
+        border: 1px solid #dcdfe6;
+        border-radius: 4px;
+        padding: 0 110px 0 10px;
+        line-height: 30px;
+        box-sizing: border-box;
+        white-space: nowrap;
+        background-color: #eeeeee;
+    }
+    .item__title{
+        
+    }
+    .item__buttons{
+        position: absolute;
+        top: 46%;
+        right: 10px;
+        transform: translateY(-50%);
+    }
+</style>
+@endpush
+
 @php
     $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n ':'');
 @endphp
@@ -5,15 +33,13 @@
 <div class="list-formfield" id="list_{{$row->field}}">
     @include('voyager::multilingual.input-hidden-bread-edit-add')
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
-    <fieldset class=" row" v-for="(item, key) in items" :key="'preview_'+key">
-        <div class=" col-xs-10" >
-            <input type="text" class="form-control" v-model="item.text"  disabled/>
+    <div v-for="(item, key) in items" :key="'preview_'+key"  class="item"> 
+        @{{ item.text }}
+        <div class="item__buttons">
+            <el-button type="primary" icon="el-icon-edit"  @click="editItem(key)"  size="mini"></el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="deleteItem(key)"  size="mini"></el-button>
         </div>
-        <div class="col-xs-2" >
-            <button type="button" class="btn btn-xs btn-primary btn-edit" style="margin-top:0px;" @click="editItem(key)"><i class="voyager-edit"></i></button>
-            <button type="button" class="btn btn-xs btn-danger btn-delete" style="margin-top:0px;" @click="deleteItem(key)"><i class="voyager-trash"></i></button>
-        </div>
-    </fieldset>
+    </div>
     <legend></legend>
     <el-form 
         :model="model" 
