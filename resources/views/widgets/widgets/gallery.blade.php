@@ -247,11 +247,9 @@
                 printObject(obj){
                     return JSON.stringify(obj);
                 },
-                @if (is_field_translatable($dataTypeContent, $row) )
                 updateLocaleData(items){
                     this.items = this.isJsonValid(items)?JSON.parse(items):(items?items:[])
                 },
-                @endif
                 storageLink(url){
                     return '{{Storage::disk(config('voyager.storage.disk'))->url('/')}}'+url;
                 }
