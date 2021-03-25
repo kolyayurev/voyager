@@ -33,13 +33,16 @@
 <div class="list-formfield" id="list_{{$row->field}}">
     @include('voyager::multilingual.input-hidden-bread-edit-add')
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
-    <div v-for="(item, key) in items" :key="'preview_'+key"  class="item"> 
-        @{{ item.text }}
-        <div class="item__buttons">
-            <el-button type="primary" icon="el-icon-edit"  @click="editItem(key)"  size="mini"></el-button>
-            <el-button type="danger" icon="el-icon-delete" @click="deleteItem(key)"  size="mini"></el-button>
+    <div class="list__items">
+        <div v-for="(item, key) in items" :key="'preview_'+key"  class="item"> 
+            @{{ item.text }}
+            <div class="item__buttons">
+                <el-button type="primary" icon="el-icon-edit"  @click="editItem(key)"  size="mini"></el-button>
+                <el-button type="danger" icon="el-icon-delete" @click="deleteItem(key)"  size="mini"></el-button>
+            </div>
         </div>
     </div>
+   
     <legend></legend>
     <el-form 
         :model="model" 
