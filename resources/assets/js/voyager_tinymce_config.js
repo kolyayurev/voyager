@@ -10,7 +10,7 @@ var getConfig = function(options) {
         menubar: false,
         selector: 'textarea.richTextBox',
         skin_url: $('meta[name="assets-path"]').attr('content')+'?path=js/skins/voyager',
-        min_height: 600,
+        min_height: 300,
         resize: 'vertical',
         plugins: 'link, image, code, table, textcolor, lists',
         extended_valid_elements : 'input[id|name|value|type|class|style|required|placeholder|autocomplete|onclick]',
