@@ -20,6 +20,7 @@ return [
     'meta_description' => 'Meta Description',
     'meta_keywords'    => 'Meta Keywords',
     'name'             => 'Имя',
+    'number'           => 'Число',
     'options'          => 'Опции',
     'order'            => 'Сортировка',
     'page_image'       => 'Изображение Страницы',
@@ -34,8 +35,9 @@ return [
     'status'           => 'Статус',
     'suffix'           => 'Суффикс',
     'table_name'       => 'Название таблицы',
+    'text'             => 'Текст',
     'title'            => 'Заголовок',
     'value'            => 'Значение',
     'updated_at'       => 'Дата обновления',
-    
+
 ];
