@@ -2,6 +2,9 @@
 
 namespace TCG\Voyager\FormFields;
 
+/**
+ * Model must cast field to JsonCast
+ */
 
 class ListHandler extends AbstractHandler
 {
