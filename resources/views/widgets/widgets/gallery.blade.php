@@ -1,4 +1,29 @@
 @extends('voyager::widgets.layouts.master')
+  
+@php
+    /**
+     * $options = {
+     * media_manager:{ ... },
+     * field_titles:{
+     *  title: String,
+     *  description: String,
+     *  image: String,
+     * },
+     * }
+     *  
+     */
+@endphp
+@php
+    $manager_options = isset($options->media_manager)?$options->media_manager:[];
+    $field_titles = isset($options->field_titles)?$options->field_titles:null;
+    if(!empty($field_titles))
+    {
+        $title =  isset($field_titles->title)?$field_titles->title:null;
+        $description =  isset($field_titles->description)?$field_titles->description:null;
+        $image =  isset($field_titles->image)?$field_titles->image:null;
+    }
+   
+@endphp
 
 @php
     $dataTypeRows = $dataType->rows;
@@ -107,13 +132,14 @@
         label-position="top">
         <el-divider>@lang('voyager::widgets.messages.add_new_item')</el-divider>
 
-        <el-form-item label="@lang('voyager::fields.title')" prop="title">
+        <el-form-item label="{{ $title??__('voyager::fields.title')}}" prop="title">
             <el-input type="text" v-model="model.title" placeholder="@lang('voyager::fields.title')"> </el-input>
         </el-form-item>
-        @php
-            $manager_options =  isset($options->media_manager)?$options->media_manager:[];
-        @endphp
-        <el-form-item label="@lang('voyager::fields.image')" prop="url">
+        <el-form-item label="{{ $description??__('voyager::fields.description')}}" prop="description">
+            <el-input type="textarea" :rows="2" v-model="model.description" placeholder="@lang('voyager::fields.description')"> </el-input>
+        </el-form-item>
+       
+        <el-form-item label="{{ $image??__('voyager::fields.image')}}" prop="url">
             <media-manager
                 ref="mediaManager"
                 base-path="{{ $manager_options->base_path ?? '/'.$dataType->slug.'/'. $dataTypeContent->getKey()}}"
@@ -156,6 +182,7 @@
                 return {
                     model:{
                         title: '',
+                        description: '',
                         url: ''
                     },
                     rules: {
