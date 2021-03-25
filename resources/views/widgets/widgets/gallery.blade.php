@@ -199,9 +199,11 @@
                     
                 }
             },
+            created(){
+                this.updateLocaleData(this.items)
+            },
             mounted(){
                 vueFieldInstances['{{$vue_instance_name}}']=this
-                this.updateLocaleData(this.items)
             },
             methods:{
                 addItem(){
