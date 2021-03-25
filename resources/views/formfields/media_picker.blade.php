@@ -24,8 +24,6 @@
                 :details="{{ json_encode($options ?? new class{}) }}"
                 v-model="content"
             ></media-manager>
-            {{-- @dd($content) --}}
-            {{ $content }}
             <input type="hidden" name="{{ $row->field }}" :value="{{ $content }}">
         </div>
     </div>
