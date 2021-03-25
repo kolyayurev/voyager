@@ -474,7 +474,8 @@
         },
         watch:{
             localValue(value){
-                this.hidden_element.value = value
+                console.log(value,typeof(value));
+                this.hidden_element.value = Array.isArray(value)?JSON.stringify(value):value
             }
         },
         methods: {
@@ -634,7 +635,7 @@
                         } else {
                             content.push(file.relative_path);
                             // this.hidden_element.value =  this.localValue = JSON.stringify(content);
-                            this.localValue = JSON.stringify(content);
+                            this.localValue = content;
                         }
                     }
                     this.$forceUpdate();
@@ -647,7 +648,7 @@
                     if (content.indexOf(path) !== -1) {
                         content.splice(content.indexOf(path), 1);
                         // this.hidden_element.value =  this.localValue = JSON.stringify(content);
-                        this.localValue = JSON.stringify(content);
+                        this.localValue = content;
                         this.$forceUpdate();
                     }
                 } else {
@@ -667,7 +668,7 @@
                     return content;
                 } else {
                     // return JSON.parse(this.hidden_element.value);
-                    return JSON.parse(this.localValue);
+                    return this.localValue;
                 }
             },
             renameFile: function(object) {
@@ -825,22 +826,28 @@
                 this.isExpanded = true
             }
         },
+
         mounted: function() {
             this.getFiles();
             var vm = this;
 
+            console.log(typeof(this.localValue));
             if (this.element != '') {
                 this.hidden_element = document.querySelector(this.element);
                 if (!this.hidden_element) {
                     console.error('Element "'+this.element+'" could not be found.');
                 } else {
                     // if (this.maxSelectedFiles > 1 && this.hidden_element.value == '') {
-                    if (this.maxSelectedFiles > 1 && this.localValue == '') {
-                        // this.hidden_element.value =  this.localValue = '[]';
-                        this.localValue = '[]';
+                    if (this.maxSelectedFiles > 1 ) {
+                        if(this.localValue == '')
+                            this.localValue=[];
+                        if(!Array.isArray(this.localValue))
+                            this.localValue = JSON.parse(this.localValue)
+                        
                     }
                 }
             }
+            console.log(this.localValue,typeof(this.localValue));
 
             //Key events
             this.onkeydown = function(evt) {
@@ -944,7 +951,7 @@
                     if (vm.hidden_element) {
                         if (vm.maxSelectedFiles > 1) {
                             // var content = JSON.parse(vm.hidden_element.value);
-                            var content = JSON.parse(vm.localValue);
+                            var content = vm.localValue;
                             if (content.length < vm.minSelectedFiles) {
                                 e.preventDefault();
                                 var msg_sing = "{{ trans_choice('voyager::media.min_files_select', 1) }}";
@@ -979,7 +986,7 @@
                                 new_content.push(object[key].url);
                             }
                             // vm.hidden_element.value =  vm.localValue = JSON.stringify(new_content);
-                            vm.localValue = JSON.stringify(new_content);
+                            vm.localValue = new_content;
                         }
                     }
                 });

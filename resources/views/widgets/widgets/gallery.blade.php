@@ -14,7 +14,7 @@
      */
 @endphp
 @php
-    $manager_options = isset($options->media_manager)?$options->media_manager:[];
+    $manager_options = isset($options->media_manager)?$options->media_manager:new class{};
     $field_titles = isset($options->field_titles)?$options->field_titles:null;
     if(!empty($field_titles))
     {

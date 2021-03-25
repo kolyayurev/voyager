@@ -12,6 +12,8 @@ class MediaPickerHandler extends AbstractHandler
     public function createContent($row, $dataType, $dataTypeContent, $options)
     {
         $content = '';
+        // dump($dataTypeContent->{$row->field});
+
         if (isset($options->max) && $options->max > 1) {
             if (is_array($dataTypeContent->{$row->field})) {
                 $dataTypeContent->{$row->field} = json_encode($dataTypeContent->{$row->field});
@@ -25,7 +27,7 @@ class MediaPickerHandler extends AbstractHandler
         } else {
             $content = "'".$dataTypeContent->{$row->field}."'";
         }
-
+        // dd($dataTypeContent->{$row->field},$content);
         if (isset($options->base_path)) {
             $options->base_path = str_replace('{uid}', Auth::user()->getKey(), $options->base_path);
             if (Str::contains($options->base_path, '{date:')) {
