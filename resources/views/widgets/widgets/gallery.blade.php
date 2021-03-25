@@ -201,6 +201,7 @@
             },
             mounted(){
                 vueFieldInstances['{{$vue_instance_name}}']=this
+                this.updateLocaleData(this.items)
             },
             methods:{
                 addItem(){
@@ -252,7 +253,6 @@
                 },
                 @endif
                 storageLink(url){
-                    console.log('{{Storage::disk(config('voyager.storage.disk'))->url('/')}}'+url);
                     return '{{Storage::disk(config('voyager.storage.disk'))->url('/')}}'+url;
                 }
             }
