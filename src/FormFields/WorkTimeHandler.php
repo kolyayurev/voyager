@@ -10,7 +10,7 @@ class WorkTimeHandler extends AbstractHandler
 
     public function createContent($row, $dataType, $dataTypeContent, $options)
     {
-        return view('formfields.work_time', [
+        return view('voyager::formfields.work_time', [
             'row' => $row,
             'options' => $options,
             'dataType' => $dataType,
