@@ -7,7 +7,6 @@
  * Default behavior is to auto generate a new slug, only if the input is empty.
  * If input isn't empty, the auto generation is disabled.
  * To force the auto generator, set the option "forceUpdate: true".
- * To generate slug from multiple inputs, set the option "multiple: true".
  *
  * Copyright 2017 Bruno Torrinha
  * License MIT
