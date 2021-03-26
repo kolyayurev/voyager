@@ -45,6 +45,7 @@ return [
         'main'         => 'Основные поля',
         'relations'    => 'Связи',
         'others'       => 'Другие',
+        'additional'   => 'Дополнительно',
         'working_hours'=> 'Рабочее время'
     ]
 ];
