@@ -14,6 +14,9 @@ if (!function_exists('isBreadSlugAutoGenerator')) {
             return ' data-slug-origin='.$options->slugify->origin
                    .((isset($options->slugify->forceUpdate))
                       ? ' data-slug-forceupdate=true'
+                      : '')
+                    .((isset($options->slugify->multiple))
+                      ? ' data-slug-multiple=true'
                       : '');
         }
     }

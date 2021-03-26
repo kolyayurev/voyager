@@ -7,6 +7,7 @@
  * Default behavior is to auto generate a new slug, only if the input is empty.
  * If input isn't empty, the auto generation is disabled.
  * To force the auto generator, set the option "forceUpdate: true".
+ * To generate slug from multiple inputs, set the option "multiple: true".
  *
  * Copyright 2017 Bruno Torrinha
  * License MIT
@@ -22,14 +23,16 @@
             defaults = {
                 separator:   '-',
                 input:       false, // The origin from where we generate the slug.
+                inputs:      false, // The origins from where we generate the slug.
                 forceUpdate: false, // Force update if input is not empty.
-                map:         false  // Provide an extra character map translator.
+                map:         false,  // Provide an extra character map translator.
             };
 
         function Plugin ( element, options ) {
             this.element   = $(element);  // The input where slug is placed.
             this.settings  = $.extend( {}, defaults, options );
             this._defaults = defaults;
+            this.inputs    = [];
             this.chars     = this._load_char_maps();
             if (this.settings.map) {      // Load extra character map translator
                 $.extend(this.chars, this.settings.map);
@@ -40,11 +43,17 @@
         // Avoid Plugin.prototype conflicts
         $.extend( Plugin.prototype, {
             init: function() {
-                this.input = this.settings.input
-                             || $(this.element).closest('form').find('input[name="' + this.element.attr("data-slug-origin") + '"]');
-
+                var _this = this;
                 this.forceUpdate = (this.element.data('slug-forceupdate')) ? true : false;
-                this.input.on('keyup change', $.proxy(this.onChange, this));
+                this.origins = this.element.attr("data-slug-origin").split(",");
+
+                if(this.settings.inputs)
+                    this.inputs = this.settings.inputs;
+                else
+                this.origins.forEach(function(item) {
+                    _this.inputs[item] = $(_this.element).closest('form').find('input[name="' + item + '"]');
+                    _this.inputs[item].on('keyup change', $.proxy(_this.onChange, _this));
+                });
 
                 this.refresh();
             },
@@ -59,14 +68,17 @@
              * When input changes
              */
             onChange: function(ev) {
+                var _this = this;
                 var code = ev.keyCode ? ev.keyCode : ev.which;
 
                 if (code > 34 && code < 41) {
                     return;
                 }
+                var strTarget = this.element.val(),strOrigin=[];
 
-                var strOrigin = $(ev.target).val(),
-                    strTarget = this.element.val();
+                this.origins.forEach(function(item) {
+                    strOrigin.push(_this.inputs[item].val());
+                });
 
                 if (
                     this.element.update
@@ -137,7 +149,7 @@
                     'û': 'u', 'ü': 'u', 'ű': 'u', 'ý': 'y', 'þ': 'th', 'ÿ': 'y'
                 };
             },
-                        _map_arabic:  function() {
+            _map_arabic:  function() {
               return {
                 'ا': 'a',
                 'أ': 'a',
