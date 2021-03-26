@@ -47,6 +47,8 @@ require('datatables-bootstrap3-plugin/media/js/datatables-bootstrap3');
 window.EasyMDE = require('easymde');
 require('dropzone');
 require('jquery-match-height');
+require('jquery-ui');
+require('./jquery.ui.timepicker');
 require('bootstrap-toggle');
 require('nestable2');
 require('bootstrap');
