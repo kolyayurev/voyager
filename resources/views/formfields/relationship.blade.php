@@ -105,14 +105,20 @@
                         <p>{{ $string_values }}</p>
                     @endif
                 @else
-                    @if(empty($selected_values))
-                        <p>{{ __('voyager::generic.no_results') }}</p>
-                    @else
+                    @php
+                        $model = app($options->model);
+                        $query = $model::where($options->column, '=', $dataTypeContent->{$options->key})->get();
+                    @endphp
+
+                    @if(isset($query))
                         <ul>
-                            @foreach($selected_values as $selected_value)
-                                <li>{{ $selected_value }}</li>
+                            @foreach($query as $query_res)
+                                <li><a href="{{ route('voyager.'.Str::slug($options->table).'.edit',['id'=>$query_res->{$options->key}]) }}" target="_blank"> {{ $query_res->{$options->label} }}</a></li>
                             @endforeach
                         </ul>
+
+                    @else
+                        <p>{{ __('voyager::generic.no_results') }}</p>
                     @endif
                 @endif
 
