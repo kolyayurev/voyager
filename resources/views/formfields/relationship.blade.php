@@ -113,7 +113,7 @@
                     @if(isset($query) && $query->count())
                         <ul>
                             @foreach($query as $query_res)
-                                <li><a href="{{ route('voyager.'.Str::slug($options->table).'.edit',['id'=>$query_res->{$options->key}]) }}" target="_blank"> {{ $query_res->{$options->label} }}</a></li>
+                                <li><a href="{{ route('voyager.'.Str::slug($options->table).'.show',['id'=>$query_res->{$options->key}]) }}" target="_blank"> {{ $query_res->{$options->label} }}</a></li>
                             @endforeach
                         </ul>
 
@@ -132,7 +132,7 @@
                 @if(isset($query) && $query->count())
                     <ul>
                         @foreach($query as $query_res)
-                            <li><a href="{{ route('voyager.'.Str::slug($options->table).'.edit',['id'=>$query_res->{$options->key}]) }}" target="_blank"> {{ $query_res->{$options->label} }}</a></li>
+                            <li><a href="{{ route('voyager.'.Str::slug($options->table).'.show',['id'=>$query_res->{$options->key}]) }}" target="_blank"> {{ $query_res->{$options->label} }}</a></li>
                         @endforeach
                     </ul>
 
