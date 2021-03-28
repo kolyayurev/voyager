@@ -49,6 +49,26 @@ class PagesTableSeeder extends Seeder
             ])->save();
         }
 
+        $dataRow = $this->dataRow($pageDataType, 'visible');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'checkbox',
+                'display_name' => __('voyager::seeders.data_rows.visible'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details'      => [
+                        "on" => "Видно",
+                        "off" => "Скрыто",
+                        "checked"=> true
+                ],
+                'order' => 2,
+            ])->save();
+        }
+
         $dataRow = $this->dataRow($pageDataType, 'author_id');
         if (!$dataRow->exists) {
             $dataRow->fill([
@@ -60,7 +80,7 @@ class PagesTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'order'        => 2,
+                'order'        => 3,
             ])->save();
         }
 
@@ -75,7 +95,7 @@ class PagesTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 3,
+                'order'        => 4,
             ])->save();
         }
 
@@ -84,13 +104,13 @@ class PagesTableSeeder extends Seeder
             $dataRow->fill([
                 'type'         => 'text_area',
                 'display_name' => __('voyager::seeders.data_rows.excerpt'),
-                'required'     => 1,
+                'required'     => 0,
                 'browse'       => 0,
                 'read'         => 1,
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 4,
+                'order'        => 5,
             ])->save();
         }
 
@@ -105,7 +125,7 @@ class PagesTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 5,
+                'order'        => 6,
             ])->save();
         }
 
@@ -114,7 +134,7 @@ class PagesTableSeeder extends Seeder
             $dataRow->fill([
                 'type'         => 'text',
                 'display_name' => __('voyager::seeders.data_rows.slug'),
-                'required'     => 1,
+                'required'     => 0,
                 'browse'       => 0,
                 'read'         => 1,
                 'edit'         => 1,
@@ -128,31 +148,16 @@ class PagesTableSeeder extends Seeder
                         'rule'  => 'unique:pages,slug',
                     ],
                 ],
-                'order' => 6,
+                'order' => 7,
             ])->save();
         }
 
-        $dataRow = $this->dataRow($pageDataType, 'meta_description');
+        $dataRow = $this->dataRow($pageDataType, 'meta_title');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'text',
-                'display_name' => __('voyager::seeders.data_rows.meta_description'),
-                'required'     => 1,
-                'browse'       => 0,
-                'read'         => 1,
-                'edit'         => 1,
-                'add'          => 1,
-                'delete'       => 1,
-                'order'        => 7,
-            ])->save();
-        }
-
-        $dataRow = $this->dataRow($pageDataType, 'meta_keywords');
-        if (!$dataRow->exists) {
-            $dataRow->fill([
-                'type'         => 'text',
-                'display_name' => __('voyager::seeders.data_rows.meta_keywords'),
-                'required'     => 1,
+                'display_name' => __('voyager::seeders.data_rows.meta_title'),
+                'required'     => 0,
                 'browse'       => 0,
                 'read'         => 1,
                 'edit'         => 1,
@@ -162,17 +167,49 @@ class PagesTableSeeder extends Seeder
             ])->save();
         }
 
+        $dataRow = $this->dataRow($pageDataType, 'meta_description');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'text_area',
+                'display_name' => __('voyager::seeders.data_rows.meta_description'),
+                'required'     => 0,
+                'browse'       => 0,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'order'        => 9,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($pageDataType, 'h1');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'text',
+                'display_name' => 'h1',
+                'required'     => 0,
+                'browse'       => 0,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'order'        => 10,
+            ])->save();
+        }
+
+
+
         $dataRow = $this->dataRow($pageDataType, 'status');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'select_dropdown',
                 'display_name' => __('voyager::seeders.data_rows.status'),
-                'required'     => 1,
-                'browse'       => 1,
-                'read'         => 1,
-                'edit'         => 1,
-                'add'          => 1,
-                'delete'       => 1,
+                'required'     => 0,
+                'browse'       => 0,
+                'read'         => 0,
+                'edit'         => 0,
+                'add'          => 0,
+                'delete'       => 0,
                 'details'      => [
                     'default' => 'INACTIVE',
                     'options' => [
@@ -180,7 +217,7 @@ class PagesTableSeeder extends Seeder
                         'ACTIVE'   => 'ACTIVE',
                     ],
                 ],
-                'order' => 9,
+                'order' => 11,
             ])->save();
         }
 
@@ -189,13 +226,13 @@ class PagesTableSeeder extends Seeder
             $dataRow->fill([
                 'type'         => 'timestamp',
                 'display_name' => __('voyager::seeders.data_rows.created_at'),
-                'required'     => 1,
+                'required'     => 0,
                 'browse'       => 1,
                 'read'         => 1,
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'order'        => 10,
+                'order'        => 12,
             ])->save();
         }
 
@@ -204,13 +241,13 @@ class PagesTableSeeder extends Seeder
             $dataRow->fill([
                 'type'         => 'timestamp',
                 'display_name' => __('voyager::seeders.data_rows.updated_at'),
-                'required'     => 1,
+                'required'     => 0,
                 'browse'       => 0,
                 'read'         => 0,
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'order'        => 11,
+                'order'        => 13,
             ])->save();
         }
 
@@ -225,7 +262,7 @@ class PagesTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 12,
+                'order'        => 14,
             ])->save();
         }
 
@@ -250,22 +287,6 @@ class PagesTableSeeder extends Seeder
         //Permissions
         Permission::generateFor('pages');
         //Content
-        $page = Page::firstOrNew([
-            'slug' => 'hello-world',
-        ]);
-        if (!$page->exists) {
-            $page->fill([
-                'author_id' => 0,
-                'title'     => 'Hello World',
-                'excerpt'   => 'Hang the jib grog grog blossom grapple dance the hempen jig gangway pressgang bilge rat to go on account lugger. Nelsons folly gabion line draught scallywag fire ship gaff fluke fathom case shot. Sea Legs bilge rat sloop matey gabion long clothes run a shot across the bow Gold Road cog league.',
-                'body'      => '<p>Hello World. Scallywag grog swab Cat o\'nine tails scuttle rigging hardtack cable nipper Yellow Jack. Handsomely spirits knave lad killick landlubber or just lubber deadlights chantey pinnace crack Jennys tea cup. Provost long clothes black spot Yellow Jack bilged on her anchor league lateen sail case shot lee tackle.</p>
-<p>Ballast spirits fluke topmast me quarterdeck schooner landlubber or just lubber gabion belaying pin. Pinnace stern galleon starboard warp carouser to go on account dance the hempen jig jolly boat measured fer yer chains. Man-of-war fire in the hole nipperkin handsomely doubloon barkadeer Brethren of the Coast gibbet driver squiffy.</p>',
-                'image'            => 'pages/page1.jpg',
-                'meta_description' => 'Yar Meta Description',
-                'meta_keywords'    => 'Keyword1, Keyword2',
-                'status'           => 'ACTIVE',
-            ])->save();
-        }
     }
 
     /**

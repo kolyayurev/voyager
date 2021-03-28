@@ -17,7 +17,8 @@ return [
         'id'               => 'ID',
         'key'              => 'Ключ',
         'handler'          => 'Обработчик',
-        'meta_description' => 'Meta Description',
+        'meta_title'       => 'Мета заголовок',
+        'meta_description' => 'Мета описание',
         'meta_keywords'    => 'Meta Keywords',
         'name'             => 'Имя',
         'options'          => 'Опции',
@@ -34,6 +35,7 @@ return [
         'table_name'       => 'Название таблицы',
         'title'            => 'Название',
         'value'            => 'Значение',
+        'visible'          => 'Видимость',
         'updated_at'       => 'Дата обновления',
     ],
     'data_types' => [
