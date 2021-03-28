@@ -18,13 +18,18 @@ class CreatePagesTable extends Migration
             $table->increments('id');
             $table->integer('author_id');
             $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('image')->nullable();
+
             $table->text('excerpt')->nullable();
             $table->text('body')->nullable();
-            $table->string('image')->nullable();
-            $table->string('slug')->unique();
-            $table->text('meta_description')->nullable();
-            $table->text('meta_keywords')->nullable();
             $table->enum('status', Page::$statuses)->default(Page::STATUS_INACTIVE);
+
+            // SEO columns
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->string('h1')->nullable();
+
             $table->timestamps();
         });
     }
