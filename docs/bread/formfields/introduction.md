@@ -49,6 +49,15 @@ Most formfields allow you to define a default value when adding an entry:
 }
 ```
 
+## Hint
+
+
+```php
+{
+    "hint" : "Your hint text"
+}
+```
+
 ## Null Values
 
 You might want to save an input field into the database as a `null` value instead of an empty string.
@@ -86,6 +95,16 @@ Using the bread builder you may wish to automatically generate slugs of a certai
 
 This will automatically generate the slug from the input of the `title` field. If a slug does already exists, it will only be updated if `forceUpdate` is set enabled, by default this is disabled.
 
+If you want to create slug from multiple fields,write the field names separated by commas.
+
+```php
+{
+    "slugify": {
+        "origin": "last_name,first_name",
+    }
+}
+```
+
 ## Custom view
 
 You can specify a custom view to be used for a formfield.  
@@ -112,3 +131,36 @@ You get plenty of data passed to your view for you to use:
 **Developing a custom formfield?**  
 If you are developing a custom formfield and want to customize any of the views, you can do so by merging `view` into `$options` in your formfields `createContent()` method.
 {% endhint %}
+
+**Multilengual in vue formfield**  
+You must specify in bread options
+```text
+{
+    "vue":true
+}
+```
+Hidden input must have the `is-vue` class
+
+```php
+$vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n ':'');
+
+<input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
+
+```
+
+Vue instance must have `updateLocaleData()` method
+
+```js
+var {{$vue_instance_name}} = new Vue({
+        el:'#field_{{$row->field}}',
+        ...
+        methods:{
+            updateLocaleData(value){
+                this.value = value
+            }
+        }
+});
+
+```
+
+
