@@ -1996,6 +1996,10 @@ a.text-action{color:#a3afb7}a.text-action,a.text-action:focus,a.text-action:hove
     padding: 5px 10px;
     font-size: 12px;
 }
+.bread-actions .btn:not(:first-child){
+  margin-left: 5px;
+  cursor: pointer;
+}
 /* Fix navbar responsiveness */
 .navbar-nav.navbar-right {
   top: 0;
