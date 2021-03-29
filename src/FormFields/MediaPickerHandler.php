@@ -41,7 +41,7 @@ class MediaPickerHandler extends AbstractHandler
                 }, $options->base_path);
             }
             if (!$dataTypeContent->getKey()) {
-                $uuid = (string) Str::uuid();
+                $uuid = \Session::exists($dataType->slug.'_uuid') ? session($dataType->slug.'_uuid') : (string) Str::uuid();
                 $options->base_path = str_replace('{pk}', $uuid, $options->base_path);
                 \Session::put($dataType->slug.'_path', $options->base_path);
                 \Session::put($dataType->slug.'_uuid', $uuid);
