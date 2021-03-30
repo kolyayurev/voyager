@@ -20,9 +20,11 @@ class CreateWidgetsTable extends Migration
             $table->string('handler');
             $table->text('description')->nullable();
             $table->string('table_name')->nullable();
-            $table->integer('foreign_key')->unsigned()->nullable();
+            $table->bigInteger('foreign_key')->unsigned()->nullable();
             $table->text('details')->nullable();
             $table->json('value')->nullable();
+            $table->unique(['table_name', 'foreign_key']);
+
         });
     }
 

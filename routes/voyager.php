@@ -95,6 +95,7 @@ Route::group(['as' => 'voyager.'], function () {
         ], function () use ($namespacePrefix) {
             Route::get('{id}/moderate', ['uses' => $namespacePrefix.'VoyagerWidgetController@moderate',        'as' => 'moderate']);
             Route::put('{id}/moderate', ['uses' => $namespacePrefix.'VoyagerWidgetController@moderate_update',        'as' => 'moderate_update']);
+            Route::post('data-type-content-items', ['uses' => $namespacePrefix.'VoyagerWidgetController@get_data_type_content_items',  'as' => 'get_data_type_content_items']);
         });
 
 

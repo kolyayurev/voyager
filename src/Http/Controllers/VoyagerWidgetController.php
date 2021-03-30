@@ -24,11 +24,14 @@ class VoyagerWidgetController extends VoyagerBaseController
 
         $dataTypeContent = Voyager::model('Widget')->findOrFail($id);
 
-        return Voyager::widgetDisplay($dataType,$dataTypeContent);
+        $isModelTranslatable = is_bread_translatable($dataTypeContent);
+
+        return view('voyager::widgets.widgets.index',compact(['isModelTranslatable','dataType','dataTypeContent']));
     }
 
     public function moderate_update(Request $request,$id)
     {
+        // dd($request->all());
         // Check permission
         $this->authorize('moderate', Voyager::model('Widget'));
 
@@ -63,16 +66,36 @@ class VoyagerWidgetController extends VoyagerBaseController
 
         event(new BreadDataUpdated($dataType, $data));
 
-        if (auth()->user()->can('browse', app($dataType->model_name))) {
-            $redirect = redirect()->route("voyager.{$dataType->slug}.index");
-        } else {
-            $redirect = redirect()->back();
-        }
+        // if(!$request->has('from_model'))
+        // {
+        //     if (auth()->user()->can('browse', app($dataType->model_name))) {
+        //         $redirect = redirect()->route("voyager.{$dataType->slug}.index");
+        //     } else {
+        //         $redirect = redirect()->back();
+        //     }
 
-        return $redirect->with([
-            'message'    => __('voyager::generic.successfully_updated')." {$dataType->getTranslatedAttribute('display_name_singular')}",
-            'alert-type' => 'success',
+        //     return $redirect->with([
+        //         'message'    => __('voyager::generic.successfully_updated')." {$dataType->getTranslatedAttribute('display_name_singular')}",
+        //         'alert-type' => 'success',
+        //     ]);
+        // }
+
+        return  response()->json([
+                'message'    => __('voyager::generic.successfully_updated')." {$dataType->getTranslatedAttribute('display_name_singular')}",
+                'status' => 'success',
         ]);
 
     }
+    public function get_data_type_content_items(Request $request)
+    {
+        $dataType = Voyager::model('DataType')->where('slug', $request->data_type)->first();
+
+        $dataTypeContent = app($dataType->model_name)->get();
+
+        return  response()->json([
+            'items' => $dataTypeContent,
+            'status' => 'success',
+        ]);
+    }
 }
+    

@@ -1,4 +1,3 @@
-@extends('voyager::widgets.layouts.master')
   
 @php
     /**
@@ -86,7 +85,13 @@
   </style>
 @endpush
 
-@section('form')
+<form
+    ref="form"
+    role="form"
+    id="widget_form_{{$dataTypeContent->getKey()}}">
+
+    @method("PUT")
+    @csrf
     <div>
         @php
         $row = $dataTypeRows->where('field', 'name')->first();
@@ -97,7 +102,7 @@
     
     @php
         $row = $dataTypeRows->where('field', 'value')->first();
-        $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n':'');
+        $vue_instance_name = 'vue_widget_'.$dataTypeContent->getKey().'_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n':'');
     @endphp
     @include('voyager::multilingual.input-hidden-bread-edit-add')
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
@@ -128,7 +133,7 @@
     <el-form 
         :model="model" 
         :rules="rules" 
-        ref="form" 
+        ref="vueForm" 
         label-position="top">
         <el-divider>@lang('voyager::widgets.messages.add_new_item')</el-divider>
 
@@ -170,14 +175,17 @@
         <el-button type="success" icon="el-icon-circle-plus-outline" @click="addItem" v-if="!isEdit" >@lang('voyager::generic.add')</el-button>
         <el-button type="success" icon="el-icon-check" @click="saveItem" v-if="isEdit">@lang('voyager::generic.save')</el-button>
     </el-form>
-@endsection
+    <div class="panel-footer">
+        <el-button type="primary" @click.prevent="saveForm" >@lang('voyager::generic.save')</el-button>
+    </div>
+</form>
 
 
 
 @push('vue')
     <script>
         var {{$vue_instance_name}} = new Vue({
-            el:'#form',
+            el:'#widget_form_{{$dataTypeContent->getKey()}}',
             data(){
                 return {
                     model:{
@@ -207,7 +215,7 @@
             },
             methods:{
                 addItem(){
-                    this.$refs.form.validate((valid) => {
+                    this.$refs.vueForm.validate((valid) => {
                         if (valid) {
                             this.items.push({...this.model})
                             this.$refs.mediaManager.close() 
@@ -216,7 +224,6 @@
                             return false;
                         }
                     });
-                    
                 },
                 editItem(key){
                     this.isEdit = true
@@ -225,7 +232,7 @@
                     this.$refs.mediaManager.open() 
                 },
                 saveItem(){
-                    this.$refs.form.validate((valid) => {
+                    this.$refs.vueForm.validate((valid) => {
                     if (valid) {
                         this.items[this.editIndex] =  {...this.model}
                         this.editIndex = false
@@ -236,7 +243,18 @@
                         return false;
                     }
                     });
-                    
+                },
+                saveForm(){
+                    var _this = this
+                    let data = new FormData(this.$refs.form);
+                    let url = '{{ route('voyager.'.$dataType->slug.'.moderate_update', $dataTypeContent->getKey()) }}';
+
+                    _this.baseAxios(url, data, function (response) {
+                        _this.successMsg(response.data.message);
+                    },
+                    function (response) {
+                        _this.warningMsg(response.data.message);
+                    });
                 },
                 deleteItem(key){
                     this.items.splice(key, 1);

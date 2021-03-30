@@ -36,6 +36,7 @@ class DataType extends Model
         'scope',
         'details',
     ];
+    protected $appends = ['table_name'];
 
     public function rows()
     {
@@ -70,6 +71,11 @@ class DataType extends Model
     public function lastRow()
     {
         return $this->hasMany(Voyager::modelClass('DataRow'))->orderBy('order', 'DESC')->first();
+    }
+
+    public function getTableNameAttribute()
+    {
+        return  \Str::title(str_replace('_',' ',$this->name));  
     }
 
     public function setGeneratePermissionsAttribute($value)

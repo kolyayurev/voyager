@@ -59,13 +59,10 @@ abstract class BaseWidgetHandler implements WidgetInterface
 
     public function createContent($dataType, $dataTypeContent, $options)
     {
-        $isModelTranslatable = is_bread_translatable($dataTypeContent);
-
         return view($this->getView(), [
             'options' => $options,
             'dataType' => $dataType,
-            'dataTypeContent' => $dataTypeContent,
-            'isModelTranslatable' => $isModelTranslatable
+            'dataTypeContent' => $dataTypeContent
         ]);
     }
 

@@ -9,6 +9,7 @@ return [
     'description'      => 'Описание',
     'details'          => 'Детали',
     'display_name'     => 'Отображаемое имя',
+    'editor'           => 'Редактор',
     'email'            => 'Email',
     'excerpt'          => 'Отрывок',
     'featured'         => 'Рекомендовано',

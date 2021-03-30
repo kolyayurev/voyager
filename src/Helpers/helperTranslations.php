@@ -56,3 +56,16 @@ if (!function_exists('is_bread_translatable')) {
             && $model->translatable();
     }
 }
+
+if (!function_exists('is_bread_widgetable')) {
+    /**
+     * Check if BREAD is widgetable.
+     *
+     * @param Illuminate\Database\Eloquent\Model $model
+     */
+    function is_bread_widgetable($model)
+    {
+        return  isset($model)
+                && method_exists($model, 'widgetable');
+    }
+}

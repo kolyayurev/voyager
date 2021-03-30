@@ -480,7 +480,6 @@ class DataRowsTableSeeder extends Seeder
                 'details'      => [
                     'slugify' => [
                         'origin'      => 'name',
-                        'forceUpdate' => false,
                     ],
                     'validation' => [
                         'rule'  => 'unique:widgets,slug',
@@ -520,28 +519,28 @@ class DataRowsTableSeeder extends Seeder
         $dataRow = $this->dataRow($widgetDataType, 'table_name');
         if (!$dataRow->exists) {
             $dataRow->fill([
-                'type'         => 'hidden',
+                'type'         => 'text',
                 'display_name' => __('voyager::seeders.data_rows.table_name'),
                 'required'     => 0,
                 'browse'       => 0,
                 'read'         => 0,
-                'edit'         => 0,
-                'add'          => 0,
-                'delete'       => 0,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
                 'order'        => 6,
             ])->save();
         }
         $dataRow = $this->dataRow($widgetDataType, 'foreign_key');
         if (!$dataRow->exists) {
             $dataRow->fill([
-                'type'         => 'hidden',
+                'type'         => 'number',
                 'display_name' => __('voyager::seeders.data_rows.foreign_key'),
                 'required'     => 0,
                 'browse'       => 0,
                 'read'         => 0,
-                'edit'         => 0,
-                'add'          => 0,
-                'delete'       => 0,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
                 'order'        => 7,
             ])->save();
         }

@@ -20,6 +20,7 @@ class Widget extends Model
 
     public $timestamps = false;
 
+    protected $fillable = ['name','slug','handler','description','details','table_name', 'foreign_key', 'value'];
 
     protected $translatable = ['name','value'];
 
