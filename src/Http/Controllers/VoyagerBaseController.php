@@ -854,6 +854,7 @@ class VoyagerBaseController extends Controller
         $this->authorize($method, $model);
 
         $rows = $dataType->{$method.'Rows'};
+        
         foreach ($rows as $key => $row) {
             if ($row->field === $request->input('type')) {
                 $options = $row->details;

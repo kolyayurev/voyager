@@ -166,7 +166,7 @@
                                     <input type="text" class="form-control" name="policy_name" placeholder="{{ __('voyager::bread.policy_class') }}"
                                            value="{{ $dataType->policy_name ?? '' }}">
                                 </div>
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-2 form-group">
                                     <label for="generate_permissions">{{ __('voyager::bread.generate_permissions') }}</label><br>
                                     <?php $checked = (isset($dataType->generate_permissions) && $dataType->generate_permissions == 1) || (isset($generate_permissions) && $generate_permissions); ?>
                                     <input type="checkbox"
@@ -176,11 +176,23 @@
                                            data-off="{{ __('voyager::generic.no') }}"
                                            @if($checked) checked @endif >
                                 </div>
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-2 form-group">
                                     <label for="server_side">{{ __('voyager::bread.server_pagination') }}</label><br>
                                     <?php $checked = (isset($dataType->server_side) && $dataType->server_side == 1) || (isset($server_side) && $server_side); ?>
                                     <input type="checkbox"
                                            name="server_side"
+                                           class="toggleswitch"
+                                           data-on="{{ __('voyager::generic.yes') }}"
+                                           data-off="{{ __('voyager::generic.no') }}"
+                                           @if($checked) checked @endif >
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label for="server_side">{{ __('voyager::bread.has_widgets') }}</label><br>
+                                    @php
+                                         $checked = (isset($dataType->widgetable) && $dataType->widgetable == 1);
+                                    @endphp
+                                    <input type="checkbox"
+                                           name="widgetable"
                                            class="toggleswitch"
                                            data-on="{{ __('voyager::generic.yes') }}"
                                            data-off="{{ __('voyager::generic.no') }}"
@@ -247,8 +259,22 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row clearfix">
+                                <div class="col-md-3 form-group">
+                                    <label for="default_widget_search_key">{{ __('voyager::bread.default_widget_search_key') }}</label>
+                                    <span class="voyager-question"
+                                          aria-hidden="true"
+                                          data-toggle="tooltip"
+                                          data-placement="right"
+                                          title="{{ __('voyager::bread.default_widget_search_key_ph') }}"></span>
+                                    <select name="default_widget_search_key" class="select2 form-control">
+                                        <option value="">-- {{ __('voyager::generic.none') }} --</option>
+                                        @foreach($fieldOptions as $tbl)
+                                        <option value="{{ $tbl['field'] }}"
+                                                @if(isset($dataType) && $dataType->default_widget_search_key == $tbl['field']) selected @endif
+                                        >{{ $tbl['field'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 @if (isset($scopes) && isset($dataType))
                                     <div class="col-md-3 form-group">
                                         <label for="scope">{{ __('voyager::bread.scope') }}</label>
@@ -262,7 +288,9 @@
                                         </select>
                                     </div>
                                 @endif
-                                <div class="col-md-9 form-group">
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-12 form-group">
                                     <label for="description">{{ __('voyager::bread.description') }}</label>
                                     <textarea class="form-control"
                                               name="description"

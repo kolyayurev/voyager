@@ -53,6 +53,7 @@ class VoyagerBreadController extends Controller
         $dataType = Voyager::model('DataType')->whereName($table)->first();
 
         $data = $this->prepopulateBreadInfo($table);
+
         $data['fieldOptions'] = SchemaManager::describeTable(
             (isset($dataType) && strlen($dataType->model_name) != 0)
             ? DB::getTablePrefix().app($dataType->model_name)->getTable()
@@ -123,11 +124,12 @@ class VoyagerBreadController extends Controller
 
         $dataType = Voyager::model('DataType')->whereName($table)->first();
 
-        $fieldOptions = SchemaManager::describeTable(
-            (strlen($dataType->model_name) != 0)
-            ? DB::getTablePrefix().app($dataType->model_name)->getTable()
-            : DB::getTablePrefix().$dataType->name
-        );
+        $fieldOptions = $dataType->fieldOptions();
+        // $fieldOptions = SchemaManager::describeTable(
+        //     (strlen($dataType->model_name) != 0)
+        //     ? DB::getTablePrefix().app($dataType->model_name)->getTable()
+        //     : DB::getTablePrefix().$dataType->name
+        // );
 
         $isModelTranslatable = is_bread_translatable($dataType);
         $tables = SchemaManager::listTableNames();

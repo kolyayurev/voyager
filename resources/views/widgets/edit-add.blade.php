@@ -92,11 +92,14 @@
                                             <div class="form-group col-md-12 {{ $errors->has($row->field) ? 'has-error' : '' }}" >
                                                 <label class="control-label" for="handler">{{ $row->getTranslatedAttribute('display_name') }}</label>
                 
-                                                <select class="form-control" name="handler">
+                                                <el-select style="width: 100%" v-model="handler" name="handler">
                                                     @foreach(Voyager::widgetHandlers() as $widget)
-                                                        <option value="{{ $widget->getCodename() }}" @if(isset($dataTypeContent->handler) && $dataTypeContent->handler == $widget->getCodename()) selected="selected" @endif>{{ $widget->getName() }}</option>
+                                                    <el-option
+                                                      label="{{$widget->getName()}}"
+                                                      value="{{$widget->getCodename()}}">
+                                                    </el-option>
                                                     @endforeach
-                                                </select>
+                                                </el-select>
                 
                                                 @if ($errors->has($row->field))
                                                     @foreach ($errors->get($row->field) as $error)
@@ -106,27 +109,18 @@
                                             </div>
                                             @break
                                         @case('table_name')
-                                            @php
-                                                $table_name = $dataTypeContent->table_name;
-                                            @endphp
                                             <div class="form-group col-md-12 {{ $errors->has($row->field) ? 'has-error' : '' }}" >
                                                 <label class="control-label" for="table_name">{{ $row->getTranslatedAttribute('display_name') }}</label>
                 
-                                                <el-select style="width: 100%" v-model="table_name" name="table_name" @change="dataTypeChange">
+                                                <el-select style="width: 100%" v-model="table_name" name="table_name">
                                                     <el-option
                                                       v-for="type in dataTypes"
                                                       :key="type.id"
-                                                      :label="type.table_name"
+                                                      :label="type.display_name_plural"
                                                       :value="type.name">
                                                     </el-option>
                                                 </el-select>
 
-                                                {{-- <select class="form-control" name="table_name">
-                                                    @foreach(Voyager::model('DataType')->get() as $type)
-                                                        <option value="{{ $type->name }}" @if(isset($dataTypeContent->table_name) && $dataTypeContent->table_name == $type->name) selected="selected" @endif>{{ Str::title(str_replace('_',' ',$type->name)) }}</option>
-                                                    @endforeach
-                                                </select> --}}
-                
                                                 @if ($errors->has($row->field))
                                                     @foreach ($errors->get($row->field) as $error)
                                                         <span class="help-block">{{ $error }}</span>
@@ -134,8 +128,34 @@
                                                 @endif
                                             </div>
                                             @break
-                                        @default
-                                            
+                                        @case('foreign_key')
+                                            <div class="form-group col-md-12 {{ $errors->has($row->field) ? 'has-error' : '' }}" >
+                                                <label class="control-label" for="foreign_key">{{ $row->getTranslatedAttribute('display_name') }}</label>
+                
+                                                <el-select
+                                                        style="width: 100%"
+                                                        v-model="foreign_key"
+                                                        name="foreign_key"
+                                                        multiple
+                                                        filterable
+                                                        remote
+                                                        reserve-keyword
+                                                        :remote-method="getDataTypeContent"
+                                                        :loading="prLoading">
+                                                    <el-option
+                                                        v-for="item in dataTypeContent"
+                                                        :key="item.id"
+                                                        :label="item[getDataTypeSearchField()]"
+                                                        :value="item.id">
+                                                    </el-option>
+                                                </el-select>
+                                                @if ($errors->has($row->field))
+                                                    @foreach ($errors->get($row->field) as $error)
+                                                        <span class="help-block">{{ $error }}</span>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                            @break    
                                     @endswitch
                                 @endforeach
                             </div>
@@ -236,7 +256,8 @@
     <!-- End Delete File Modal -->
 @stop
 @php
-    $dataTypes = Voyager::model('DataType')->select('id','name')->get();
+// ->select('id','name','slug','details')
+    $dataTypes = Voyager::model('DataType')->widgetable()->get();
 @endphp
 
 @push('vue')
@@ -246,22 +267,35 @@
         data(){
             return {
                 dataTypes: {!! printArray($dataTypes) !!},
-                table_name: {!!  printString($table_name) !!},
+                dataTypeContent: [],
+                handler: {!!  printString($dataTypeContent->handler) !!},
+                table_name: {!!  printString($dataTypeContent->table_name) !!},
+                foreign_key: {!!  printString($dataTypeContent->foreign_key) !!},
             }
         },
         methods:{
-            dataTypeChange(){
+            getDataTypeContent(query){
                 var _this = this
-                let data = new FormData();
-                data.append('data_type',_this.table_name);
-                let url = '{{ route('voyager.widgets.get_data_type_content_items') }}';
+                if (query !== '') {
+                    let data = new FormData();
+                    data.append('data_type',_this.table_name);
+                    data.append('search',query);
 
-                _this.baseAxios(url, data, function (response) {
-                    _this.successMsg(response.data.message);
-                },
-                function (response) {
-                    _this.warningMsg(response.data.message);
-                });
+                    let url = '{{ route('voyager.widgets.get_data_type_content_items') }}';
+
+                    _this.baseAxios(url, data, function (response) {
+                        _this.dataTypeContent = response.data.results;
+                    },
+                    function (response) {
+                        _this.warningMsg(response.data.message);
+                    });
+                } else {
+                    this.dataTypeContent = [];
+                }
+               
+            },
+            getDataTypeSearchField(){
+                return this.dataTypes.find(item => item.name === this.table_name ).details.default_widget_search_key;
             }
         }
     });

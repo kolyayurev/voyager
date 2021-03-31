@@ -88,14 +88,67 @@ class VoyagerWidgetController extends VoyagerBaseController
     }
     public function get_data_type_content_items(Request $request)
     {
-        $dataType = Voyager::model('DataType')->where('slug', $request->data_type)->first();
+        $this->authorize('edit', Voyager::model('Widget'));
 
-        $dataTypeContent = app($dataType->model_name)->get();
+        // $dataTypeContent = app($dataType->model_name)->get();
 
-        return  response()->json([
-            'items' => $dataTypeContent,
-            'status' => 'success',
-        ]);
+        $search = $request->search ?? false;
+
+        $dataType = Voyager::model('DataType')->where('slug', '=', $request->data_type)->first();
+
+        $options = $dataType->details;
+
+        $search_field = $dataType->default_widget_search_key;
+
+        $model = app($dataType->model_name);
+
+        $additional_attributes = $model->additional_attributes ?? [];
+        
+        foreach ($dataType->rows as $key => $row) {
+            if ($row->field === $search_field) {
+
+                // If search query, use LIKE to filter results depending on field label
+                if ($search) {
+                    // If we are using additional_attribute as label
+                    if (in_array($search_field, $additional_attributes)) {
+                        $dataTypeContent = $model->all();
+                        $dataTypeContent = $dataTypeContent->filter(function ($model) use ($search) {
+                            return stripos($model->{$search_field}, $search) !== false;
+                        });
+                    } else {
+                        $dataTypeContent = $model->where($search_field, 'LIKE', '%'.$search.'%')->get();
+                    }
+                   
+                } else {
+                    $dataTypeContent = $model->get();
+                }
+
+                $total_count = $dataTypeContent->count();
+
+                $results = [];
+
+                if (!$search) {
+                    $results[] = [
+                        'id'   => '',
+                        'text' => __('voyager::generic.none'),
+                    ];
+                }
+
+                foreach ($dataTypeContent as $data) {
+                    $results[] = [
+                        'id'   => $data->getKey(),
+                        'text' => $data->{$search_field},
+                    ];
+                } 
+
+                return  response()->json([
+                    'results' => $results,
+                    'status' => 'success',
+                ]);
+            }
+        }
+        // No result found, return empty array
+        return response()->json([], 404);
     }
 }
     

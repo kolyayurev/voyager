@@ -29,10 +29,12 @@ class DataType extends Model
         'description',
         'generate_permissions',
         'server_side',
+        'widgetable',
         'order_column',
         'order_display_column',
         'order_direction',
         'default_search_key',
+        'default_widget_search_key',
         'scope',
         'details',
     ];
@@ -88,13 +90,18 @@ class DataType extends Model
         $this->attributes['server_side'] = $value ? 1 : 0;
     }
 
+    public function setWidgetableAttribute($value)
+    {
+        $this->attributes['widgetable'] = $value ? 1 : 0;
+    }
+
     public function updateDataType($requestData, $throw = false)
     {
         try {
             DB::beginTransaction();
 
             // Prepare data
-            foreach (['generate_permissions', 'server_side'] as $field) {
+            foreach (['generate_permissions', 'server_side','widgetable'] as $field) {
                 if (!isset($requestData[$field])) {
                     $requestData[$field] = 0;
                 }
@@ -171,7 +178,7 @@ class DataType extends Model
 
         if ($extraFields = $this->extraFields()) {
             foreach ($extraFields as $field) {
-                $fields[] = $field['Field'];
+                $fields[] = $field['field'];
             }
         }
 
@@ -222,25 +229,43 @@ class DataType extends Model
 
         $_fieldOptions = SchemaManager::describeTable(
             (strlen($this->model_name) != 0)
-            ? app($this->model_name)->getTable()
-            : $this->name
+            ? DB::getTablePrefix().app($this->model_name)->getTable()
+            : DB::getTablePrefix().$this->name
         )->toArray();
-
         $fieldOptions = [];
         $f_size = count($orderedFields);
         for ($i = 0; $i < $f_size; $i++) {
+            if(array_key_exists($orderedFields[$i],$_fieldOptions))
             $fieldOptions[$orderedFields[$i]] = $_fieldOptions[$orderedFields[$i]];
         }
         $fieldOptions = collect($fieldOptions);
 
         if ($extraFields = $this->extraFields()) {
-            foreach ($extraFields as $field) {
-                $fieldOptions[] = (object) $field;
+            foreach ($extraFields as $key => $field) {
+                $fieldOptions[$key] =  $field;
             }
         }
 
         return $fieldOptions;
     }
+
+
+    /**
+     * This function must by in model
+     * 
+     * public function adminFields():array{
+     * 
+     * return [
+     *  'meta_1' => [
+     *      "name" => "meta_1",
+     *      "type" => "varchar",
+     *      "null" => "YES",
+     *      "field" => "meta_1",
+     *      "key" => null,
+     *  ],
+     * ];
+     * }
+     */
 
     public function extraFields()
     {
@@ -294,6 +319,16 @@ class DataType extends Model
         $this->attributes['details'] = collect($this->details)->merge(['default_search_key' => $value]);
     }
 
+    public function getDefaultWidgetSearchKeyAttribute()
+    {
+        return $this->details->default_widget_search_key ?? null;
+    }
+
+    public function setDefaultWidgetSearchKeyAttribute($value)
+    {
+        $this->attributes['details'] = collect($this->details)->merge(['default_widget_search_key' => $value]);
+    }
+
     public function getOrderDirectionAttribute()
     {
         return $this->details->order_direction ?? 'desc';
@@ -312,5 +347,12 @@ class DataType extends Model
     public function setScopeAttribute($value)
     {
         $this->attributes['details'] = collect($this->details)->merge(['scope' => $value]);
+    }
+    /**
+     * Scopes
+     */
+    public function scopeWidgetable($query)
+    {
+        return $query->where('widgetable',true);
     }
 }

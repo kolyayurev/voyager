@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+const webpack = require('webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -28,6 +29,10 @@ mix.webpackConfig({
         alias: {
             // ziggy: path.resolve('../../../vendor/tightenco/ziggy/dist'),
         },
-    }
+    },
+    plugins:
+    [
+        new webpack.NormalModuleReplacementPlugin(/element-ui[\/\\]lib[\/\\]locale[\/\\]lang[\/\\]zh-CN/, 'element-ui/lib/locale/lang/ru-RU')
+    ]
 });
 
