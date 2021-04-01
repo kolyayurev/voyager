@@ -20,6 +20,7 @@ return [
     'handler'          => 'Обработчик',
     'meta_description' => 'Meta Description',
     'meta_keywords'    => 'Meta Keywords',
+    'model_class'      => 'Класс модели',
     'name'             => 'Имя',
     'number'           => 'Число',
     'options'          => 'Опции',
@@ -48,5 +49,8 @@ return [
         'others'       => 'Другие',
         'additional'   => 'Дополнительно',
         'working_hours'=> 'Рабочее время'
-    ]
+    ],
+    'hints'=> [
+        'start_typing' => 'Начните печатать'
+    ],
 ];

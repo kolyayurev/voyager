@@ -130,7 +130,7 @@ class Voyager
      * 
      * @param String $slug 
      */
-    public function widgetData($slug,$default = null)
+    public function widgetData($slug,$default = false)
     {
         $model = Voyager::model('Widget');
 

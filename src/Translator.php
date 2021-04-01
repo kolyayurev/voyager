@@ -20,7 +20,7 @@ class Translator implements ArrayAccess, JsonSerializable
         }
 
         $this->model = $model;
-        $this->locale = config('voyager.multilingual.default', 'en');
+        $this->locale = config('voyager.multilingual.default', 'ru');
         $attributes = [];
 
         foreach ($this->model->getAttributes() as $attribute => $value) {
@@ -140,7 +140,7 @@ class Translator implements ArrayAccess, JsonSerializable
     {
         $this->attributes[$attribute] = [
             'value'    => $this->model->attributes[$attribute],
-            'locale'   => config('voyager.multilingual.default', 'en'),
+            'locale'   => config('voyager.multilingual.default', 'ru'),
             'exists'   => true,
             'modified' => false,
         ];

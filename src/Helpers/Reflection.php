@@ -33,3 +33,24 @@ if (!function_exists('get_protected_property')) {
         return get_reflection_property($object, $property)->getValue($object);
     }
 }
+
+if (! function_exists('class_has_trait')) {
+    /**
+     * class_has_trait
+     *
+     * @param  mixed $class Class name
+     * @param  mixed $trait Trait name
+     * @return bool
+     */
+
+    function class_has_trait(?string $class,?string $trait):bool
+    {
+        return in_array($trait,array_keys((new \ReflectionClass($class))->getTraits()));       
+    }
+}
+if (! function_exists('model_has_states')) {
+    function model_has_widgets(?string $class):bool
+    {
+        return class_has_trait($class,\TCG\Voyager\Traits\Widgetable::class);
+    }
+}

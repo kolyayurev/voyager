@@ -84,6 +84,9 @@
                 </div>
             </div>
         </div>
+        @if ($edit)
+            @include('voyager::bread.partials.widgets')
+        @endif
     </div>
 
     <div class="modal fade modal-danger" id="confirm_delete_modal">
@@ -152,7 +155,7 @@
             });
 
             @if ($isModelTranslatable)
-                $('.side-body').multilingual({"editing": true,"vueInstances":vueFieldInstances});
+            var multilingual = $('.side-body').multilingual({"editing": true,"vueInstances":vueFieldInstances});
             @endif
 
             $('.side-body input[data-slug-origin]').each(function(i, el) {

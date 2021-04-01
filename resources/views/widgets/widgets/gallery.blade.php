@@ -47,7 +47,7 @@
     .el-form--label-top .el-form-item__label{
         padding: 0;
     }
-    .language-label{
+    .widget-form .language-label{
         display: none;
     }
     .bottom {
@@ -82,23 +82,20 @@
     .clearfix:after {
         clear: both
     }
+    .dd-empty{
+        min-height: 60px;
+    }
   </style>
 @endpush
 
 <form
     ref="form"
     role="form"
+    class="form-edit-add widget-form"
     id="widget_form_{{$dataTypeContent->getKey()}}">
 
     @method("PUT")
     @csrf
-    <div>
-        @php
-        $row = $dataTypeRows->where('field', 'name')->first();
-        @endphp
-        @include('voyager::multilingual.input-hidden-bread-edit-add')
-        <input type="hidden" name="{{$row->field}}" class="form-control"  value="{{ old($row->field, $dataTypeContent->{$row->field} ?? '') }}"/>
-    </div>
     
     @php
         $row = $dataTypeRows->where('field', 'value')->first();
@@ -213,6 +210,7 @@
             mounted(){
                 vueFieldInstances['{{$vue_instance_name}}']=this
             },
+
             methods:{
                 addItem(){
                     this.$refs.vueForm.validate((valid) => {
@@ -245,6 +243,8 @@
                     });
                 },
                 saveForm(){
+                    window.multilingual.prepareData();
+
                     var _this = this
                     let data = new FormData(this.$refs.form);
                     let url = '{{ route('voyager.'.$dataType->slug.'.moderate_update', $dataTypeContent->getKey()) }}';

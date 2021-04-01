@@ -307,6 +307,7 @@ class VoyagerBaseController extends Controller
     // POST BR(E)AD
     public function update(Request $request, $id)
     {
+
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -327,6 +328,7 @@ class VoyagerBaseController extends Controller
 
         // Check permission
         $this->authorize('edit', $data);
+
 
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->editRows, $dataType->name, $id)->validate();

@@ -474,7 +474,6 @@
         },
         watch:{
             localValue(value){
-                console.log(value,typeof(value));
                 this.hidden_element.value = Array.isArray(value)?JSON.stringify(value):value
             }
         },
@@ -831,7 +830,6 @@
             this.getFiles();
             var vm = this;
 
-            console.log(typeof(this.localValue));
             if (this.element != '') {
                 this.hidden_element = document.querySelector(this.element);
                 if (!this.hidden_element) {
@@ -847,7 +845,6 @@
                     }
                 }
             }
-            console.log(this.localValue,typeof(this.localValue));
 
             //Key events
             this.onkeydown = function(evt) {

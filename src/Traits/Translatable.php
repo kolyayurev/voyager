@@ -52,7 +52,7 @@ trait Translatable
         }
 
         if ($fallback === true) {
-            $fallback = config('app.fallback_locale', 'en');
+            $fallback = config('app.fallback_locale', 'ru');
         }
 
         $query->with(['translations' => function (Relation $query) use ($locale, $fallback) {
@@ -81,7 +81,7 @@ trait Translatable
         }
 
         if ($fallback === true) {
-            $fallback = config('app.fallback_locale', 'en');
+            $fallback = config('app.fallback_locale', 'ru');
         }
 
         $query->with(['translations' => function (Relation $query) use ($locales, $fallback) {
@@ -168,7 +168,7 @@ trait Translatable
         }
 
         if ($fallback === true) {
-            $fallback = config('app.fallback_locale', 'en');
+            $fallback = config('app.fallback_locale', 'ru');
         }
 
         $default = config('voyager.multilingual.default');
@@ -225,7 +225,7 @@ trait Translatable
             $this->load('translations');
         }
 
-        $default = config('voyager.multilingual.default', 'en');
+        $default = config('voyager.multilingual.default', 'ru');
         $locales = config('voyager.multilingual.locales', [$default]);
 
         foreach ($locales as $locale) {
@@ -358,7 +358,8 @@ trait Translatable
             $trans = json_decode($request->input($field.'_i18n'), true);
 
             // Set the default local value
-            $request->merge([$field => $trans[config('voyager.multilingual.default', 'en')]]);
+            $request->merge([$field => $trans[config('voyager.multilingual.default', 'ru')]]);
+
 
             $translations[$field] = $this->setAttributeTranslations(
                 $field,
@@ -395,7 +396,7 @@ trait Translatable
         $trans = json_decode($requestData[$field.'_i18n'], true);
 
         // Set the default local value
-        $requestData['display_name'] = $trans[config('voyager.multilingual.default', 'en')];
+        $requestData['display_name'] = $trans[config('voyager.multilingual.default', 'ru')];
 
         $translations['display_name'] = $this->setAttributeTranslations(
             'display_name',

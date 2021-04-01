@@ -33,7 +33,7 @@
         <!-- Adding / Editing -->
         @php
             $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
-            $main_rows = ['name','slug','description'];
+            $main_rows = ['name','slug','description','value'];
             $top_side_rows = ['handler','table_name','foreign_key'];
             $editor_rows   = ['details'];
             $exclude_rows = array_merge($main_rows,$top_side_rows, $editor_rows );
@@ -91,8 +91,9 @@
                                         @case('handler')
                                             <div class="form-group col-md-12 {{ $errors->has($row->field) ? 'has-error' : '' }}" >
                                                 <label class="control-label" for="handler">{{ $row->getTranslatedAttribute('display_name') }}</label>
+                                                <input type="hidden"  v-model="handler" name="handler">
                 
-                                                <el-select style="width: 100%" v-model="handler" name="handler">
+                                                <el-select style="width: 100%" v-model="handler" >
                                                     @foreach(Voyager::widgetHandlers() as $widget)
                                                     <el-option
                                                       label="{{$widget->getName()}}"
@@ -111,8 +112,9 @@
                                         @case('table_name')
                                             <div class="form-group col-md-12 {{ $errors->has($row->field) ? 'has-error' : '' }}" >
                                                 <label class="control-label" for="table_name">{{ $row->getTranslatedAttribute('display_name') }}</label>
+                                                <input type="hidden"  v-model="table_name" name="table_name">
                 
-                                                <el-select style="width: 100%" v-model="table_name" name="table_name">
+                                                <el-select style="width: 100%" v-model="table_name" @change="handleDataTypeChange">
                                                     <el-option
                                                       v-for="type in dataTypes"
                                                       :key="type.id"
@@ -131,15 +133,15 @@
                                         @case('foreign_key')
                                             <div class="form-group col-md-12 {{ $errors->has($row->field) ? 'has-error' : '' }}" >
                                                 <label class="control-label" for="foreign_key">{{ $row->getTranslatedAttribute('display_name') }}</label>
-                
+                                                <input type="hidden"  v-model="foreign_key" name="foreign_key">
                                                 <el-select
                                                         style="width: 100%"
                                                         v-model="foreign_key"
-                                                        name="foreign_key"
-                                                        multiple
                                                         filterable
                                                         remote
+                                                        clearable
                                                         reserve-keyword
+                                                        placeholder="@lang('voyager::fields.hints.start_typing')"
                                                         :remote-method="getDataTypeContent"
                                                         :loading="prLoading">
                                                     <el-option
@@ -170,7 +172,7 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">{{ __('voyager::fields.editor') }}</h3>
                                 <div class="panel-actions">
-                                    <a class="panel-action voyager-angle-up" data-toggle="panel-collapse" aria-hidden="true"></a>
+                                    <a class="panel-action panel-collapsed voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
                                 </div>
                             </div>
                             <div class="panel-body" style="display:none;">
@@ -273,26 +275,27 @@
                 foreign_key: {!!  printString($dataTypeContent->foreign_key) !!},
             }
         },
+        mounted(){
+            this.getDataTypeContent('')
+        },
         methods:{
             getDataTypeContent(query){
                 var _this = this
-                if (query !== '') {
-                    let data = new FormData();
-                    data.append('data_type',_this.table_name);
-                    data.append('search',query);
+                let data = new FormData();
+                data.append('data_type',_this.table_name);
+                data.append('search',query);
 
-                    let url = '{{ route('voyager.widgets.get_data_type_content_items') }}';
+                let url = '{{ route('voyager.widgets.get_data_type_content_items') }}';
 
-                    _this.baseAxios(url, data, function (response) {
-                        _this.dataTypeContent = response.data.results;
-                    },
-                    function (response) {
-                        _this.warningMsg(response.data.message);
-                    });
-                } else {
-                    this.dataTypeContent = [];
-                }
-               
+                _this.baseAxios(url, data, function (response) {
+                    _this.dataTypeContent = response.data.results;
+                },
+                function (response) {
+                    _this.warningMsg(response.data.message);
+                });
+            },
+            handleDataTypeChange(){
+                this.getDataTypeContent('')
             },
             getDataTypeSearchField(){
                 return this.dataTypes.find(item => item.name === this.table_name ).details.default_widget_search_key;

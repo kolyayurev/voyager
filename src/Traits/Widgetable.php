@@ -29,7 +29,7 @@ trait Widgetable
     public function widgets()
     {
         return $this->hasMany(Voyager::model('Widget'), 'foreign_key', $this->getKeyName())
-            ->where('table_name', $this->getTable());
+            ->where('table_name', $this->getTable())->whereNotNull('handler');
     }
 
     /**

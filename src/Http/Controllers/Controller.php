@@ -49,13 +49,15 @@ abstract class Controller extends BaseController
         // Pass $rows so that we avoid checking unused fields
         $request->attributes->add(['breadRows' => $rows->pluck('field')->toArray()]);
 
+
         /*
          * Prepare Translations and Transform data
          */
         $translations = is_bread_translatable($data)
                         ? $data->prepareTranslations($request)
                         : [];
-
+        
+        
         foreach ($rows as $row) {
             // if the field for this row is absent from the request, continue
             // checkboxes will be absent when unchecked, thus they are the exception
@@ -73,6 +75,8 @@ abstract class Controller extends BaseController
             }
 
             $content = $this->getContentBasedOnType($request, $slug, $row, $row->details);
+
+          
 
             if ($row->type == 'relationship' && $row->details->type != 'belongsToMany') {
                 $row->field = @$row->details->column;
@@ -138,7 +142,6 @@ abstract class Controller extends BaseController
                 }
             }
         }
-
         $data->save();
 
         // Save translations

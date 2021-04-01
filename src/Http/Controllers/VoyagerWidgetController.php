@@ -35,55 +35,49 @@ class VoyagerWidgetController extends VoyagerBaseController
         // Check permission
         $this->authorize('moderate', Voyager::model('Widget'));
 
-        $dataTypeContent = Voyager::model('Widget')->findOrFail($id);
+        try {
 
-        $data = $dataTypeContent->makeHidden('value')->toArray();
-        $handler = Voyager::widgetHandler($dataTypeContent->handler);
+            $slug = $this->getSlug($request);
 
-        $request->merge($data);
-        $request->merge(['value' => $handler->handleValue($request->value)]);
+            $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
-        $slug = $this->getSlug($request);
+            // Compatibility with Model binding.
+            $id = $id instanceof \Illuminate\Database\Eloquent\Model ? $id->{$id->getKeyName()} : $id;
 
-        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
+            $model = app($dataType->model_name);
+            if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope'.ucfirst($dataType->scope))) {
+                $model = $model->{$dataType->scope}();
+            }
+            if ($model && in_array(SoftDeletes::class, class_uses_recursive($model))) {
+                $data = $model->withTrashed()->findOrFail($id);
+            } else {
+                $data = $model->findOrFail($id);
+            }
+            $handler = Voyager::widgetHandler($data->handler);
 
-        // Compatibility with Model binding.
-        $id = $id instanceof \Illuminate\Database\Eloquent\Model ? $id->{$id->getKeyName()} : $id;
+            $request->merge(['value' => $handler->handleValue($request->value)]);
 
-        $model = app($dataType->model_name);
-        if ($dataType->scope && $dataType->scope != '' && method_exists($model, 'scope'.ucfirst($dataType->scope))) {
-            $model = $model->{$dataType->scope}();
-        }
-        if ($model && in_array(SoftDeletes::class, class_uses_recursive($model))) {
-            $data = $model->withTrashed()->findOrFail($id);
-        } else {
-            $data = $model->findOrFail($id);
-        }
+            $rows = $dataType->rows->filter(function ($value) {
+                return in_array($value->field,['value']) ;
+            });
+            // Validate fields with ajax
+            $val = $this->validateBread($request->all(), $rows, $dataType->name, $id)->validate();
+            $this->insertUpdateData($request, $slug,$rows, $data);
 
-        // Validate fields with ajax
-        $val = $this->validateBread($request->all(), $dataType->rows, $dataType->name, $id)->validate();
-        $this->insertUpdateData($request, $slug, $dataType->rows, $data);
 
-        event(new BreadDataUpdated($dataType, $data));
+            event(new BreadDataUpdated($dataType, $data));
 
-        // if(!$request->has('from_model'))
-        // {
-        //     if (auth()->user()->can('browse', app($dataType->model_name))) {
-        //         $redirect = redirect()->route("voyager.{$dataType->slug}.index");
-        //     } else {
-        //         $redirect = redirect()->back();
-        //     }
-
-        //     return $redirect->with([
-        //         'message'    => __('voyager::generic.successfully_updated')." {$dataType->getTranslatedAttribute('display_name_singular')}",
-        //         'alert-type' => 'success',
-        //     ]);
-        // }
-
-        return  response()->json([
-                'message'    => __('voyager::generic.successfully_updated')." {$dataType->getTranslatedAttribute('display_name_singular')}",
-                'status' => 'success',
+            return  response()->json([
+                    'message'    => __('voyager::generic.successfully_updated'),
+                    'status' => 'success',
+            ]);
+        } catch (\Throwable $th) {
+            return  response()->json([
+                'message'    =>  $th->getMessage(),
+                'status' => 'error',
         ]);
+        }
+        
 
     }
     public function get_data_type_content_items(Request $request)
@@ -96,59 +90,63 @@ class VoyagerWidgetController extends VoyagerBaseController
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $request->data_type)->first();
 
-        $options = $dataType->details;
+        $results = [];
+        if(!empty($dataType))
+        {
+            $options = $dataType->details;
 
-        $search_field = $dataType->default_widget_search_key;
+            $search_field = $dataType->default_widget_search_key;
 
-        $model = app($dataType->model_name);
+            $model = app($dataType->model_name);
 
-        $additional_attributes = $model->additional_attributes ?? [];
-        
-        foreach ($dataType->rows as $key => $row) {
-            if ($row->field === $search_field) {
+            $additional_attributes = $model->additional_attributes ?? [];
+            
+            foreach ($dataType->rows as $key => $row) {
+                if ($row->field === $search_field) {
 
-                // If search query, use LIKE to filter results depending on field label
-                if ($search) {
-                    // If we are using additional_attribute as label
-                    if (in_array($search_field, $additional_attributes)) {
-                        $dataTypeContent = $model->all();
-                        $dataTypeContent = $dataTypeContent->filter(function ($model) use ($search) {
-                            return stripos($model->{$search_field}, $search) !== false;
-                        });
+                    // If search query, use LIKE to filter results depending on field label
+                    if ($search) {
+                        // If we are using additional_attribute as label
+                        if (in_array($search_field, $additional_attributes)) {
+                            $dataTypeContent = $model->all();
+                            $dataTypeContent = $dataTypeContent->filter(function ($model) use ($search) {
+                                return stripos($model->{$search_field}, $search) !== false;
+                            });
+                        } else {
+                            $dataTypeContent = $model->where($search_field, 'LIKE', '%'.$search.'%')->get();
+                        }
+                    
                     } else {
-                        $dataTypeContent = $model->where($search_field, 'LIKE', '%'.$search.'%')->get();
+                        $dataTypeContent = $model->get();
                     }
-                   
-                } else {
-                    $dataTypeContent = $model->get();
+
+                    $total_count = $dataTypeContent->count();
+
+                    
+
+                    if (!$search) {
+                        $results[] = [
+                            'id'   => '',
+                            'text' => __('voyager::generic.none'),
+                        ];
+                    }
+
+                    foreach ($dataTypeContent as $data) {
+                        $results[] = [
+                            'id'   => $data->getKey(),
+                            $search_field => $data->{$search_field},
+                        ];
+                    } 
+
+                    
                 }
-
-                $total_count = $dataTypeContent->count();
-
-                $results = [];
-
-                if (!$search) {
-                    $results[] = [
-                        'id'   => '',
-                        'text' => __('voyager::generic.none'),
-                    ];
-                }
-
-                foreach ($dataTypeContent as $data) {
-                    $results[] = [
-                        'id'   => $data->getKey(),
-                        'text' => $data->{$search_field},
-                    ];
-                } 
-
-                return  response()->json([
-                    'results' => $results,
-                    'status' => 'success',
-                ]);
             }
         }
-        // No result found, return empty array
-        return response()->json([], 404);
+
+        return  response()->json([
+            'results' => $results,
+            'status' => 'success',
+        ]);
     }
 }
     

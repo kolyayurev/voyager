@@ -56,6 +56,7 @@
 
             this.setup();
             this.refresh();
+            window.multilingual =  this;
         },
 
 
@@ -78,6 +79,7 @@
              */
             if (this.settings.editing) {
                 $(this.form).on('submit', function(e) {
+                    console.log(e,'submit')
                     _this.prepareData();
                 });
             }
@@ -254,5 +256,5 @@
             }
         } );
     };
-
+  
 } )( jQuery, window, document );

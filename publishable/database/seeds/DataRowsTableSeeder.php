@@ -464,6 +464,11 @@ class DataRowsTableSeeder extends Seeder
                 'add'          => 1,
                 'delete'       => 1,
                 'order'        => 2,
+                'details'      => [
+                    'validation' => [
+                        'rule'  => 'required|max:255',
+                    ],
+                ],
             ])->save();
         }
         $dataRow = $this->dataRow($widgetDataType, 'slug');
@@ -500,6 +505,11 @@ class DataRowsTableSeeder extends Seeder
                 'add'          => 1,
                 'delete'       => 1,
                 'order'        => 4,
+                'details'      => [
+                    'validation' => [
+                        'rule'  => 'required',
+                    ],
+                ],
             ])->save();
         }
         $dataRow = $this->dataRow($widgetDataType, 'description');
@@ -564,12 +574,12 @@ class DataRowsTableSeeder extends Seeder
         $dataRow = $this->dataRow($widgetDataType, 'value');
         if (!$dataRow->exists) {
             $dataRow->fill([
-                'type'         => 'text',
+                'type'         => 'hidden',
                 'display_name' => __('voyager::seeders.data_rows.value'),
                 'required'     => 0,
                 'browse'       => 0,
                 'read'         => 0,
-                'edit'         => 0,
+                'edit'         => 1,
                 'add'          => 0,
                 'delete'       => 0,
                 'order'        => 9,

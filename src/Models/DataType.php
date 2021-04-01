@@ -349,6 +349,13 @@ class DataType extends Model
         $this->attributes['details'] = collect($this->details)->merge(['scope' => $value]);
     }
     /**
+     * checks
+     */
+    public function isWidgetable()
+    {
+        return $this->widgetable == true ? true :false;
+    }
+    /**
      * Scopes
      */
     public function scopeWidgetable($query)
