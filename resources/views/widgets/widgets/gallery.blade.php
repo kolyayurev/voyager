@@ -173,7 +173,7 @@
         <el-button type="success" icon="el-icon-check" @click="saveItem" v-if="isEdit">@lang('voyager::generic.save')</el-button>
     </el-form>
     <div class="panel-footer">
-        <el-button type="primary" @click.prevent="saveForm" >@lang('voyager::generic.save')</el-button>
+        <el-button type="primary" @click.prevent="saveForm" :loading="prLoading">@lang('voyager::generic.save')</el-button>
     </div>
 </form>
 
