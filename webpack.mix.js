@@ -30,8 +30,8 @@ if (mix.inProduction()) {
 }
 else{
     mix
-        .sass('resources/assets/sass/app.scss', 'publishable/assets/css/app-dev.scss', { implementation: require('node-sass') })
-        .sass('resources/assets/sass/front.scss', 'publishable/assets/css/front-dev.scss', { implementation: require('node-sass') })
+        .sass('resources/assets/sass/app.scss', 'publishable/assets/css/app-dev.css', { implementation: require('node-sass') })
+        .sass('resources/assets/sass/front.scss', 'publishable/assets/css/front-dev.css', { implementation: require('node-sass') })
         .js('resources/assets/js/app.js', 'publishable/assets/js/app-dev.js')
 }
 
