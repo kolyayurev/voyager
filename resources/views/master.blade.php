@@ -20,7 +20,7 @@
 
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ voyager_asset(config('app.debug')?'css/app-dev.css':'css/app.css') }}">
     <link rel="stylesheet" href="{{ voyager_asset('css/element-ui.css') }}">
 
     @yield('css')
@@ -123,8 +123,7 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
 
 <!-- Javascript Libs -->
 
-
-<script type="text/javascript" src="{{ voyager_asset('js/app.js') }}"></script>
+<script type="text/javascript" src="{{ voyager_asset(config('app.debug')?'js/app-dev.js':'js/app.js') }}"></script>
 
 <script>
     @if(Session::has('alerts'))
