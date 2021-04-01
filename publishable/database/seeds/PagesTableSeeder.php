@@ -28,6 +28,7 @@ class PagesTableSeeder extends Seeder
                 'model_name'            => 'TCG\\Voyager\\Models\\Page',
                 'controller'            => '',
                 'generate_permissions'  => 1,
+                'widgetable'            => 1,
                 'description'           => '',
             ])->save();
         }
