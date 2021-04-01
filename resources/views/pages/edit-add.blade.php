@@ -206,7 +206,9 @@
             <input type="hidden" name="type_slug" id="type_slug" value="{{ $dataType->slug }}">
             {{ csrf_field() }}
         </form>
-
+        @if ($edit)
+            @include('voyager::bread.partials.widgets')
+        @endif
     </div>
 
     <div class="modal fade modal-danger" id="confirm_delete_modal">

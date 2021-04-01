@@ -126,6 +126,9 @@
             <input name="image" id="upload_file" type="file" onchange="$('#my_form').submit();this.value='';">
             <input type="hidden" name="type_slug" id="type_slug" value="{{ $dataType->slug }}">
         </form>
+        @if ($edit)
+            @include('voyager::bread.partials.widgets')
+        @endif
     </div>
 @stop
 
