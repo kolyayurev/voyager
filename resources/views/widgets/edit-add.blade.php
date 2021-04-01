@@ -114,7 +114,7 @@
                                                 <label class="control-label" for="table_name">{{ $row->getTranslatedAttribute('display_name') }}</label>
                                                 <input type="hidden"  v-model="table_name" name="table_name">
                 
-                                                <el-select style="width: 100%" v-model="table_name" @change="handleDataTypeChange">
+                                                <el-select style="width: 100%" v-model="table_name" clearable @change="handleDataTypeChange">
                                                     <el-option
                                                       v-for="type in dataTypes"
                                                       :key="type.id"
