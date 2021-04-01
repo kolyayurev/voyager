@@ -91,9 +91,8 @@
 <form
     ref="form"
     role="form"
-    class="form-edit-add widget-form"
-    id="widget_form_{{$dataTypeContent->getKey()}}">
-
+    class="form-edit-add widget-form"  {{--  important --}}
+    id="widget_form_{{$dataTypeContent->getKey()}}"> {{--  important --}}
     @method("PUT")
     @csrf
     
@@ -181,8 +180,8 @@
 
 @push('vue')
     <script>
-        var {{$vue_instance_name}} = new Vue({
-            el:'#widget_form_{{$dataTypeContent->getKey()}}',
+        var {{$vue_instance_name}} = new Vue({ // important
+            el:'#widget_form_{{$dataTypeContent->getKey()}}', // important
             data(){
                 return {
                     model:{
@@ -243,7 +242,7 @@
                     });
                 },
                 saveForm(){
-                    window.multilingual.prepareData();
+                    window.multilingual.prepareData(); // important
 
                     var _this = this
                     let data = new FormData(this.$refs.form);
@@ -267,7 +266,8 @@
                 printObject(obj){
                     return JSON.stringify(obj);
                 },
-                updateLocaleData(items){
+                // important
+                updateLocaleData(items){ 
                     this.items = this.isJsonValid(items)?JSON.parse(items):(items?items:[])
                 },
                 storageLink(url){

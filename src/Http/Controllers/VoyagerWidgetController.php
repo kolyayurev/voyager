@@ -57,9 +57,7 @@ class VoyagerWidgetController extends VoyagerBaseController
 
             $request->merge(['value' => $handler->handleValue($request->value)]);
 
-            $rows = $dataType->rows->filter(function ($value) {
-                return in_array($value->field,['value']) ;
-            });
+            $rows = $dataType->rows()->where('field','value')->get();
             // Validate fields with ajax
             $val = $this->validateBread($request->all(), $rows, $dataType->name, $id)->validate();
             $this->insertUpdateData($request, $slug,$rows, $data);

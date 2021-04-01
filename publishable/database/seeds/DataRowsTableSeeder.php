@@ -579,7 +579,7 @@ class DataRowsTableSeeder extends Seeder
                 'required'     => 0,
                 'browse'       => 0,
                 'read'         => 0,
-                'edit'         => 1,
+                'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
                 'order'        => 9,
