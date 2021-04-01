@@ -127,7 +127,7 @@ class VoyagerWidgetController extends VoyagerBaseController
                     if (!$search) {
                         $results[] = [
                             'id'   => '',
-                            'text' => __('voyager::generic.none'),
+                            $search_field => __('voyager::generic.none'),
                         ];
                     }
 
