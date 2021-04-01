@@ -242,7 +242,9 @@
                     });
                 },
                 saveForm(){
-                    window.multilingual.prepareData(); // important
+                    @if(is_bread_translatable($dataTypeContent))
+                        window.multilingual.prepareData(); // important
+                    @endif
 
                     var _this = this
                     let data = new FormData(this.$refs.form);
