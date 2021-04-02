@@ -877,16 +877,24 @@ body {
           align-items: center;
   border-radius: .2vw;
   padding: .2vw .7vw;
+  font-family: 'Raleway';
   font-size: .7vw;
+  font-weight: bold;
   line-height: .7vw;
   text-align: center;
   color: black;
   white-space: nowrap;
   cursor: pointer;
+  background-color: white;
 }
 
 .admin-controls a.-light, .admin-controls button.-light, .admin-controls .admin-controls__button.-light {
   background-color: white;
+}
+
+.admin-controls a.-edit, .admin-controls button.-edit, .admin-controls .admin-controls__button.-edit {
+  color: white;
+  background-color: #33a436;
 }
 
 .admin-controls a:active, .admin-controls a:hover, .admin-controls button:active, .admin-controls button:hover, .admin-controls .admin-controls__button:active, .admin-controls .admin-controls__button:hover {

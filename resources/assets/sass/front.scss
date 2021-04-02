@@ -16,16 +16,23 @@ body{
         align-items: center;
         border-radius: .2vw;
         padding: .2vw .7vw;
+        font-family: 'Raleway';
         font-size: .7vw;
+        font-weight: bold;
         line-height: .7vw;
         text-align: center;
         color: black;
         white-space: nowrap;
         cursor: pointer;
+        background-color: white;
         // transition: all 1s ease;
 
         &.-light{
             background-color: white;
+        }
+        &.-edit{
+            color: white;
+            background-color: #33a436;
         }
         &:active,&:hover{
             transition: all 1s ease;
