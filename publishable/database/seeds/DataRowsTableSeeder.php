@@ -113,7 +113,7 @@ class DataRowsTableSeeder extends Seeder
             $dataRow->fill([
                 'type'         => 'text',
                 'display_name' => __('voyager::seeders.data_rows.table_name'),
-                'required'     => 1,
+                'required'     => 0,
                 'browse'       => 1,
                 'read'         => 1,
                 'edit'         => 1,
