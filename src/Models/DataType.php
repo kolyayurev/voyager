@@ -232,10 +232,12 @@ class DataType extends Model
             ? DB::getTablePrefix().app($this->model_name)->getTable()
             : DB::getTablePrefix().$this->name
         )->toArray();
+        // dump($_fieldOptions,$orderedFields);
+        
         $fieldOptions = [];
         $f_size = count($orderedFields);
         for ($i = 0; $i < $f_size; $i++) {
-            if(array_key_exists($orderedFields[$i],$_fieldOptions))
+            // if(array_key_exists($orderedFields[$i],$_fieldOptions))
             $fieldOptions[$orderedFields[$i]] = $_fieldOptions[$orderedFields[$i]];
         }
         $fieldOptions = collect($fieldOptions);
@@ -245,7 +247,6 @@ class DataType extends Model
                 $fieldOptions[$key] =  $field;
             }
         }
-
         return $fieldOptions;
     }
 
