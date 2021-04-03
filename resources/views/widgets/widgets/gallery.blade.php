@@ -9,7 +9,7 @@
      *     default: String,  
      *  },
      *  description: {},
-     *  image: {},
+     *  url: {},
      * }
      *  
      */
@@ -19,7 +19,7 @@
 
     $title =  isset($options->title)?$options->title:new stdClass();
     $description =  isset($options->description)?$options->description:new stdClass();
-    $image =  isset($options->image)?$options->image:new stdClass();
+    $url =  isset($options->url)?$options->url:new stdClass();
 @endphp
 
 @php
@@ -138,7 +138,7 @@
             <el-input type="textarea" :rows="2" v-model="model.description" placeholder="{{ $description->placeholder??__('voyager::fields.description') }}"> </el-input>
         </el-form-item>
        
-        <el-form-item label="{{ $image->title??__('voyager::fields.image')}}" prop="url">
+        <el-form-item label="{{ $url->title??__('voyager::fields.image')}}" prop="url">
             <media-manager
                 ref="mediaManager"
                 base-path="{{ $manager_options->base_path ?? '/'.$dataType->slug.'/'. $dataTypeContent->getKey()}}"
@@ -185,7 +185,7 @@
                     model:{
                         title: {!! printString($title->default??'') !!},
                         description: {!! printString($description->default??'') !!},
-                        url: {!! printString($image->default??'') !!}
+                        url: {!! printString($url->default??'') !!}
                     },
                     rules: {
                         title: [
@@ -259,9 +259,10 @@
                     this.items.splice(key, 1);
                 },
                 clearForm(){
-                    for (var key in this.model) {
-                        this.model[key] = '';
-                    }
+                    this.model.title = {!! printString($title->default??'') !!};
+                    this.model.description = {!! printString($description->default??'') !!};
+                    this.model.url = {!! printString($url->default??'') !!};
+                    
                 },
                 printObject(obj){
                     return JSON.stringify(obj);
