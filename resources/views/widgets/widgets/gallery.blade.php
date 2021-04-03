@@ -30,7 +30,9 @@
 
 <style>
     .el-card{
+        min-width: 300px;
         max-width: 400px;
+        margin-right: .5rem;
     }
     .el-form{
         margin-top: .5rem;
@@ -83,6 +85,10 @@
     .dd-empty{
         min-height: 60px;
     }
+    .widget-gallery{
+        display: flex;
+        overflow-x : auto;
+    }
   </style>
 @endpush
 
@@ -100,22 +106,20 @@
     @endphp
     @include('voyager::multilingual.input-hidden-bread-edit-add')
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
-    <el-carousel :autoplay="false" type="card" v-if="items.length" trigger="click">
-        <el-carousel-item v-for="(item, key) in items" :key="key" >
-            <el-card :body-style="{ padding: '0px'}" >
-                <div class="image-box">
-                    <img :src="storageLink(item.url)" class="image">
+    <draggable class="widget-gallery" v-if="items.length"v-model="items">
+        <el-card :body-style="{ padding: '0px'}" v-for="(item, key) in items" :key="key">
+            <div class="image-box">
+                <img :src="storageLink(item.url)" class="image">
+            </div>
+            <div style="padding: 14px;">
+                <span>@{{ item.title }}</span>
+                <div class="bottom clearfix">
+                <el-button type="primary" icon="el-icon-edit"  @click="editItem(key)" ></el-button>
+                <el-button type="danger" icon="el-icon-delete" @click="deleteItem(key)" ></el-button>
                 </div>
-                <div style="padding: 14px;">
-                  <span>@{{ item.title }}</span>
-                  <div class="bottom clearfix">
-                    <el-button type="primary" icon="el-icon-edit"  @click="editItem(key)" ></el-button>
-                    <el-button type="danger" icon="el-icon-delete" @click="deleteItem(key)" ></el-button>
-                  </div>
-                </div>
-            </el-card>
-        </el-carousel-item>
-    </el-carousel>
+            </div>
+        </el-card>
+    </draggable>
     <el-alert
         v-else
         title="@lang('voyager::widgets.messages.empty_data')"
