@@ -3,25 +3,23 @@
     /**
      * $options = {
      * media_manager:{ ... },
-     * field_titles:{
-     *  title: String,
-     *  description: String,
-     *  image: String,
-     * },
+     *  title: {
+     *     title: String,
+     *     placeholder: String, 
+     *     default: String,  
+     *  },
+     *  description: {},
+     *  image: {},
      * }
      *  
      */
 @endphp
 @php
-    $manager_options = isset($options->media_manager)?$options->media_manager:new class{};
-    $field_titles = isset($options->field_titles)?$options->field_titles:null;
-    if(!empty($field_titles))
-    {
-        $title =  isset($field_titles->title)?$field_titles->title:null;
-        $description =  isset($field_titles->description)?$field_titles->description:null;
-        $image =  isset($field_titles->image)?$field_titles->image:null;
-    }
-   
+    $manager_options = isset($options->media_manager)?$options->media_manager:new stdClass();
+
+    $title =  isset($options->title)?$options->title:new stdClass();
+    $description =  isset($options->description)?$options->description:new stdClass();
+    $image =  isset($options->image)?$options->image:new stdClass();
 @endphp
 
 @php
@@ -133,14 +131,14 @@
         label-position="top">
         <el-divider>@lang('voyager::widgets.messages.add_new_item')</el-divider>
 
-        <el-form-item label="{{ $title??__('voyager::fields.title')}}" prop="title">
-            <el-input type="text" v-model="model.title" placeholder="@lang('voyager::fields.title')"> </el-input>
+        <el-form-item label="{{ $title->title??__('voyager::fields.title')}}" prop="title">
+            <el-input type="text" v-model="model.title" placeholder="{{ $title->placeholder??__('voyager::fields.title') }}"> </el-input>
         </el-form-item>
-        <el-form-item label="{{ $description??__('voyager::fields.description')}}" prop="description">
-            <el-input type="textarea" :rows="2" v-model="model.description" placeholder="@lang('voyager::fields.description')"> </el-input>
+        <el-form-item label="{{ $description->title??__('voyager::fields.description')}}" prop="description">
+            <el-input type="textarea" :rows="2" v-model="model.description" placeholder="{{ $description->placeholder??__('voyager::fields.description') }}"> </el-input>
         </el-form-item>
        
-        <el-form-item label="{{ $image??__('voyager::fields.image')}}" prop="url">
+        <el-form-item label="{{ $image->title??__('voyager::fields.image')}}" prop="url">
             <media-manager
                 ref="mediaManager"
                 base-path="{{ $manager_options->base_path ?? '/'.$dataType->slug.'/'. $dataTypeContent->getKey()}}"
@@ -185,9 +183,9 @@
             data(){
                 return {
                     model:{
-                        title: '',
-                        description: '',
-                        url: ''
+                        title: {!! printString($title->default??'') !!},
+                        description: {!! printString($description->default??'') !!},
+                        url: {!! printString($image->default??'') !!}
                     },
                     rules: {
                         title: [
