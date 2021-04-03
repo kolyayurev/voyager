@@ -25,8 +25,11 @@ body{
         white-space: nowrap;
         cursor: pointer;
         background-color: white;
+        
         // transition: all 1s ease;
-
+        &:not(:last-child){
+            margin-right: .5rem;
+        }
         &.-light{
             background-color: white;
         }

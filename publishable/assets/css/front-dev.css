@@ -888,6 +888,10 @@ body {
   background-color: white;
 }
 
+.admin-controls a:not(:last-child), .admin-controls button:not(:last-child), .admin-controls .admin-controls__button:not(:last-child) {
+  margin-right: .5rem;
+}
+
 .admin-controls a.-light, .admin-controls button.-light, .admin-controls .admin-controls__button.-light {
   background-color: white;
 }
