@@ -4,6 +4,7 @@ return [
     'field_password_keep'          => 'Оставьте пустым, если не хотите менять пароль',
     'field_select_dd_relationship' => 'Обязательно настройте соответствующие отношения (relationship) в методе :method класса :class.',
     'type_checkbox'                => 'Флажок',
+    'type_multiple_checkbox'       => 'Множественный флажок',
     'type_codeeditor'              => 'Редактор кода',
     'type_file'                    => 'Файл',
     'type_image'                   => 'Изображение',

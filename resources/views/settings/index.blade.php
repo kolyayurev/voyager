@@ -333,7 +333,35 @@
                                         @else
                                             <input type="checkbox" name="{{ $setting->key }}" @if($checked) checked @endif class="toggleswitch">
                                         @endif
+                                    @elseif($setting->type == "multiple_checkbox")
+                                        <br>
+                                        @php
+                                            $checked = false;
+                                            $options = json_decode($setting->details);
+                                        @endphp
+                                        
+                                        @if(isset($options->options))
+                                            @php
+                                                $checkedData = $setting->value;
+                                                $checkedData = is_array($checkedData) ? $checkedData : json_decode($checkedData, true);
+                                            @endphp
+                                            @foreach($options->options as $key => $label)
+                                                @if(!empty($checkedData))
+                                                    @php
+                                                        $checked = in_array($key, $checkedData);
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $checked = isset($options->checked) && $options->checked ? true : false;
+                                                    @endphp
+                                                @endif
+
+                                                <input type="checkbox" name="{{ $setting->key }}[{{$key}}]" {!! $checked ? 'checked="checked"' : '' !!} value="{{$key}}" id="{{$key}}"/>
+                                                <label for="{{$key}}">{{$label}}</label>
+                                            @endforeach
+                                        @endif
                                     @endif
+
                                 </div>
                                 <div class="col-md-2 no-padding-left-right">
                                     <select class="form-control group_select" name="{{ $setting->key }}_group">
@@ -385,6 +413,7 @@
                             <option value="rich_text_box">{{ __('voyager::form.type_richtextbox') }}</option>
                             <option value="code_editor">{{ __('voyager::form.type_codeeditor') }}</option>
                             <option value="checkbox">{{ __('voyager::form.type_checkbox') }}</option>
+                            <option value="multiple_checkbox">{{ __('voyager::form.type_multiple_checkbox') }}</option>
                             <option value="radio_btn">{{ __('voyager::form.type_radiobutton') }}</option>
                             <option value="select_dropdown">{{ __('voyager::form.type_selectdropdown') }}</option>
                             <option value="file">{{ __('voyager::form.type_file') }}</option>
