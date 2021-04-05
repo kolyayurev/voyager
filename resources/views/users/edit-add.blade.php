@@ -1,5 +1,10 @@
 @extends('voyager::master')
 
+@php
+    $edit = !is_null($dataTypeContent->getKey());
+    $add  = is_null($dataTypeContent->getKey());
+@endphp
+
 @section('page_title', __('voyager::generic.'.(isset($dataTypeContent->id) ? 'edit' : 'add')).' '.$dataType->getTranslatedAttribute('display_name_singular'))
 
 @section('css')
