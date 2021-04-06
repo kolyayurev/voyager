@@ -1,4 +1,5 @@
- <!-- GET THE DISPLAY OPTIONS -->
+// TODO: rename to edit-add-row
+<!-- GET THE DISPLAY OPTIONS -->
  @php
     $display_options = $row->details->display ?? NULL;
     if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
