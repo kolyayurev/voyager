@@ -245,10 +245,24 @@
                         @foreach($settings as $group => $group_settings)
                         <div id="{{ \Illuminate\Support\Str::slug($group) }}" class="tab-pane fade in @if($group == $active) active @endif">
                             @foreach($group_settings as $setting)
+                            @php
+                                $options = json_decode($setting->details);
+                            @endphp
                             <div class="panel-heading">
+                                
                                 <h3 class="panel-title">
-                                    {{ $setting->display_name }} @if(config('voyager.show_dev_tips'))<code>setting('{{ $setting->key }}')</code>@endif
+                                    {{ $setting->display_name }} 
+                                    @if (isset($options->hint) )
+                                    <span class="voyager-question"
+                                        aria-hidden="true"
+                                        data-toggle="tooltip"
+                                        data-placement="right"
+                                        title="{{ $options->hint }}"></span>
+                                    @endif
+                                    @if(config('voyager.show_dev_tips'))<code>setting('{{ $setting->key }}')</code>@endif
+                                    
                                 </h3>
+                                
                                 <div class="panel-actions">
                                     <a href="{{ route('voyager.settings.move_up', $setting->id) }}">
                                         <i class="sort-icons voyager-sort-asc"></i>
@@ -274,7 +288,7 @@
                                     @elseif($setting->type == "rich_text_box")
                                         <textarea class="form-control richTextBox" name="{{ $setting->key }}">{{ $setting->value ?? '' }}</textarea>
                                     @elseif($setting->type == "code_editor")
-                                        <?php $options = json_decode($setting->details); ?>
+                                        
                                         <div id="{{ $setting->key }}" data-theme="{{ @$options->theme }}" data-language="{{ @$options->language }}" class="ace_editor min_height_400" name="{{ $setting->key }}">{{ $setting->value ?? '' }}</div>
                                         <textarea name="{{ $setting->key }}" id="{{ $setting->key }}_textarea" class="hidden">{{ $setting->value ?? '' }}</textarea>
                                     @elseif($setting->type == "image" || $setting->type == "file")
@@ -298,7 +312,6 @@
                                         @endif
                                         <input type="file" name="{{ $setting->key }}">
                                     @elseif($setting->type == "select_dropdown")
-                                        <?php $options = json_decode($setting->details); ?>
                                         <?php $selected_value = (isset($setting->value) && !empty($setting->value)) ? $setting->value : NULL; ?>
                                         <select class="form-control" name="{{ $setting->key }}">
                                             <?php $default = (isset($options->default)) ? $options->default : NULL; ?>
@@ -310,7 +323,6 @@
                                         </select>
 
                                     @elseif($setting->type == "radio_btn")
-                                        <?php $options = json_decode($setting->details); ?>
                                         <?php $selected_value = (isset($setting->value) && !empty($setting->value)) ? $setting->value : NULL; ?>
                                         <?php $default = (isset($options->default)) ? $options->default : NULL; ?>
                                         <ul class="radio">
@@ -326,7 +338,6 @@
                                             @endif
                                         </ul>
                                     @elseif($setting->type == "checkbox")
-                                        <?php $options = json_decode($setting->details); ?>
                                         <?php $checked = (isset($setting->value) && $setting->value == 1) ? true : false; ?>
                                         @if (isset($options->on) && isset($options->off))
                                             <input type="checkbox" name="{{ $setting->key }}" class="toggleswitch" @if($checked) checked @endif data-on="{{ $options->on }}" data-off="{{ $options->off }}">
@@ -337,7 +348,6 @@
                                         <br>
                                         @php
                                             $checked = false;
-                                            $options = json_decode($setting->details);
                                         @endphp
                                         
                                         @if(isset($options->options))
@@ -506,6 +516,7 @@
             $('[data-toggle="tab"]').click(function() {
                 $(".setting_tab").val($(this).html());
             });
+            $('[data-toggle="tooltip"]').tooltip();
 
             $('.delete_value').click(function(e) {
                 e.preventDefault();
