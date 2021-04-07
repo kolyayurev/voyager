@@ -1,4 +1,4 @@
-// TODO: rename to edit-add-row
+{{-- TODO: rename to edit-add-row --}}
 <!-- GET THE DISPLAY OPTIONS -->
  @php
     $display_options = $row->details->display ?? NULL;
