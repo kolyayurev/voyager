@@ -145,7 +145,7 @@
         <el-form-item label="{{ $url->title??__('voyager::fields.image')}}" prop="url">
             <media-manager
                 ref="mediaManager"
-                base-path="{{ $manager_options->base_path ?? '/'.$dataType->slug.'/'. $dataTypeContent->getKey()}}"
+                base-path="{{ $manager_options->base_path ?? '/'.$dataType->slug.'/'. $dataTypeContent->getKey().'/'}}"
                 filename="{{ $manager_options->rename ?? 'null' }}"
                 :allow-multi-select="false"
                 :max-selected-files="1"
