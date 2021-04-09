@@ -89,7 +89,7 @@ if (!function_exists('printObject')) {
     function printObject($obj)
     {
         if($obj==null || !$obj)
-            $obj=(object)[];
+            $obj=new stdClass();
         return json_encode($obj);
     }
 }
