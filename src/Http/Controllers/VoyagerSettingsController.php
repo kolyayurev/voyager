@@ -32,7 +32,6 @@ class VoyagerSettingsController extends Controller
                     $settings[$d->group][] = $d;
                 }
             }
-           
         }
         /**
          * Remove empty settings group
@@ -100,7 +99,13 @@ class VoyagerSettingsController extends Controller
 
         $settings = Voyager::model('Setting')->all();
 
+
         foreach ($settings as $setting) {
+            $group = $request->input(str_replace('.', '_', $setting->key).'_group');
+
+            if(empty($group))
+                continue;
+
             $content = $this->getContentBasedOnType($request, 'settings', (object) [
                 'type'    => $setting->type,
                 'field'   => str_replace('.', '_', $setting->key),
@@ -117,7 +122,7 @@ class VoyagerSettingsController extends Controller
 
             $key = preg_replace('/^'.Str::slug($setting->group).'./i', '', $setting->key);
 
-            $group = $request->input(str_replace('.', '_', $setting->key).'_group');
+          
 
             $this->refreshGroupPermissions($group);
 
