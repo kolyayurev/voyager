@@ -39,7 +39,7 @@
             $text_rows = ['body'];
             $seo_rows = ['meta_title','meta_description','h1'];
             $exclude_rows = array_merge($main_rows,$top_side_rows,$images_rows,$text_rows,$seo_rows);
-            $count_others = $dataTypeRows->whereNotIn('field',$exclude_rows)->count();
+            $others_rows = $dataTypeRows->whereNotIn('field',$exclude_rows)->pluck('field')->toArray();
         @endphp
         <!-- form start -->
         <form role="form"
@@ -162,25 +162,12 @@
                 </div>
                 {{-- END SEO --}}
                 {{-- OTHERS --}}
-                @if ($count_others)
+                @if (count($others_rows))
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-bordered panel-info">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ __('voyager::fields.field_groups.others') }}</h3>
-                                <div class="panel-actions">
-                                    <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                @foreach($dataTypeRows as $row)
-                                    @if (!in_array($row->field,$exclude_rows))
-                                        @include('voyager::bread.partials.row')
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div><!-- .panel -->
-                    </div>
+                    @include('voyager::bread.partials.panel',[  'title'=> __('voyager::fields.field_groups.others'), 
+                                                                'hidden'=>true, 
+                                                                'fields'=>$others_rows,
+                                                                ])
                 </div>
                 @endif
                 {{-- END OTHERS --}}
