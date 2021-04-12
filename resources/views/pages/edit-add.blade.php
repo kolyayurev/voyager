@@ -74,98 +74,34 @@
                 {{-- END ERRORS --}}
                 
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="panel">
-                            <div class="panel-body">
-                                @foreach($dataTypeRows as $row)
-                                    @if (in_array($row->field, $main_rows))
-                                        @include('voyager::bread.partials.row')
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div><!-- .panel -->
+                    <div class="row">
+                        @include('voyager::bread.partials.panel',['col'=>8,'header'=> false, 'fields'=>$main_rows])
                     </div>
-                    <div class="col-md-4">
-                        <div class="panel">
-                            <div class="panel-body">
-                                @foreach($dataTypeRows as $row)
-                                    @if (in_array($row->field, $top_side_rows))
-                                        @include('voyager::bread.partials.row')
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div><!-- .panel -->
+                    <div class="row">
+                        @include('voyager::bread.partials.panel',['col'=>4,'header'=> false, 'fields'=>$top_side_rows])
                     </div>
                 </div>
                 {{-- IMAGES --}}
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-bordered panel-info">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ __('voyager::fields.field_groups.images') }}</h3>
-                                <div class="panel-actions">
-                                    <a class="panel-action voyager-angle-down" data-toggle="panel-collapse" aria-hidden="true"></a>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                @foreach($dataTypeRows as $row)
-                                    @if (in_array($row->field, $images_rows))
-                                        @include('voyager::bread.partials.row')
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div><!-- .panel -->
-                    </div>
-                    
+                    @include('voyager::bread.partials.panel',['title'=> __('voyager::fields.field_groups.images'), 'fields'=>$images_rows])
                 </div>
                 {{-- END IMAGES --}}
 
                 {{-- DESCRIPTION --}}
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-bordered panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">{{ __('voyager::fields.description') }}</h3>
-                                <div class="panel-actions">
-                                    <a class="panel-action voyager-resize-full" data-toggle="panel-fullscreen" aria-hidden="true"></a>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                @foreach($dataTypeRows as $row)
-                                    @if (in_array($row->field, $text_rows))
-                                        @include('voyager::bread.partials.row')
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div><!-- .panel -->
-                    </div>
+                    @include('voyager::bread.partials.panel',['title'=> __('Описание'),'type'=>'fullscreen', 'fields'=>$text_rows])
                 </div>
                 {{-- SEO --}}
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-bordered panel-info">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ __('voyager::fields.field_groups.seo') }}</h3>
-                                <div class="panel-actions">
-                                    <a class="panel-action voyager-angle-up" data-toggle="panel-collapse" aria-hidden="true"></a>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                @foreach($dataTypeRows as $row)
-                                    @if (in_array($row->field, $seo_rows))
-                                        @include('voyager::bread.partials.row')
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div><!-- .panel -->
-                    </div>
+                    @include('voyager::bread.partials.panel',[  'title'=> __('voyager::fields.field_groups.seo'), 
+                                                                'fields'=>$seo_rows,
+                    ])
                 </div>
                 {{-- END SEO --}}
                 {{-- OTHERS --}}
                 @if (count($others_rows))
                 <div class="row">
                     @include('voyager::bread.partials.panel',[  'title'=> __('voyager::fields.field_groups.others'), 
-                                                                'hidden'=>true, 
                                                                 'fields'=>$others_rows,
                                                                 ])
                 </div>
