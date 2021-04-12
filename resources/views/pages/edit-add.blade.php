@@ -74,12 +74,8 @@
                 {{-- END ERRORS --}}
                 
                 <div class="row">
-                    <div class="row">
-                        @include('voyager::bread.partials.panel',['col'=>8,'header'=> false, 'fields'=>$main_rows])
-                    </div>
-                    <div class="row">
-                        @include('voyager::bread.partials.panel',['col'=>4,'header'=> false, 'fields'=>$top_side_rows])
-                    </div>
+                    @include('voyager::bread.partials.panel',['col'=>8,'header'=> false, 'fields'=>$main_rows])
+                    @include('voyager::bread.partials.panel',['col'=>4,'header'=> false, 'fields'=>$top_side_rows])
                 </div>
                 {{-- IMAGES --}}
                 <div class="row">
