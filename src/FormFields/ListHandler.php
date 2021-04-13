@@ -11,5 +11,4 @@ class ListHandler extends AbstractHandler
     protected $view = 'voyager::formfields.list';
     protected $codename = 'list';
 
-
 }
