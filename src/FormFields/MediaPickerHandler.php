@@ -9,7 +9,7 @@ class MediaPickerHandler extends AbstractHandler
 {
     protected $codename = 'media_picker';
 
-    public function createContent($row, $dataType, $dataTypeContent, $options)
+    protected function preCreateContent($row, $dataType, $dataTypeContent, $options)
     {
         $content = '';
         // dump($dataTypeContent->{$row->field});
@@ -49,7 +49,13 @@ class MediaPickerHandler extends AbstractHandler
                 $options->base_path = str_replace('{pk}', $dataTypeContent->getKey(), $options->base_path);
             }
         }
-
+        return [$row,$options,$dataType,$content];
+    }
+    public function createContent($row, $dataType, $dataTypeContent, $options)
+    {
+       
+        [$row,$options,$dataType,$content] = $this->preCreateContent($row, $dataType, $dataTypeContent, $options);
+        
         return view('voyager::formfields.media_picker', [
             'row'      => $row,
             'options'  => $options,
