@@ -10,6 +10,7 @@ abstract class AbstractHandler implements HandlerInterface
     use Renderable;
 
     protected $name;
+    protected $view;
     protected $codename;
     protected $supports = [];
 
@@ -56,5 +57,15 @@ abstract class AbstractHandler implements HandlerInterface
         }
 
         return $this->name;
+    }
+
+    public function createContent($row, $dataType, $dataTypeContent, $options)
+    {
+        return view($this->view, [
+            'row' => $row,
+            'options' => $options,
+            'dataType' => $dataType,
+            'dataTypeContent' => $dataTypeContent
+        ]);
     }
 }

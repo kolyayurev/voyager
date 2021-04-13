@@ -65,6 +65,9 @@ export default{
                     finallyCallback()
                 }) 
         },
+        printObject(obj){
+            return JSON.stringify(obj);
+        },
         isJsonValid: function(str) {
             try {
                 JSON.parse(str);
