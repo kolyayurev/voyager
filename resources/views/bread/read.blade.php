@@ -3,6 +3,7 @@
 @section('page_title', __('voyager::generic.view').' '.$dataType->getTranslatedAttribute('display_name_singular'))
 
 @section('page_header')
+<div class="container-fluid">
     <h1 class="page-title">
         <i class="{{ $dataType->icon }}"></i> {{ __('voyager::generic.viewing') }} {{ ucfirst($dataType->getTranslatedAttribute('display_name_singular')) }} &nbsp;
 
@@ -31,6 +32,7 @@
         @endcan
     </h1>
     @include('voyager::multilingual.language-selector')
+</div>
 @stop
 
 @section('content')
