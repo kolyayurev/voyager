@@ -14,6 +14,8 @@ const webpack = require('webpack');
 
 mix
 .options({ processCssUrls: false })
+.sass('resources/assets/sass/app.scss', 'publishable/assets/css', { implementation: require('node-sass') })
+.sass('resources/assets/sass/front.scss', 'publishable/assets/css', { implementation: require('node-sass') })
 .copy('node_modules/element-ui/lib/theme-chalk/fonts/element-icons.ttf', 'publishable/assets/fonts/element-icons.ttf')
 .copy('node_modules/tinymce/skins', 'publishable/assets/js/skins')
 .copy('node_modules/tinymce/skins', 'publishable/assets/js/skins')
@@ -24,14 +26,10 @@ mix
 
 if (mix.inProduction()) {
     mix
-        .sass('resources/assets/sass/app.scss', 'publishable/assets/css', { implementation: require('node-sass') })
-        .sass('resources/assets/sass/front.scss', 'publishable/assets/css', { implementation: require('node-sass') })
         .js('resources/assets/js/app.js', 'publishable/assets/js')
 }
 else{
     mix
-        .sass('resources/assets/sass/app.scss', 'publishable/assets/css/app-dev.css', { implementation: require('node-sass') })
-        .sass('resources/assets/sass/front.scss', 'publishable/assets/css/front-dev.css', { implementation: require('node-sass') })
         .js('resources/assets/js/app.js', 'publishable/assets/js/app-dev.js')
 }
 

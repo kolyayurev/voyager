@@ -20,8 +20,8 @@
 
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="{{ voyager_asset(config('app.debug')?'css/app-dev.css':'css/app.css') }}">
     <link rel="stylesheet" href="{{ voyager_asset('css/element-ui.css') }}">
+    <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
 
     @yield('css')
     @stack('css')
