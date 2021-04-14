@@ -23,26 +23,34 @@
 
 @section('content')
     <div class="page-content edit-add container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-
-                <div class="panel panel-bordered">
-                    <!-- form start -->
-                    <form role="form"
-                            class="form-edit-add"
-                            action="{{ $edit ? route('voyager.'.$dataType->slug.'.update', $dataTypeContent->getKey()) : route('voyager.'.$dataType->slug.'.store') }}"
-                            method="POST" enctype="multipart/form-data">
-                        <!-- PUT Method if we are editing -->
-                        @if($edit)
-                            {{ method_field("PUT") }}
-                        @endif
-
-                        <!-- CSRF TOKEN -->
-                        {{ csrf_field() }}
-
-                        <div class="panel-body">
-
-                            @if (count($errors) > 0)
+        <!-- Adding / Editing -->
+        @php
+            $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
+            $main_rows = ['title','slug','excerpt'];
+            $top_side_rows = ['visible'];
+            $images_rows = ['image'];
+            $text_rows = ['body'];
+            $seo_rows = ['meta_title','meta_description','h1'];
+            $exclude_rows = array_merge($main_rows,$top_side_rows,$images_rows,$text_rows,$seo_rows);
+            $others_rows = $dataTypeRows->whereNotIn('field',$exclude_rows)->pluck('field')->toArray();
+        @endphp
+        <!-- form start -->
+        <form role="form"
+                class="form-edit-add"
+                action="{{ $edit ? route('voyager.'.$dataType->slug.'.update', $dataTypeContent->getKey()) : route('voyager.'.$dataType->slug.'.store') }}"
+                method="POST" enctype="multipart/form-data">
+                <!-- PUT Method if we are editing -->
+                @if($edit)
+                    {{ method_field("PUT") }}
+                @endif
+                <!-- CSRF TOKEN -->
+                {{ csrf_field() }}
+                {{-- ERRORS --}}
+                @if (count($errors) > 0)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-bordered">
+                            <div class="panel-body">
                                 <div class="alert alert-danger">
                                     <ul>
                                         @foreach ($errors->all() as $error)
@@ -50,42 +58,67 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif
-
-                            <!-- Adding / Editing -->
-                            @php
-                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
-                            @endphp
-
-                            @foreach($dataTypeRows as $row)
-                               
-
-                               @include('voyager::bread.partials.row')
-
-                            @endforeach
-
-                        </div><!-- panel-body -->
-
-                        <div class="panel-footer">
-                            @section('submit-buttons')
-                                <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
-                            @stop
-                            @yield('submit-buttons')
+                            </div>
                         </div>
-                    </form>
-
-                    <iframe id="form_target" name="form_target" style="display:none"></iframe>
-                    <form id="my_form" action="{{ route('voyager.upload') }}" target="form_target" method="post"
-                            enctype="multipart/form-data" style="width:0;height:0;overflow:hidden">
-                        <input name="image" id="upload_file" type="file"
-                                 onchange="$('#my_form').submit();this.value='';">
-                        <input type="hidden" name="type_slug" id="type_slug" value="{{ $dataType->slug }}">
-                        {{ csrf_field() }}
-                    </form>
-
+                    </div>
                 </div>
-            </div>
-        </div>
+                @endif
+
+                {{-- END ERRORS --}}
+    
+                <div class="row">
+                    @include('voyager::bread.partials.panel',['col'=>8,'header'=> false, 'fields'=>$main_rows])
+                    @include('voyager::bread.partials.panel',['col'=>4,'header'=> false, 'fields'=>$top_side_rows])
+                </div>
+                {{-- IMAGES --}}
+                <div class="row">
+                    @include('voyager::bread.partials.panel',['title'=> __('voyager::fields.field_groups.images'), 'fields'=>$images_rows])
+                </div>
+                {{-- END IMAGES --}}
+
+                {{-- DESCRIPTION --}}
+                <div class="row">
+                    @include('voyager::bread.partials.panel',['title'=> __('Описание'),'type'=>'fullscreen', 'fields'=>$text_rows])
+                </div>
+                {{-- SEO --}}
+                <div class="row">
+                    @include('voyager::bread.partials.panel',[  'title'=> __('voyager::fields.field_groups.seo'), 
+                                                                'fields'=>$seo_rows,
+                    ])
+                </div>
+                {{-- END SEO --}}
+                {{-- OTHERS --}}
+                @if (count($others_rows))
+                <div class="row">
+                    @include('voyager::bread.partials.panel',[  'title'=> __('voyager::fields.field_groups.others'), 
+                                                                'fields'=>$others_rows,
+                                                                ])
+                </div>
+                @endif
+                {{-- END OTHERS --}}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-body">
+                                @section('submit-buttons')
+                                    <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
+                                @stop
+                                @yield('submit-buttons')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+
+        <iframe id="form_target" name="form_target" style="display:none"></iframe>
+        <form id="my_form" action="{{ route('voyager.upload') }}" target="form_target" method="post"
+                enctype="multipart/form-data" style="width:0;height:0;overflow:hidden">
+            <input name="image" id="upload_file" type="file"
+                        onchange="$('#my_form').submit();this.value='';">
+            <input type="hidden" name="type_slug" id="type_slug" value="{{ $dataType->slug }}">
+            {{ csrf_field() }}
+        </form>
+
         @if ($edit)
             @include('voyager::bread.partials.widgets')
         @endif

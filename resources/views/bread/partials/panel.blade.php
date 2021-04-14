@@ -4,10 +4,10 @@
     $fresh  =  $fresh??false;
     $header =  $header??true;
     $hidden =  $hidden??false;
-
+    $visible=  count($dataTypeRows) && $dataTypeRows->whereIn('field',$fields)->count();
 @endphp
 
-@if (count($dataTypeRows))
+@if ($visible)
 <div class="col-md-{{$col??12}}">
     <div class="panel  @if($fresh) fresh-color @endif panel-bordered panel-{{$color??'primary'}}">
         @if ($header)
