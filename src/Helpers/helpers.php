@@ -76,10 +76,10 @@ if (!function_exists('printString')) {
 
 if (!function_exists('printArray')) {
 
-    function printArray($array)
+    function printArray($array,$default=[])
     {
         if($array==null || !$array)
-            $array=[];
+            $array=$default;
         return json_encode($array);
     }
 }
@@ -95,21 +95,21 @@ if (!function_exists('printObject')) {
 }
 if (!function_exists('printInt')) {
 
-    function printInt($number)
+    function printInt($number,$default=null)
     {   
         $number = (int)$number;
         if($number==null || !$number)
-            $number=0;
+            $number=$default;
         return $number;
     }
 }
 if (!function_exists('printFloat')) {
 
-    function printFloat($number)
+    function printFloat($number,$default=null)
     {   
         $number = (float)$number;
         if($number==null || !$number)
-            $number=0;
+            $number=$default;
         return $number;
     }
 }
