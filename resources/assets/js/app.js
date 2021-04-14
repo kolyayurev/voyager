@@ -10,7 +10,7 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-window.Vue = require('vue');
+window.Vue = require('vue').default;
 
 Vue.component('draggable',require('vuedraggable').default);
 Vue.component('editor',require('@tinymce/tinymce-vue').default);

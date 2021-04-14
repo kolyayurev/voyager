@@ -14,15 +14,17 @@ const webpack = require('webpack');
 
 mix
 .options({ processCssUrls: false })
-.sass('resources/assets/sass/app.scss', 'publishable/assets/css', { implementation: require('node-sass') })
-.sass('resources/assets/sass/front.scss', 'publishable/assets/css', { implementation: require('node-sass') })
+.sass('resources/assets/sass/app.scss', 'publishable/assets/css')
+.sass('resources/assets/sass/front.scss', 'publishable/assets/css')
 .copy('node_modules/element-ui/lib/theme-chalk/fonts/element-icons.ttf', 'publishable/assets/fonts/element-icons.ttf')
 .copy('node_modules/tinymce/skins', 'publishable/assets/js/skins')
 .copy('node_modules/tinymce/skins', 'publishable/assets/js/skins')
 .copy('resources/assets/js/skins', 'publishable/assets/js/skins')
 .copy('node_modules/tinymce/themes/modern', 'publishable/assets/js/themes/modern')
-.copy('node_modules/ace-builds/src-noconflict', 'publishable/assets/js/ace/libs');
-
+.copy('node_modules/ace-builds/src-noconflict', 'publishable/assets/js/ace/libs')
+.vue({
+    extractStyles: true,
+});
 
 if (mix.inProduction()) {
     mix
