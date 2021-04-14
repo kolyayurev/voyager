@@ -67,22 +67,22 @@
                 {{-- END ERRORS --}}
     
                 <div class="row">
-                    @include('voyager::bread.partials.panel',['col'=>8,'header'=> false, 'fields'=>$main_rows])
-                    @include('voyager::bread.partials.panel',['col'=>4,'header'=> false, 'fields'=>$top_side_rows])
+                    @include('voyager::bread.partials.edit-panel',['col'=>8,'header'=> false, 'fields'=>$main_rows])
+                    @include('voyager::bread.partials.edit-panel',['col'=>4,'header'=> false, 'fields'=>$top_side_rows])
                 </div>
                 {{-- IMAGES --}}
                 <div class="row">
-                    @include('voyager::bread.partials.panel',['title'=> __('voyager::fields.field_groups.images'), 'fields'=>$images_rows])
+                    @include('voyager::bread.partials.edit-panel',['title'=> __('voyager::fields.field_groups.images'), 'fields'=>$images_rows])
                 </div>
                 {{-- END IMAGES --}}
 
                 {{-- DESCRIPTION --}}
                 <div class="row">
-                    @include('voyager::bread.partials.panel',['title'=> __('Описание'),'type'=>'fullscreen', 'fields'=>$text_rows])
+                    @include('voyager::bread.partials.edit-panel',['title'=> __('Описание'),'type'=>'fullscreen', 'fields'=>$text_rows])
                 </div>
                 {{-- SEO --}}
                 <div class="row">
-                    @include('voyager::bread.partials.panel',[  'title'=> __('voyager::fields.field_groups.seo'), 
+                    @include('voyager::bread.partials.edit-panel',[  'title'=> __('voyager::fields.field_groups.seo'), 
                                                                 'fields'=>$seo_rows,
                     ])
                 </div>
@@ -90,7 +90,7 @@
                 {{-- OTHERS --}}
                 @if (count($others_rows))
                 <div class="row">
-                    @include('voyager::bread.partials.panel',[  'title'=> __('voyager::fields.field_groups.others'), 
+                    @include('voyager::bread.partials.edit-panel',[  'title'=> __('voyager::fields.field_groups.others'), 
                                                                 'fields'=>$others_rows,
                                                                 ])
                 </div>

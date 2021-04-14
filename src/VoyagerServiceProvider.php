@@ -2,6 +2,8 @@
 
 namespace TCG\Voyager;
 
+use Blade;
+
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\AliasLoader;
@@ -146,6 +148,7 @@ class VoyagerServiceProvider extends ServiceProvider
         if (method_exists('Paginator', 'useBootstrap')) {
             Paginator::useBootstrap();
         }
+        // Blade::componentNamespace('TCG\\Voyager\\Views\\Components', 'voyager-component');
 
     }
 

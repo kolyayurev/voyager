@@ -1,18 +1,11 @@
 
-@php
-    $type   =  $type??"collapse";
-    $fresh  =  $fresh??false;
-    $header =  $header??true;
-    $hidden =  $hidden??false;
-    $visible=  count($dataTypeRows) && $dataTypeRows->whereIn('field',$fields)->count();
-@endphp
+@props(['col' => 12 ,'type' => 'collapse', 'fresh'=>false, 'title' => '','header'=>true,'hidden'=>false,])
 
-@if ($visible)
-<div class="col-md-{{$col??12}}">
+<div class="col-md-{{$col}}">
     <div class="panel  @if($fresh) fresh-color @endif panel-bordered panel-{{$color??'primary'}}">
         @if ($header)
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ $title??'' }}</h3>
+            <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ $title }}</h3>
             <div class="panel-actions">
                 @switch($type)
                     @case('collapse')
@@ -35,12 +28,7 @@
         @endif
 
         <div class="panel-body" @if($hidden) style="display: none" @endif>
-            @foreach($dataTypeRows as $row)
-                @if (in_array($row->field, $fields))
-                    @include('voyager::bread.partials.row')
-                @endif
-            @endforeach
+            {{ $slot }}
         </div>
     </div><!-- .panel -->
 </div>
-@endif
