@@ -100,7 +100,7 @@ if (!function_exists('printInt')) {
         $number = (int)$number;
         if($number==null || !$number)
             $number=$default;
-        return $number;
+        return json_encode($number);
     }
 }
 if (!function_exists('printFloat')) {
@@ -110,7 +110,7 @@ if (!function_exists('printFloat')) {
         $number = (float)$number;
         if($number==null || !$number)
             $number=$default;
-        return $number;
+        return json_encode($number);
     }
 }
 if (!function_exists('printBool')) {
