@@ -34,7 +34,7 @@ var base  = require('./mixins/base');
 
 Vue.mixin(base.default);
 
-require('element-ui');
+require('./element-ui');
 
 var admin_menu = new Vue({
     el: '#adminmenu',
