@@ -12,9 +12,9 @@
 @if ($visible)
 <x-voyager::panel :col="$col" :type="$type" :fresh="$fresh" :title="$title" :header="$header" :hidden="$hidden">
     @foreach($dataTypeRows as $row)
-    @if (in_array($row->field, $fields))
-        @include('voyager::bread.partials.row')
-    @endif
-@endforeach
+        @if (in_array($row->field, $fields))
+            @include('voyager::bread.partials.edit-row')
+        @endif
+    @endforeach
 </x-voyager::panel>
 @endif

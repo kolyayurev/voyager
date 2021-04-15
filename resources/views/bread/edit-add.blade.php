@@ -25,10 +25,9 @@
             $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
             $main_rows = ['title','slug','excerpt'];
             $top_side_rows = ['visible'];
-            $images_rows = ['image'];
-            $text_rows = ['body'];
+            $images_rows = ['image','photos'];
             $seo_rows = ['meta_title','meta_description','h1'];
-            $exclude_rows = array_merge($main_rows,$top_side_rows,$images_rows,$text_rows,$seo_rows);
+            $exclude_rows = array_merge($main_rows,$top_side_rows,$images_rows,$seo_rows);
             $others_rows = $dataTypeRows->whereNotIn('field',$exclude_rows)->pluck('field')->toArray();
         @endphp
         <!-- form start -->
@@ -62,36 +61,25 @@
                 @endif
 
                 {{-- END ERRORS --}}
-    
                 <div class="row">
                     @include('voyager::bread.partials.edit-panel',['col'=>8,'header'=> false, 'fields'=>$main_rows])
                     @include('voyager::bread.partials.edit-panel',['col'=>4,'header'=> false, 'fields'=>$top_side_rows])
-                </div>
-                {{-- IMAGES --}}
-                <div class="row">
-                    @include('voyager::bread.partials.edit-panel',['title'=> __('voyager::fields.field_groups.images'), 'fields'=>$images_rows])
-                </div>
+                {{-- MEDIA --}}
+                    @include('voyager::bread.partials.edit-panel',['title'=> __('voyager::fields.field_groups.media'), 'fields'=>$images_rows])
                 {{-- END IMAGES --}}
 
-                {{-- DESCRIPTION --}}
-                <div class="row">
-                    @include('voyager::bread.partials.edit-panel',['title'=> __('Описание'),'type'=>'fullscreen', 'fields'=>$text_rows])
-                </div>
                 {{-- SEO --}}
-                <div class="row">
                     @include('voyager::bread.partials.edit-panel',[  'title'=> __('voyager::fields.field_groups.seo'), 
                                                                 'fields'=>$seo_rows,
                     ])
-                </div>
                 {{-- END SEO --}}
                 {{-- OTHERS --}}
                 @if (count($others_rows))
-                <div class="row">
                     @include('voyager::bread.partials.edit-panel',[  'title'=> __('voyager::fields.field_groups.others'), 
                                                                 'fields'=>$others_rows,
                                                                 ])
-                </div>
                 @endif
+                </div>
                 {{-- END OTHERS --}}
                 <div class="row">
                     <div class="col-md-12">
