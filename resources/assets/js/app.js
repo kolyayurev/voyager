@@ -18,20 +18,6 @@ Vue.component('admin-menu', require('./components/admin_menu.vue').default);
 
 var base  = require('./mixins/base');
 
-/**
- * routes
- */
-// var route = require('ziggy');
-
-// var ziggy = require('../../../../resources/js/ziggy');
-
-
-// Vue.mixin({
-//     methods: {
-//         route: (name, params, absolute, config = ziggy.Ziggy) => route(name, params, absolute, config),
-//     },
-// });
-
 Vue.mixin(base.default);
 
 require('./element-ui');
@@ -45,33 +31,48 @@ window.Cropper = require('cropperjs');
 window.Cropper = 'default' in window.Cropper ? window.Cropper['default'] : window.Cropper;
 window.toastr = require('toastr');
 window.DataTable = require('datatables');
-require('datatables-bootstrap3-plugin/media/js/datatables-bootstrap3');
-window.EasyMDE = require('easymde');
+
 require('dropzone');
 require('jquery-match-height');
 require('jquery-ui');
 require('./jquery.ui.timepicker');
-require('bootstrap-toggle');
 require('nestable2');
-require('bootstrap');
-require('bootstrap-switch');
 require('select2');
+
+require('bootstrap');
+require('bootstrap-toggle');
+require('bootstrap-switch');
 require('eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker');
+require('datatables-bootstrap3-plugin/media/js/datatables-bootstrap3');
+
+// Editors
 var brace = require('brace');
 require('brace/mode/json');
 require('brace/theme/github');
-require('./slugify');
+
+window.EasyMDE = require('easymde');
+
 window.TinyMCE = window.tinymce = require('tinymce');
-require('./multilingual');
 require('./voyager_tinymce');
 window.voyagerTinyMCE = require('./voyager_tinymce_config');
+
 require('./voyager_ace_editor');
+
+require('./slugify');
+require('./multilingual');
 window.helpers = require('./helpers.js');
 
 
 
 
+
 $(document).ready(function () {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     var appContainer = $(".app-container"),
         fadedOverlay = $('.fadetoblack'),
