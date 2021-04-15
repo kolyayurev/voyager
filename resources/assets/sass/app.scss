@@ -731,7 +731,7 @@ a:hover {
   -webkit-transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
   transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1) }
 .app-container .side-body .container-fluid {
-  padding-right: 0;
+  padding-right: 15px;
 }
 .app-container.expanded .side-body {
   margin-left: 235px; }
@@ -1065,6 +1065,17 @@ table.dataTable.no-footer{
 .tabs-left > .nav-tabs {
   border-bottom: 0; }
 
+.tab-pane{
+  &:before, 
+  &:after {
+    display: table;
+    content: " ";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
 .tab-content > .tab-pane{
   background-color: #ffffff;
 }
@@ -1074,7 +1085,7 @@ table.dataTable.no-footer{
 
 .tab-content > .active,
 .pill-content > .active {
-  display: flex; }
+  display: block; }
 
 .tabs-below > .nav-tabs > li {
   margin-top: -1px;
