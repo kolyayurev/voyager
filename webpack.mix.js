@@ -18,7 +18,6 @@ mix
 .sass('resources/assets/sass/front.scss', 'publishable/assets/css')
 .copy('node_modules/element-ui/lib/theme-chalk/fonts/element-icons.ttf', 'publishable/assets/fonts/element-icons.ttf')
 .copy('node_modules/tinymce/skins', 'publishable/assets/js/skins')
-// .copy('node_modules/tinymce/skins', 'publishable/assets/js/skins')
 .copy('resources/assets/js/skins', 'publishable/assets/js/skins')
 .copy('node_modules/tinymce/themes/modern', 'publishable/assets/js/themes/modern')
 .copy('node_modules/ace-builds/src-noconflict', 'publishable/assets/js/ace/libs')
