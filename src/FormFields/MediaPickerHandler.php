@@ -7,7 +7,9 @@ use Illuminate\Support\Str;
 
 class MediaPickerHandler extends AbstractHandler
 {
-    protected $viewEdit = 'voyager::formfields.media_picker';
+    protected $viewEdit = 'voyager::formfields.media_picker.edit';
+    protected $viewRead = 'voyager::formfields.media_picker.read';
+    protected $viewBrowse = 'voyager::formfields.media_picker.browse';
     protected $codename = 'media_picker';
 
     protected function preCreateContent($row, $dataType, $dataTypeContent, $options)
@@ -50,18 +52,18 @@ class MediaPickerHandler extends AbstractHandler
                 $options->base_path = str_replace('{pk}', $dataTypeContent->getKey(), $options->base_path);
             }
         }
-        return [$row,$options,$dataType,$content];
+        return $content;
     }
     public function createContent($row, $dataType, $dataTypeContent, $options ,$type)
     {
-       
-        [$row,$options,$dataType,$content] = $this->preCreateContent($row, $dataType, $dataTypeContent, $options);
+        $content = $this->preCreateContent($row, $dataType, $dataTypeContent, $options);
         
         return view($this->getViewByType($type), [
             'row'      => $row,
             'options'  => $options,
             'dataType' => $dataType,
             'content'  => $content,
+            'dataTypeContent' => $dataTypeContent,
         ]);
     }
 }

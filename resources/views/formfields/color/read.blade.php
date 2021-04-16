@@ -1,2 +1,1 @@
-@include('voyager::multilingual.input-hidden-bread-read')
-<p>{{ $dataTypeContent->{$row->field} }}</p>
+<span class="badge badge-lg" style="background-color: {{ $dataTypeContent->{$row->field} }}">{{ $dataTypeContent->{$row->field} }}</span>

@@ -9,7 +9,9 @@ class CoordinatesHandler extends AbstractHandler
         'pgsql',
     ];
 
-    protected $viewEdit = 'voyager::formfields.coordinates';
+    protected $viewEdit = 'voyager::formfields.coordinates.edit';
+    protected $viewRead = 'voyager::formfields.coordinates.read';
+    protected $viewBrowse = 'voyager::formfields.coordinates.browse';
     protected $codename = 'coordinates';
 
 

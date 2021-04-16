@@ -1,7 +1,7 @@
 <div class="panel">
     <div class="page-content settings container-fluid">
         <div id="media_picker_{{ $row->field }}">
-            <media-manager
+        <media-manager
                 ref="media_manager"
                 base-path="{{ $options->base_path ?? '/'.$dataType->slug.'/' }}"
                 filename="{{ $options->rename ?? 'null' }}"
@@ -23,14 +23,14 @@
                 :element="'input[name=&quot;{{ $row->field }}&quot;]'"
                 :details="{{ json_encode($options ?? new class{}) }}"
                 v-model="content"
-            ></media-manager>
-            <input type="hidden" name="{{ $row->field }}" :value="{{ $content }}">
+        ></media-manager>
+        <input type="hidden" name="{{ $row->field }}" :value="{{ $content }}">
         </div>
     </div>
 </div>
 @push('javascript')
 <script>
- var media_picker_{{ $row->field }} = new Vue({
+var media_picker_{{ $row->field }} = new Vue({
     el: '#media_picker_{{ $row->field }}',
     data(){
         return{
@@ -40,3 +40,4 @@
 });
 </script>
 @endpush
+    

@@ -13,9 +13,11 @@ abstract class AbstractHandler implements HandlerInterface
 
     protected $name;
     protected $viewEdit;
-    protected $viewBrowse;
-    protected $viewRead;
-    protected $viewDefault = 'voyager::formfields.text.browse';
+    protected $viewRead ;
+    protected $viewBrowse ;
+    protected $viewDefaultEdit   = 'voyager::formfields.text.edit';
+    protected $viewDefaultRead   = 'voyager::formfields.text.read';
+    protected $viewDefaultBrowse = 'voyager::formfields.text.browse';
 
     protected $codename;
     protected $supports = [];
@@ -29,7 +31,6 @@ abstract class AbstractHandler implements HandlerInterface
             $row->details,
             $type
         );
-
         return $this->render($content);
     }
 
@@ -74,27 +75,19 @@ abstract class AbstractHandler implements HandlerInterface
         $view = '';
         switch ($type) {
             case 'edit':
-                $view = $this->viewEdit;
+                $view = $this->checkView($this->viewEdit)?$this->viewEdit:$this->viewDefaultEdit;
                 break;
             case 'browse':
-                $view = $this->viewBrowse;
+                $view = $this->checkView($this->viewBrowse)?$this->viewBrowse:$this->viewDefaultBrowse;
                 break;
             case 'read':
-                $view = $this->viewRead;
+                $view = $this->checkView($this->viewRead)?$this->viewRead:$this->viewDefaultRead;
                 break;
         }
-        if(!$this->checkView($view)) 
-            $view =  $this->viewDefault;
-
         return $view;
     }
     public function createContent($row, $dataType, $dataTypeContent, $options, $type)
     {
-        return view($this->getViewByType($type), [
-            'row' => $row,
-            'options' => $options,
-            'dataType' => $dataType,
-            'dataTypeContent' => $dataTypeContent
-        ]);
+        return view($this->getViewByType($type), compact(['row','options','dataType','dataTypeContent']));
     }
 }
