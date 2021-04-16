@@ -8,7 +8,9 @@ namespace TCG\Voyager\FormFields;
 
 class ListHandler extends AbstractHandler
 {
-    protected $view = 'voyager::formfields.list';
+    protected $viewEdit = 'voyager::formfields.list.edit';
+    protected $viewRead = 'voyager::formfields.list.read';
+    protected $viewBrowse = 'voyager::formfields.list.browse';
     protected $codename = 'list';
 
 }

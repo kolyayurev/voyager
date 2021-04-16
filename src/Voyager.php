@@ -186,11 +186,11 @@ class Voyager
         return $this;
     }
 
-    public function formField($row, $dataType, $dataTypeContent)
+    public function formField($row, $dataType, $dataTypeContent, $type = 'edit')
     {
         $formField = $this->formFields[$row->type];
 
-        return $formField->handle($row, $dataType, $dataTypeContent);
+        return $formField->handle($row, $dataType, $dataTypeContent,$type);
     }
 
     public function afterFormFields($row, $dataType, $dataTypeContent)

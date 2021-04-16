@@ -2,6 +2,8 @@
 
 namespace TCG\Voyager\FormFields;
 
+use View;
+
 use Illuminate\Support\Str;
 use TCG\Voyager\Traits\Renderable;
 
@@ -10,17 +12,22 @@ abstract class AbstractHandler implements HandlerInterface
     use Renderable;
 
     protected $name;
-    protected $view;
+    protected $viewEdit;
+    protected $viewBrowse;
+    protected $viewRead;
+    protected $viewDefault = 'voyager::formfields.text.browse';
+
     protected $codename;
     protected $supports = [];
 
-    public function handle($row, $dataType, $dataTypeContent)
+    public function handle($row, $dataType, $dataTypeContent,$type)
     {
         $content = $this->createContent(
             $row,
             $dataType,
             $dataTypeContent,
-            $row->details
+            $row->details,
+            $type
         );
 
         return $this->render($content);
@@ -58,10 +65,32 @@ abstract class AbstractHandler implements HandlerInterface
 
         return $this->name;
     }
-
-    public function createContent($row, $dataType, $dataTypeContent, $options)
+    protected function checkView($view)
     {
-        return view($this->view, [
+        return  View::exists($view);
+    }
+    protected function getViewByType($type)
+    {
+        $view = '';
+        switch ($type) {
+            case 'edit':
+                $view = $this->viewEdit;
+                break;
+            case 'browse':
+                $view = $this->viewBrowse;
+                break;
+            case 'read':
+                $view = $this->viewRead;
+                break;
+        }
+        if(!$this->checkView($view)) 
+            $view =  $this->viewDefault;
+
+        return $view;
+    }
+    public function createContent($row, $dataType, $dataTypeContent, $options, $type)
+    {
+        return view($this->getViewByType($type), [
             'row' => $row,
             'options' => $options,
             'dataType' => $dataType,

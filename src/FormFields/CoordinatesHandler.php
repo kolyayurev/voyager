@@ -9,15 +9,8 @@ class CoordinatesHandler extends AbstractHandler
         'pgsql',
     ];
 
+    protected $viewEdit = 'voyager::formfields.coordinates';
     protected $codename = 'coordinates';
 
-    public function createContent($row, $dataType, $dataTypeContent, $options)
-    {
-        return view('voyager::formfields.coordinates', [
-            'row'             => $row,
-            'options'         => $options,
-            'dataType'        => $dataType,
-            'dataTypeContent' => $dataTypeContent,
-        ]);
-    }
+
 }

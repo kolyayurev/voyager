@@ -4,15 +4,9 @@ namespace TCG\Voyager\FormFields;
 
 class TextHandler extends AbstractHandler
 {
+    protected $viewEdit = 'voyager::formfields.text.edit';
+    protected $viewRead = 'voyager::formfields.text.read';
+    protected $viewBrowse = 'voyager::formfields.text.browse';
     protected $codename = 'text';
 
-    public function createContent($row, $dataType, $dataTypeContent, $options)
-    {
-        return view('voyager::formfields.text', [
-            'row'             => $row,
-            'options'         => $options,
-            'dataType'        => $dataType,
-            'dataTypeContent' => $dataTypeContent,
-        ]);
-    }
 }

@@ -4,15 +4,7 @@ namespace TCG\Voyager\FormFields;
 
 class RichTextBoxHandler extends AbstractHandler
 {
+    protected $viewEdit = 'voyager::formfields.rich_text_box';
     protected $codename = 'rich_text_box';
 
-    public function createContent($row, $dataType, $dataTypeContent, $options)
-    {
-        return view('voyager::formfields.rich_text_box', [
-            'row'             => $row,
-            'options'         => $options,
-            'dataType'        => $dataType,
-            'dataTypeContent' => $dataTypeContent,
-        ]);
-    }
 }

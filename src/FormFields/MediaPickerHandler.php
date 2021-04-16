@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 class MediaPickerHandler extends AbstractHandler
 {
+    protected $viewEdit = 'voyager::formfields.media_picker';
     protected $codename = 'media_picker';
 
     protected function preCreateContent($row, $dataType, $dataTypeContent, $options)
@@ -51,12 +52,12 @@ class MediaPickerHandler extends AbstractHandler
         }
         return [$row,$options,$dataType,$content];
     }
-    public function createContent($row, $dataType, $dataTypeContent, $options)
+    public function createContent($row, $dataType, $dataTypeContent, $options ,$type)
     {
        
         [$row,$options,$dataType,$content] = $this->preCreateContent($row, $dataType, $dataTypeContent, $options);
         
-        return view('voyager::formfields.media_picker', [
+        return view($this->getViewByType($type), [
             'row'      => $row,
             'options'  => $options,
             'dataType' => $dataType,
