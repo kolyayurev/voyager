@@ -146,6 +146,9 @@ return [
         'dimmers' => [
 
         ],
+        'data_tables' => [
+
+        ],
 
     ],
 
