@@ -5,8 +5,8 @@
 @import "node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker";
 @import "node_modules/bootstrap-toggle/css/bootstrap-toggle";
 @import "node_modules/animate.css/animate";
-@import "node_modules/datatables/media/css/jquery.dataTables";
-@import "node_modules/datatables-bootstrap3-plugin/media/css/datatables-bootstrap3";
+@import "~datatables.net-bs/css/dataTables.bootstrap";
+@import "~datatables.net-fixedcolumns-bs/css/fixedColumns.bootstrap";
 @import "node_modules/select2/dist/css/select2";
 @import "node_modules/toastr/build/toastr";
 @import "node_modules/perfect-scrollbar/dist/css/perfect-scrollbar";
@@ -2009,6 +2009,10 @@ table.dataTable.no-footer{
 #dataTable a {
     font-weight: 500;
     text-decoration: none;
+}
+.bread-actions{
+  min-width: 150px;
+  max-width: 30vw;
 }
 #dataTable .bread-actions .btn, .actions a.btn {
     padding: 5px 10px;

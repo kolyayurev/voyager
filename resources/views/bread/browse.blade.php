@@ -2,6 +2,14 @@
 
 @section('page_title', __('voyager::generic.viewing').' '.$dataType->getTranslatedAttribute('display_name_plural'))
 
+@push('css')
+<style>
+    /* .dataTables_scrollHeadInner{
+        width: 100% !important;
+    } */
+</style>
+@endpush
+
 @section('page_header')
     <div class="container-fluid">
         <h1 class="page-title">
@@ -75,7 +83,7 @@
                             </form>
                         @endif
                         <div class="table-responsive">
-                            <table id="dataTable" class="table table-hover">
+                            <table id="dataTable" class="table table-hover" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         @if($showCheckboxColumn)
@@ -195,9 +203,16 @@
                         "columnDefs" => [
                             ['targets' => 'dt-not-orderable', 'searchable' =>  false, 'orderable' => false],
                         ],
+                        "scrollX" =>  true,
+                        "scrollY" =>  false,
+                        "fixedColumns"=> [
+                            "leftColumns" => 0,
+                            "rightColumns" => 1,
+                        ]
                     ],
                     config('voyager.dashboard.data_tables', []))
-                , true) !!});
+                , true) !!}).draw();
+                // window.dispatchEvent(new Event('resize'));
             @else
                 $('#search-input select').select2({
                     minimumResultsForSearch: Infinity

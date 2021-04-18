@@ -30,7 +30,8 @@ window.perfectScrollbar = require('perfect-scrollbar/jquery')($);
 window.Cropper = require('cropperjs');
 window.Cropper = 'default' in window.Cropper ? window.Cropper['default'] : window.Cropper;
 window.toastr = require('toastr');
-window.DataTable = require('datatables');
+window.DataTable = require('datatables.net-bs');
+require( 'datatables.net-fixedcolumns-bs');
 
 require('dropzone');
 require('jquery-match-height');
@@ -43,7 +44,6 @@ require('bootstrap');
 require('bootstrap-toggle');
 require('bootstrap-switch');
 require('eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker');
-require('datatables-bootstrap3-plugin/media/js/datatables-bootstrap3');
 
 // Editors
 var brace = require('brace');
