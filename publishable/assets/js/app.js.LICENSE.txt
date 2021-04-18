@@ -74,8 +74,20 @@
  * Licensed under MIT
  * ======================================================================== */
 
-/*! DataTables 1.10.18
- * ©2008-2018 SpryMedia Ltd - datatables.net/license
+/*! Bootstrap 3 styling wrapper for FixedColumns
+ * ©2018 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables 1.10.24
+ * ©2008-2021 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! DataTables Bootstrap 3 integration
+ * ©2011-2015 SpryMedia Ltd - datatables.net/license
+ */
+
+/*! FixedColumns 3.3.2
+ * ©2010-2020 SpryMedia Ltd - datatables.net/license
  */
 
 /**

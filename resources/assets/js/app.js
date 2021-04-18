@@ -31,7 +31,7 @@ window.Cropper = require('cropperjs');
 window.Cropper = 'default' in window.Cropper ? window.Cropper['default'] : window.Cropper;
 window.toastr = require('toastr');
 window.DataTable = require('datatables.net-bs');
-require( 'datatables.net-fixedcolumns-bs');
+require( 'datatables.net-fixedcolumns-bs');     
 
 require('dropzone');
 require('jquery-match-height');
