@@ -20,6 +20,14 @@
 
 @section('content')
     <div class="page-content container-fluid">
+        @php
+            $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
+            $main_rows = ['name','email','password','user_belongsto_role_relationship','user_belongstomany_role_relationship'];
+            $top_side_rows = ['avatar'];
+            $exclude_rows = array_merge($main_rows,$top_side_rows);
+            $others_rows = $dataTypeRows->whereNotIn('field',$exclude_rows)->pluck('field')->toArray();
+        @endphp
+
         <form class="form-edit-add" role="form"
               action="@if(!is_null($dataTypeContent->getKey())){{ route('voyager.'.$dataType->slug.'.update', $dataTypeContent->getKey()) }}@else{{ route('voyager.'.$dataType->slug.'.store') }}@endif"
               method="POST" enctype="multipart/form-data" autocomplete="off">
@@ -69,8 +77,6 @@
                                 <div class="form-group">
                                     <label for="default_role">{{ __('voyager::profile.role_default') }}</label>
                                     @php
-                                        $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
-
                                         $row     = $dataTypeRows->where('field', 'user_belongsto_role_relationship')->first();
                                         $options = $row->details;
                                     @endphp
@@ -105,19 +111,13 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-4">
-                    <div class="panel panel panel-bordered panel-warning">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                @if(isset($dataTypeContent->avatar))
-                                    <img src="{{ filter_var($dataTypeContent->avatar, FILTER_VALIDATE_URL) ? $dataTypeContent->avatar : Voyager::image( $dataTypeContent->avatar ) }}" style="width:200px; height:auto; clear:both; display:block; padding:2px; border:1px solid #ddd; margin-bottom:10px;" />
-                                @endif
-                                <input type="file" data-name="avatar" name="avatar">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('voyager::bread.partials.edit-panel',['col'=>4,'header'=> false, 'fields'=>$top_side_rows])
+               
+                @if (count($others_rows))
+                    @include('voyager::bread.partials.edit-panel',[  'title'=> __('voyager::fields.field_groups.others'), 
+                                                                'fields'=>$others_rows,
+                                                                ])
+                @endif
             </div>
 
             <button type="submit" class="btn btn-primary pull-right save">
