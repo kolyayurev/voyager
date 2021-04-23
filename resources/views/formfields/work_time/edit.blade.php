@@ -1,7 +1,7 @@
 @if($row->field  == "monday_work_time")
 <div class="row">
     <div class="col-md-3">
-        <input id="group_edit" type="checkbox" class="toggleswitch" data-width="250" value="off" data-on="Групповое редактирование" data-off="Обычное редактирование">
+        <input id="work_time_group_edit" type="checkbox" class="toggleswitch" data-width="250" value="off" data-on="Групповое редактирование" data-off="Обычное редактирование">
     </div>
 </div>
 @endif
