@@ -152,7 +152,7 @@
                                     'order_by' => $orderBy,
                                     'sort_order' => $sortOrder,
                                     'showSoftDeleted' => $showSoftDeleted,
-                                ])->links() }}
+                                ])->links('pagination::bootstrap-4') }}
                             </div>
                         @endif
                     </div>
