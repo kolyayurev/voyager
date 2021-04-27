@@ -1,8 +1,8 @@
 
-@props(['col' => 12 ,'type' => 'collapse', 'fresh'=>false, 'title' => '','header'=>true,'hidden'=>false,])
+@props(['col' => 12 ,'type' => 'collapse', 'fresh'=>false,  'color'=> 'primary', 'title' => '','header'=>true,'hidden'=>false,])
 
 <div class="col-md-{{$col}}">
-    <div class="panel  @if($fresh) fresh-color @endif panel-bordered panel-{{$color??'primary'}}">
+    <div class="panel  @if($fresh) fresh-color @endif panel-bordered @if($color) panel-{{$color}}  @endif">
         @if ($header)
         <div class="panel-heading">
             <h3 class="panel-title"><i class="icon wb-clipboard"></i> {{ $title }}</h3>
