@@ -77,7 +77,7 @@
                             <div class="panel-body">
                                 @foreach($dataTypeRows as $row)
                                     @if (in_array($row->field, $main_rows))
-                                        @include('voyager::bread.partials.row')
+                                        @include('voyager::bread.partials.edit-row')
                                     @endif
                                 @endforeach
                             </div>
@@ -178,7 +178,7 @@
                             <div class="panel-body" style="display:none;">
                                 @foreach($dataTypeRows as $row)
                                     @if (in_array($row->field, $editor_rows))
-                                        @include('voyager::bread.partials.row')
+                                        @include('voyager::bread.partials.edit-row')
                                     @endif
                                 @endforeach
                             </div>
@@ -200,7 +200,7 @@
                             <div class="panel-body">
                                 @foreach($dataTypeRows as $row)
                                     @if (!in_array($row->field,$exclude_rows))
-                                        @include('voyager::bread.partials.row')
+                                        @include('voyager::bread.partials.edit-row')
                                     @endif
                                 @endforeach
                             </div>
