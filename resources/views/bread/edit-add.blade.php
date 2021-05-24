@@ -64,17 +64,14 @@
                 @endif
                 </div>
                 {{-- END OTHERS --}}
+               
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel">
-                            <div class="panel-body">
-                                @section('submit-buttons')
-                                    <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
-                                @stop
-                                @yield('submit-buttons')
-                            </div>
-                        </div>
-                    </div>
+                    <x-voyager::panel  :header="false" >
+                        @section('submit-buttons')
+                            <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
+                        @stop
+                        @yield('submit-buttons')
+                    </x-voyager::panel>
                 </div>
         </form>
 
