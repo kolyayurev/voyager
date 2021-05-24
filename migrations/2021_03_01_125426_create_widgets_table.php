@@ -23,8 +23,7 @@ class CreateWidgetsTable extends Migration
             $table->bigInteger('foreign_key')->unsigned()->nullable();
             $table->text('details')->nullable();
             $table->json('value')->nullable();
-            $table->unique(['table_name', 'foreign_key']);
-
+            // $table->unique(['table_name', 'foreign_key']);
         });
     }
 
