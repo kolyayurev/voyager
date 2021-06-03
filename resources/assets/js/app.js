@@ -1,5 +1,8 @@
-window.jQuery = window.$ = $ = require('jquery');
-
+import Vue from 'vue';
+window.Vue = Vue;
+import jQuery from 'jquery';
+window.jQuery = jQuery;
+window.$ = jQuery;
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -10,7 +13,6 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-window.Vue = require('vue').default;
 
 Vue.component('draggable',require('vuedraggable').default);
 Vue.component('editor',require('@tinymce/tinymce-vue').default);
