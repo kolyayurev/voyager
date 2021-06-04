@@ -48,7 +48,7 @@ if (! function_exists('class_has_trait')) {
         return in_array($trait,array_keys((new \ReflectionClass($class))->getTraits()));       
     }
 }
-if (! function_exists('model_has_states')) {
+if (! function_exists('model_has_widgets')) {
     function model_has_widgets(?string $class):bool
     {
         return class_has_trait($class,\TCG\Voyager\Traits\Widgetable::class);
