@@ -175,7 +175,11 @@ abstract class Controller extends BaseController
                 $request->session()->forget([$slug.'_path', $slug.'_uuid']);
                 if(Storage::disk(config('voyager.storage.disk'))->exists($old_path))
                 {
-                    Storage::disk(config('voyager.storage.disk'))->move($old_path, $new_path);
+                    $files = Storage::disk(config('voyager.storage.disk'))->files( $old_path);
+                    foreach ($files as $file) {
+                        Storage::disk(config('voyager.storage.disk'))->rename($file,$new_path.basename($file));
+                    }
+                    // Storage::disk(config('voyager.storage.disk'))->move($old_path, $new_path);
                     Storage::disk(config('voyager.storage.disk'))->deleteDirectory($folder_path);
                 }
             }
