@@ -20,7 +20,7 @@
 
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="{{ voyager_asset('css/element-ui.css') }}">
+    <link rel="stylesheet" href="{{ voyager_asset(config('app.debug')?'css/element-ui-dev.css':'css/element-ui.css') }}">
     <link rel="stylesheet" href="{{ voyager_asset(config('app.debug')?'css/app-dev.css':'css/app.css') }}">
 
     @yield('css')
@@ -119,11 +119,16 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
             </div>
         </div>
     </div>
+    
+
 </div>
 @include('voyager::partials.app-footer')
 
 <!-- Javascript Libs -->
-
+<script>
+    var locale = '{{ app()->getLocale()}}';
+    var fallbackLocale = '{{ config('app.fallback_locale')}}';
+</script>
 <script type="text/javascript" src="{{ voyager_asset(config('app.debug')?'js/app-dev.js':'js/app.js') }}"></script>
 
 <script>
@@ -147,7 +152,23 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
     @endif
 </script>
 @include('voyager::media.manager')
+<div id="modals">
+    <v-dialog-media-picker ref="dialogMediaPicker"> </v-dialog-media-picker>
+</div>
 @stack('vue')
+<script async>
+    var vueModals = new Vue({
+        el : '#modals',
+        mounted(){
+
+        },
+        data(){
+            return {
+            }
+        },
+    });
+</script>
+
 @yield('javascript')
 @stack('javascript')
 @if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->

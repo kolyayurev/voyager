@@ -1,6 +1,5 @@
 let mix = require('laravel-mix');
 const webpack = require('webpack');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -27,10 +26,12 @@ if (mix.inProduction()) {
         .copy('node_modules/tinymce/themes/modern', 'publishable/assets/js/themes/modern')
         .copy('node_modules/ace-builds/src-noconflict', 'publishable/assets/js/ace/libs')
         .sass('resources/assets/sass/app.scss', 'publishable/assets/css')
+        .sass('resources/assets/sass/element-ui/index.scss', 'publishable/assets/css/element-ui.css')
         .js('resources/assets/js/app.js', 'publishable/assets/js');
 }
 else{
     mix
+        .sass('resources/assets/sass/element-ui/index.scss', 'publishable/assets/css/element-ui-dev.css')
         .sass('resources/assets/sass/app.scss', 'publishable/assets/css/app-dev.css')
         .js('resources/assets/js/app.js', 'publishable/assets/js/app-dev.js');
 }

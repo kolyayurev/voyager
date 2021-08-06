@@ -1,0 +1,43 @@
+@import '../variables';
+@import 'index.css';
+
+.dialog{
+    .el-dialog{
+        border-radius: 4px;
+        &__header{
+            padding: 15px 20px;
+            border-radius: 4px 4px 0 0;
+        }
+        &__title{
+            font-weight: 500;
+        }
+        &__headerbtn{
+            top: 15px;
+            .el-dialog__close{
+            }
+        }
+        &__footer{
+            border-radius: 0 0 4px 4px;
+        }
+    }
+}
+.el-button--primary{
+    background-color: $--color--accent;
+}
+.dialog-media-picker{
+    
+}
+.modal-info{
+    .el-dialog__header{
+        background-color: $--color--accent;
+        color: $--color-white;
+    }
+    .el-dialog__title{
+        color: $--color-white;
+    }
+    .el-dialog__headerbtn{
+        .el-dialog__close{
+            color: $--color-white;
+        }
+    } 
+}

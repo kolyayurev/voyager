@@ -17,12 +17,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 Vue.component('draggable',require('vuedraggable').default);
 Vue.component('editor',require('@tinymce/tinymce-vue').default);
 Vue.component('admin-menu', require('./components/admin_menu.vue').default);
+import DialogMediaPicker from './components/DialogMediaPicker'
+Vue.component('v-dialog-media-picker',DialogMediaPicker);
 
 var base  = require('./mixins/base');
 
 Vue.mixin(base.default);
 
 require('./element-ui');
+require('./lang');
 
 var admin_menu = new Vue({
     el: '#adminmenu',
