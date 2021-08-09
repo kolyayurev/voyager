@@ -437,7 +437,7 @@
             },
             value: {
                 validator: v => true,
-                required: true,
+                required: false,
             },
         },
         data: function() {
@@ -823,28 +823,152 @@
             },
             open(){
                 this.isExpanded = true
+            },
+            init(){
+                this.getFiles();
+                var vm = this;
+
+                if (this.element != '') {
+                    this.hidden_element = document.querySelector(this.element);
+                    if (!this.hidden_element) {
+                        console.error('Element "'+this.element+'" could not be found.');
+                    } else {
+                        // if (this.maxSelectedFiles > 1 && this.hidden_element.value == '') {
+                        if (this.maxSelectedFiles > 1 ) {
+                            if(this.localValue == '')
+                                this.localValue=[];
+                            if(!Array.isArray(this.localValue))
+                                this.localValue = JSON.parse(this.localValue)
+                            
+                        }
+                    }
+                }
+
+                
+                //Dropzone
+                var dropzone = $(vm.$el).first().find('#upload').first();
+                var progress = $(vm.$el).first().find('#uploadProgress').first();
+                var progress_bar = $(vm.$el).first().find('#uploadProgress .progress-bar').first();
+                if (this.allowUpload && !dropzone.hasClass('dz-clickable')) {
+                    dropzone.dropzone({
+                        timeout: 180000,
+                        url: '{{ route('voyager.media.upload') }}',
+                        previewsContainer: "#uploadPreview",
+                        totaluploadprogress: function(uploadProgress, totalBytes, totalBytesSent) {
+                            progress_bar.css('width', uploadProgress + '%');
+                            if (uploadProgress == 100) {
+                                progress.delay(1500).slideUp(function(){
+                                    progress_bar.css('width', '0%');
+                                });
+                            }
+                        },
+                        processing: function(){
+                            progress.fadeIn();
+                        },
+                        sending: function(file, xhr, formData) {
+                            formData.append("_token", '{{ csrf_token() }}');
+                            formData.append("upload_path", vm.current_folder);
+                            formData.append("filename", vm.filename);
+                            formData.append("details", JSON.stringify(vm.details));
+                        },
+                        success: function(e, res) {
+                            if (res.success) {
+                                toastr.success(res.message, "{{ __('voyager::generic.sweet_success') }}");
+                            } else {
+                                toastr.error(res.message, "{{ __('voyager::generic.whoopsie') }}");
+                            }
+                        },
+                        error: function(e, res, xhr) {
+                            toastr.error(res, "{{ __('voyager::generic.whoopsie') }}");
+                        },
+                        queuecomplete: function() {
+                            vm.getFiles();
+                        }
+                    });
+                }
+
+                //Cropper
+                if (this.allowCrop) {
+                    var cropper = $(vm.$el).first().find('#crop_modal_'+vm._uid).first();
+                    cropper.on('shown.bs.modal', function (e) {
+                        if (typeof cropper !== 'undefined' && cropper instanceof Cropper) {
+                            cropper.destroy();
+                        }
+                        var croppingImage = document.getElementById('cropping-image_'+vm._uid);
+                        cropper = new Cropper(croppingImage, {
+                            crop: function(e) {
+                                document.getElementById('new-image-width_'+vm._uid).innerText = Math.round(e.detail.width) + 'px';
+                                document.getElementById('new-image-height_'+vm._uid).innerText = Math.round(e.detail.height) + 'px';
+                                croppedData = {
+                                    x: Math.round(e.detail.x),
+                                    y: Math.round(e.detail.y),
+                                    height: Math.round(e.detail.height),
+                                    width: Math.round(e.detail.width)
+                                };
+                            }
+                        });
+                    });
+                }
+
+                $(document).ready(function () {
+                    $(".form-edit-add").submit(function (e) {
+                        if (vm.hidden_element) {
+                            if (vm.maxSelectedFiles > 1) {
+                                // var content = JSON.parse(vm.hidden_element.value);
+                                var content = vm.localValue;
+                                if (content.length < vm.minSelectedFiles) {
+                                    e.preventDefault();
+                                    var msg_sing = "{{ trans_choice('voyager::media.min_files_select', 1) }}";
+                                    var msg_plur = "{{ trans_choice('voyager::media.min_files_select', 2) }}";
+                                    if (vm.minSelectedFiles == 1) {
+                                        toastr.error(msg_sing);
+                                    } else {
+                                        toastr.error(msg_plur.replace('2', vm.minSelectedFiles));
+                                    }
+                                }
+                            } else {
+                                // if (vm.minSelectedFiles > 0 && vm.hidden_element.value == '') {
+                                if (vm.minSelectedFiles > 0 && vm.localValue == '') {
+                                    e.preventDefault();
+                                    toastr.error("{{ trans_choice('voyager::media.min_files_select', 1) }}");
+                                }
+                            }
+                        }
+                    });
+
+                    //Nestable
+                    $('#dd_'+vm._uid).nestable({
+                        maxDepth: 1,
+                        handleClass: 'file_link',
+                        collapseBtnHTML: '',
+                        expandBtnHTML: '',
+                        callback: function(l, e) {
+                            if (vm.allowMultiSelect) {
+                                var new_content = [];
+                                var object = $('#dd_'+vm._uid).nestable('serialize');
+                                for (var key in object) {
+                                    new_content.push(object[key].url);
+                                }
+                                // vm.hidden_element.value =  vm.localValue = JSON.stringify(new_content);
+                                vm.localValue = new_content;
+                            }
+                        }
+                    });
+
+                    $('#create_dir_modal_' + vm._uid).on('hidden.bs.modal', function () {
+                        vm.modals.new_folder.name = '';
+                    });
+
+                    $('#move_files_modal_' + vm._uid).on('hidden.bs.modal', function () {
+                        vm.modals.move_files.destination = '';
+                    });
+                });
             }
+
         },
 
         mounted: function() {
-            this.getFiles();
-            var vm = this;
-
-            if (this.element != '') {
-                this.hidden_element = document.querySelector(this.element);
-                if (!this.hidden_element) {
-                    console.error('Element "'+this.element+'" could not be found.');
-                } else {
-                    // if (this.maxSelectedFiles > 1 && this.hidden_element.value == '') {
-                    if (this.maxSelectedFiles > 1 ) {
-                        if(this.localValue == '')
-                            this.localValue=[];
-                        if(!Array.isArray(this.localValue))
-                            this.localValue = JSON.parse(this.localValue)
-                        
-                    }
-                }
-            }
+            this.init();
 
             //Key events
             this.onkeydown = function(evt) {
@@ -878,124 +1002,6 @@
                     }
                 }
             };
-            //Dropzone
-            var dropzone = $(vm.$el).first().find('#upload').first();
-            var progress = $(vm.$el).first().find('#uploadProgress').first();
-            var progress_bar = $(vm.$el).first().find('#uploadProgress .progress-bar').first();
-            if (this.allowUpload && !dropzone.hasClass('dz-clickable')) {
-                dropzone.dropzone({
-                    timeout: 180000,
-                    url: '{{ route('voyager.media.upload') }}',
-                    previewsContainer: "#uploadPreview",
-                    totaluploadprogress: function(uploadProgress, totalBytes, totalBytesSent) {
-                        progress_bar.css('width', uploadProgress + '%');
-    					if (uploadProgress == 100) {
-    						progress.delay(1500).slideUp(function(){
-    							progress_bar.css('width', '0%');
-    						});
-    					}
-                    },
-                    processing: function(){
-                        progress.fadeIn();
-                    },
-                    sending: function(file, xhr, formData) {
-                        formData.append("_token", '{{ csrf_token() }}');
-                        formData.append("upload_path", vm.current_folder);
-                        formData.append("filename", vm.filename);
-                        formData.append("details", JSON.stringify(vm.details));
-                    },
-                    success: function(e, res) {
-                        if (res.success) {
-                            toastr.success(res.message, "{{ __('voyager::generic.sweet_success') }}");
-                        } else {
-                            toastr.error(res.message, "{{ __('voyager::generic.whoopsie') }}");
-                        }
-                    },
-                    error: function(e, res, xhr) {
-                        toastr.error(res, "{{ __('voyager::generic.whoopsie') }}");
-                    },
-                    queuecomplete: function() {
-                        vm.getFiles();
-                    }
-                });
-            }
-
-            //Cropper
-            if (this.allowCrop) {
-                var cropper = $(vm.$el).first().find('#crop_modal_'+vm._uid).first();
-                cropper.on('shown.bs.modal', function (e) {
-                    if (typeof cropper !== 'undefined' && cropper instanceof Cropper) {
-    					cropper.destroy();
-    				}
-    				var croppingImage = document.getElementById('cropping-image_'+vm._uid);
-    				cropper = new Cropper(croppingImage, {
-    					crop: function(e) {
-    						document.getElementById('new-image-width_'+vm._uid).innerText = Math.round(e.detail.width) + 'px';
-    						document.getElementById('new-image-height_'+vm._uid).innerText = Math.round(e.detail.height) + 'px';
-    						croppedData = {
-    							x: Math.round(e.detail.x),
-    							y: Math.round(e.detail.y),
-    							height: Math.round(e.detail.height),
-    							width: Math.round(e.detail.width)
-    						};
-    					}
-    				});
-    			});
-            }
-
-            $(document).ready(function () {
-                $(".form-edit-add").submit(function (e) {
-                    if (vm.hidden_element) {
-                        if (vm.maxSelectedFiles > 1) {
-                            // var content = JSON.parse(vm.hidden_element.value);
-                            var content = vm.localValue;
-                            if (content.length < vm.minSelectedFiles) {
-                                e.preventDefault();
-                                var msg_sing = "{{ trans_choice('voyager::media.min_files_select', 1) }}";
-                                var msg_plur = "{{ trans_choice('voyager::media.min_files_select', 2) }}";
-                                if (vm.minSelectedFiles == 1) {
-                                    toastr.error(msg_sing);
-                                } else {
-                                    toastr.error(msg_plur.replace('2', vm.minSelectedFiles));
-                                }
-                            }
-                        } else {
-                            // if (vm.minSelectedFiles > 0 && vm.hidden_element.value == '') {
-                            if (vm.minSelectedFiles > 0 && vm.localValue == '') {
-                                e.preventDefault();
-                                toastr.error("{{ trans_choice('voyager::media.min_files_select', 1) }}");
-                            }
-                        }
-                    }
-                });
-
-                //Nestable
-                $('#dd_'+vm._uid).nestable({
-                    maxDepth: 1,
-                    handleClass: 'file_link',
-                    collapseBtnHTML: '',
-                    expandBtnHTML: '',
-                    callback: function(l, e) {
-                        if (vm.allowMultiSelect) {
-                            var new_content = [];
-                            var object = $('#dd_'+vm._uid).nestable('serialize');
-                            for (var key in object) {
-                                new_content.push(object[key].url);
-                            }
-                            // vm.hidden_element.value =  vm.localValue = JSON.stringify(new_content);
-                            vm.localValue = new_content;
-                        }
-                    }
-                });
-
-                $('#create_dir_modal_' + vm._uid).on('hidden.bs.modal', function () {
-                    vm.modals.new_folder.name = '';
-                });
-
-                $('#move_files_modal_' + vm._uid).on('hidden.bs.modal', function () {
-                    vm.modals.move_files.destination = '';
-                });
-            });
         },
     });
 </script>

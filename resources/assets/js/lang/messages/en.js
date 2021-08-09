@@ -4,7 +4,7 @@ export default {
     delete: 'Удалить',
     no: 'Нет',
     save: 'Сохранить',
-    ok: 'Ок',
+    ok: 'Ok',
     update: 'Обновить',
     yes: 'Да',
     cancel: 'Cancel',

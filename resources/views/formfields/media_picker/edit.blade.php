@@ -1,8 +1,6 @@
 <div class="panel">
     <div class="page-content settings container-fluid">
         <div id="media_picker_{{ $row->field }}">
-            <button type="button" @click="openMediaPicker">open</button>
-        
         <media-manager
                 ref="media_manager"
                 base-path="{{ $options->base_path ?? '/'.$dataType->slug.'/' }}"
@@ -39,11 +37,7 @@ var media_picker_{{ $row->field }} = new Vue({
             content: {!! $content !!},
         }
     },
-    methods:{
-        openMediaPicker(){
-            vueModals.$refs.dialogMediaPicker.openDialog();
-        }
-    }
+
 });
 </script>
 @endpush

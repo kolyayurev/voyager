@@ -2,7 +2,9 @@
 @import 'index.css';
 
 .dialog{
+    z-index: 100001 !important;
     .el-dialog{
+        width: 90%;
         border-radius: 4px;
         &__header{
             padding: 15px 20px;

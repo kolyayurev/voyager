@@ -5,32 +5,32 @@
     top="10vh"
     :visible.sync="dialogVisibility"
 	>
-  <!-- <media-manager
-          ref="media_manager"
-          base-path="{{ $options->base_path ?? '/'.$dataType->slug.'/' }}"
-          filename="{{ $options->rename ?? 'null' }}"
-          :allow-multi-select="{{ isset($options->max) && $options->max > 1 ? 'true' : 'false' }}"
-          :max-selected-files="{{ $options->max ?? 0 }}"
-          :min-selected-files="{{ $options->min ?? 0 }}"
-          :show-folders="{{ var_export($options->show_folders ?? false, true) }}"
-          :show-toolbar="{{ var_export($options->show_toolbar ?? true, true) }}"
-          :allow-upload="{{ var_export($options->allow_upload ?? true, true) }}"
-          :allow-move="{{ var_export($options->allow_move ?? false, true) }}"
-          :allow-delete="{{ var_export($options->allow_delete ?? true, true) }}"
-          :allow-create-folder="{{ var_export($options->allow_create_folder ?? true, true) }}"
-          :allow-rename="{{ var_export($options->allow_rename ?? true, true) }}"
-          :allow-crop="{{ var_export($options->allow_crop ?? true, true) }}"
-          :allowed-types="{{ isset($options->allowed) && is_array($options->allowed) ? json_encode($options->allowed) : '[]' }}"
-          :pre-select="false"
-          :expanded="{{ var_export($options->expanded ?? false, true) }}"
-          :show-expand-button="true"
-          :element="'input[name=&quot;{{ $row->field }}&quot;]'"
-          :details="{{ json_encode($options ?? new class{}) }}"
-          v-model="content"
-  ></media-manager> -->
-  <span slot="footer" class="dialog-footer">
-    <el-button type="primary" @click="closeDialog">{{ $t('buttons.cancel') }}</el-button>
-  </span>
+    <media-manager
+      ref="media_manager"
+      :base-path="options.basePath"
+      :filename="options.filename"
+      :allow-multi-select="options.allowMultiSelect"
+      :max-selected-files="options.maxSelectedFiles"
+      :min-selected-files="options.minSelectedFiles"
+      :show-folders="options.showFolders"
+      :show-toolbar="options.showToolbar"
+      :allow-upload="options.allowUpload"
+      :allow-move="options.allowMove"
+      :allow-delete="options.allowDelete"
+      :allow-create-folder="options.allowCreateFolder"
+      :allow-rename="options.allowRename"
+      :allow-crop="options.allowCrop"
+      :allowed-types="options.allowedTypes"
+      :pre-select="options.preSelect"
+      :expanded="options.expanded"
+      :show-expand-button="options.showExpandButton"
+      :element="options.element"
+      :details="options.details"
+      v-model="content"
+    ></media-manager>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="closeDialog">{{ $t('buttons.ok') }}</el-button>
+    </span>
   </el-dialog>
 </template>
 
@@ -41,23 +41,50 @@ export default {
 	mixins: [dialog],
 	name: 'v-dialog-media-picker',
 	props:{
-		
 	},
 	data(){
 		return{
-			options:{}
+			options:{},
+      content: null
 		}
 	},
 	created(){
 		this.setDefaultOptions()
 	},
 	methods:{
-		setOptions(){
-
+    init(options,content){
+      this.setOptions(options).setContent(content).openDialog();
+      this.$refs.media_manager.init();
+    },
+		setOptions(options){
+      this.options = {...this.options,...options};
+      return this;
+    },
+    setContent(content){
+      this.content = content;
+      return this;
     },
     setDefaultOptions(){
       this.options = {
-        dd:1
+        basePath:'/',
+        filename:null,
+        allowMultiSelect: false,
+        maxSelectedFiles:0,
+        minSelectedFiles:0,
+        showFolders:false,
+        showToolbar:true,
+        allowUpload:true,
+        allowMove: false,
+        allowDelete: true,
+        allowCreateFolder: true,
+        allowRename: true,
+        allowCrop: true,
+        allowedTypes: [],
+        preSelect:false,
+        expanded: false,
+        showExpandButton: true,
+        element: '',
+        details: {},
       }
     }
 	}
