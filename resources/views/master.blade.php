@@ -152,22 +152,7 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
     @endif
 </script>
 @include('voyager::media.manager')
-<div id="modals">
-    <v-dialog-media-picker ref="dialogMediaPicker"> </v-dialog-media-picker>
-</div>
-@stack('vue')
-<script async>
-    var vueModals = new Vue({
-        el : '#modals',
-        mounted(){
 
-        },
-        data(){
-            return {
-            }
-        },
-    });
-</script>
 
 @yield('javascript')
 @stack('javascript')
