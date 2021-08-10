@@ -52,7 +52,7 @@ body{
     }
     &__buttons{
         display: none; 
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-items: center;
         padding-top: $button-size/10;
         &.open{
