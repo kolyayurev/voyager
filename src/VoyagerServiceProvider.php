@@ -79,6 +79,7 @@ class VoyagerServiceProvider extends ServiceProvider
             return new Voyager();
         });
 
+        
         $this->app->singleton('VoyagerGuard', function () {
             return config('auth.defaults.guard', 'web');
         });

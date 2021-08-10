@@ -220,6 +220,11 @@ return [
         // storing cache values between requests
         'cache' => false,
     ],
+    // front admin controls panel
+    'controls_panel' => [
+        'enable' => true,
+        'position' => 'top-right', // ['top-left','bottom-left','top-right','bottom-right']
+    ],
 
     // Activate compass when environment is NOT local
     'compass_in_production' => false,

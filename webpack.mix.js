@@ -12,11 +12,12 @@ const webpack = require('webpack');
  */
 
 mix
-.options({ processCssUrls: false })
-.sass('resources/assets/sass/front.scss', 'publishable/assets/css')
-.vue({
-    extractStyles: true,
-});
+    .options({ processCssUrls: false })
+    .sass('resources/assets/sass/front.scss', 'publishable/assets/css')
+    .js('resources/assets/js/front.js', 'publishable/assets/js')
+    .vue({
+        extractStyles: true,
+    });
 
 if (mix.inProduction()) {
     mix

@@ -32,6 +32,7 @@ use TCG\Voyager\Models\User;
 use TCG\Voyager\Models\Widget;
 use TCG\Voyager\Traits\Translatable;
 use TCG\Voyager\Widgets\WidgetInterface;
+use TCG\Voyager\Helpers\ControlPanel\ControlButton;
 
 
 class Voyager
@@ -72,6 +73,8 @@ class Voyager
         'Widget'      => Widget::class,
     ];
 
+    protected $controlButtons;
+
     public $setting_cache = null;
 
     public function __construct()
@@ -79,6 +82,18 @@ class Voyager
         $this->filesystem = app(Filesystem::class);
 
         $this->findVersion();
+
+        $this->controlButtons = collect([]);
+
+    }
+
+    public function addControlButton($options = [])
+    {
+        $this->controlButtons->push(new ControlButton($options));
+    }
+    public function getControlButtons()
+    {
+        return  $this->controlButtons;
     }
 
     public function model($name)

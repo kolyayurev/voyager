@@ -98,3 +98,8 @@ php artisan voyager:admin your@email.com --create
 ```
 
 And you will be prompted for the user's name and password.
+
+
+## Front Control Panel
+
+Add `admin-controls-expanded` cookie to `EncryptCookies` middleware
