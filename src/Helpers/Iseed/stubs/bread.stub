@@ -1,0 +1,54 @@
+<?php
+
+namespace Database\Seeders;
+
+use TCG\Voyager\Models\DataRow;
+use TCG\Voyager\Models\DataType;
+use TCG\Voyager\Models\Translation;
+
+use Illuminate\Database\Seeder;
+
+class {{class}} extends Seeder
+{
+
+    /**
+     * Auto generated seed file
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $dataType = $this->dataType('name', '{{table}}');
+        if (!$dataType->exists) {
+            $dataType->fill({{data_type}})->save();
+            {{data_rows}}
+            {{translations}}
+        }
+        {{insert_statements}}
+    }
+
+    protected function dataType($field, $for)
+    {
+        return DataType::firstOrNew([$field => $for]);
+    }
+    protected function dataRow($type, $field)
+    {
+        return DataRow::firstOrNew([
+            'data_type_id' => $type->id,
+            'field'        => $field,
+        ]);
+    }
+    private function trans($lang, $keys, $value)
+    {
+        $_t = Translation::firstOrNew(array_merge($keys, [
+            'locale' => $lang,
+        ]));
+
+        if (!$_t->exists) {
+            $_t->fill(array_merge(
+                $keys,
+                ['value' => $value]
+            ))->save();
+        }
+    }
+}

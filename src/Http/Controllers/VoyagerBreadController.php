@@ -13,6 +13,7 @@ use TCG\Voyager\Events\BreadAdded;
 use TCG\Voyager\Events\BreadDeleted;
 use TCG\Voyager\Events\BreadUpdated;
 use TCG\Voyager\Facades\Voyager;
+use Facades\TCG\Voyager\Helpers\Iseed\MakeBreadIseed;
 
 class VoyagerBreadController extends Controller
 {
@@ -213,6 +214,27 @@ class VoyagerBreadController extends Controller
             Voyager::model('Permission')->removeFrom($dataType->name);
         }
 
+        return redirect()->route('voyager.bread.index')->with($data);
+    }
+
+    /**
+     * Create seeder of BREAD.
+     *
+     * @param Number $id BREAD data_type id.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createSeeder($table)
+    {
+        $this->authorize('browse_bread');
+
+        $res = MakeBreadIseed::generateSeed($table);
+
+        $data = $res
+            ? $this->alertSuccess(__('voyager::bread.success_remove_bread', ['datatype' => $dataType->name]))
+            : $this->alertError(__('voyager::bread.error_updating_bread'));
+        
+            
         return redirect()->route('voyager.bread.index')->with($data);
     }
 
