@@ -6,7 +6,7 @@ body{
 }
 .admin-controls{
     position: fixed;
-    z-index: 4;
+    z-index: 100001;
     &.top-left{
         top: 10px;
         left: 10px;
