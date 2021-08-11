@@ -103,7 +103,7 @@ class MakeBreadIseed extends BaseIseed
         // Get the data
         [$dataType,$dataRows,$translations] = $this->getData($table);
 
-        dd($dataType->toArray(['name']));
+        dd($dataType->hidden()->toArray());
 
         $stub = str_replace('{{class}}', $class, $stub);
 
