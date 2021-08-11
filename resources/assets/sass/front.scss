@@ -85,7 +85,7 @@ body{
             color: black;
             opacity: 1;
         }
-        &:not(:first-child){
+        &:not(:last-child){
             margin-top: $button-size/10;
         }
     }
