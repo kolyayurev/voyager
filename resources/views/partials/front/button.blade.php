@@ -15,7 +15,7 @@
         @if ($button->hasColor())  background-color: {{$button->getColor()}}; @endif
         @if ($button->hasOption('fontColor'))  color: {{$button->getOption('fontColor')}}; @endif
         " 
-    target="{{ $button->getOption('target','_blank') }}"
+    target="{{ $button->getOption('target','_self') }}"
 >
     @if($button->hasIcon())
         <i class="voyager-{{$button->geticon()}}"></i>
