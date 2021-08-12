@@ -21,10 +21,9 @@ class {{class}} extends Seeder
         $dataType = $this->dataType('name', '{{table}}');
         if (!$dataType->exists) {
             $dataType->fill({{data_type}})->save();
+            {{dataTypeTranslations}}
             {{data_rows}}
-            {{translations}}
         }
-        {{insert_statements}}
     }
 
     protected function dataType($field, $for)
@@ -38,17 +37,9 @@ class {{class}} extends Seeder
             'field'        => $field,
         ]);
     }
-    private function trans($lang, $keys, $value)
+    private function trans(array $fields,$id)
     {
-        $_t = Translation::firstOrNew(array_merge($keys, [
-            'locale' => $lang,
-        ]));
+        return Translation::firstOrNew(array_merge($fields,['foreign_key'=>$id]));
 
-        if (!$_t->exists) {
-            $_t->fill(array_merge(
-                $keys,
-                ['value' => $value]
-            ))->save();
-        }
     }
 }

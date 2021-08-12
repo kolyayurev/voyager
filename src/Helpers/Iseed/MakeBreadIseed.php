@@ -46,6 +46,8 @@ class MakeBreadIseed extends BaseIseed
         // Save a populated stub
         $this->files->put($seedsPath, $seedContent);
 
+        chmod($seedsPath,0766);
+
         return true;
     }
 
@@ -56,7 +58,7 @@ class MakeBreadIseed extends BaseIseed
      */
     public function getPath($name)
     {
-        return base_path() . '/database/seeds/' . $name . '.php';
+        return base_path() . '/database/seeders/' . $name . '.php';
     }
 
     /**
@@ -68,12 +70,8 @@ class MakeBreadIseed extends BaseIseed
     {
         $dataType = Voyager::model('DataType')->where('name',$table)->first();
         $dataRows = $dataType->rows;
-        $translations =  $dataType->translations;
-        foreach ($dataRows as $dataRow) {
-            $translations = $translations->merge($dataRow->translations);
-        }
 
-        return [$dataType,$dataRows,$translations];
+        return [$dataType,$dataRows];
     }
 
     /**
@@ -101,57 +99,66 @@ class MakeBreadIseed extends BaseIseed
     public function populateStub($class, $stub, $table)
     {
         // Get the data
-        [$dataType,$dataRows,$translations] = $this->getData($table);
-
-        dd($dataType->hidden()->toArray());
+        [$dataType,$dataRows] = $this->getData($table);
 
         $stub = str_replace('{{class}}', $class, $stub);
 
         $stub = str_replace('{{table}}', $table, $stub);
 
-        $inserts = '';
-        
-        foreach ($chunks as $chunk) {
-            $this->addNewLines($inserts);
-            $this->addIndent($inserts, 2);
-            $inserts .= var_dump([
-                'slug'                  => 'roles',
-                'display_name_singular' => __('voyager::seeders.data_types.role.singular'),
-                'display_name_plural'   => __('voyager::seeders.data_types.role.plural'),
-                'icon'                  => 'voyager-lock',
-                'model_name'            => 'TCG\\Voyager\\Models\\Role',
-                'controller'            => 'TCG\\Voyager\\Http\\Controllers\\VoyagerRoleController',
-                'generate_permissions'  => 1,
-                'description'           => '',
-            ]);
+        $stub = str_replace('{{data_type}}', $this->prettifyArray($dataType->makeHidden(['id','name','table_name','created_at','updated_at'])->attributesToArray()), $stub);
+
+        $dataTypeTranslationsInserts = '';
+
+        $dataTypeTranslations = $dataType->translations;
+
+        if($dataTypeTranslations->count())
+        {
+            foreach ($dataTypeTranslations as $translation) {
+                $this->addNewLines($dataTypeTranslationsInserts);
+                $this->addIndent($dataTypeTranslationsInserts, 2);
+                $dataTypeTranslationsInserts .= sprintf('$translation = $this->trans(%s,$dataType->getKey());',$this->prettifyArray(\Arr::only($translation->attributesToArray(),['table_name','column_name','locale'])));
+                $this->addNewLines($dataTypeTranslationsInserts);
+                $this->addIndent($dataTypeTranslationsInserts, 2);
+                $dataTypeTranslationsInserts .= sprintf('if (!$translation->exists) $translation->fill(%s)->save();',$this->prettifyArray(\Arr::only($translation->attributesToArray(),['value'])));
+            }
         }
 
-        $stub = str_replace('{{data_type}}', $inserts, $stub);
+        $stub = str_replace('{{dataTypeTranslations}}', $dataTypeTranslationsInserts , $stub);
 
-        // $dataRow = $this->dataRow($dataType, 'id');
-        // if (!$dataRow->exists) {
-        //     $dataRow->fill([
-        //         'type'         => 'number',
-        //         'display_name' => __('voyager::seeders.data_rows.id'),
-        //         'required'     => 1,
-        //         'browse'       => 0,
-        //         'read'         => 0,
-        //         'edit'         => 0,
-        //         'add'          => 0,
-        //         'delete'       => 0,
-        //         'order'        => 1,
-        //     ])->save();
-        // }
+        $dataRowsInserts = '';
 
-        // Translation::firstOrNew(array_merge($keys, [
-        //     'locale' => $lang,
-        // ]));
+        if($dataRows->count())
+        {
+            foreach ($dataRows as $dataRow) {
+                $this->addNewLines($dataRowsInserts);
+                $this->addIndent($dataRowsInserts, 2);
+                $dataRowsInserts .= sprintf('$dataRow = $this->dataRow($dataType, \'%s\');',$dataRow->field);
+                $this->addNewLines($dataRowsInserts);
+                $this->addIndent($dataRowsInserts, 2);
+                $dataRowsInserts .= sprintf('if (!$dataRow->exists) $dataRow->fill(%s)->save();',$this->prettifyArray($dataRow->makeHidden(['id','data_type_id','field'])->attributesToArray()));
 
+                $dataRowTranslations = $dataRow->translations;
 
-        
+                if($dataRowTranslations->count())
+                {
+                    foreach ($dataRowTranslations as $translation) {
+                        $this->addNewLines($dataRowsInserts);
+                        $this->addIndent($dataRowsInserts, 2);
+                        $dataRowsInserts .= sprintf('$translation = $this->trans(%s,$dataRow->getKey());',$this->prettifyArray(\Arr::only($translation->attributesToArray(),['table_name','column_name','locale'])));
+                        $this->addNewLines($dataRowsInserts);
+                        $this->addIndent($dataRowsInserts, 2);
+                        $dataRowsInserts .= sprintf('if (!$translation->exists) $translation->fill(%s)->save();',$this->prettifyArray(\Arr::only($translation->attributesToArray(),['value'])));
+                    }
+                }
+            }
+        }
+
+        $stub = str_replace('{{data_rows}}', $dataRowsInserts , $stub);
+
 
         return $stub;
     }
+
 
 
 

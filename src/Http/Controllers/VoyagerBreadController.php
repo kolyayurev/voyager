@@ -231,9 +231,8 @@ class VoyagerBreadController extends Controller
         $res = MakeBreadIseed::generateSeed($table);
 
         $data = $res
-            ? $this->alertSuccess(__('voyager::bread.success_remove_bread', ['datatype' => $dataType->name]))
-            : $this->alertError(__('voyager::bread.error_updating_bread'));
-        
+            ? $this->alertSuccess(__('voyager::bread.success_created_seeder', ['datatype' => $table]))
+            : $this->alertError(__('voyager::bread.error_creating_seeder'));
             
         return redirect()->route('voyager.bread.index')->with($data);
     }
