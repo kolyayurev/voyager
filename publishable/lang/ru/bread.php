@@ -24,7 +24,7 @@ return [
     'success_created_bread'  => 'Новый BREAD успешно создан',
     'success_remove_bread'   => 'BREAD успешно удален из :datatype',
     'success_update_bread'   => 'BREAD успешно обновлен в :datatype',
-    'success_created_seeder' => 'Для BREAD :datatype успешно создан seeder',
+    'success_created_seeder' => 'Для BREAD :datatype успешно создан seeder :path',
     'controller_name'        => 'Имя контроллера',
     'create_migration'       => 'Создать миграцию для данной таблицы?',
     'description'            => 'Описание',

@@ -48,9 +48,27 @@ class MakeBreadIseed extends BaseIseed
 
         chmod($seedsPath,0766);
 
-        return true;
+        return $this->getRelativePath($className);
     }
 
+    
+    /**
+     * Return folder 
+     * @return string
+     */
+    public function getFolder()
+    {
+        return '/database/seeders/';
+    }
+
+    /**
+     * Return relative path 
+     * @return string
+     */
+    public function getRelativePath($name)
+    {
+        return $this->getFolder() . $name . '.php';
+    }
     /**
      * Create the full path name to the seed file.
      * @param  string  $name
@@ -58,7 +76,7 @@ class MakeBreadIseed extends BaseIseed
      */
     public function getPath($name)
     {
-        return base_path() . '/database/seeders/' . $name . '.php';
+        return base_path() .$this->getRelativePath($name);
     }
 
     /**
