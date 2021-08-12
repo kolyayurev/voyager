@@ -225,22 +225,22 @@ class DataType extends Model
     public function fieldOptions()
     {
         // Get ordered BREAD fields
-        $orderedFields = $this->rows()->pluck('field')->toArray();
+        // $orderedFields = $this->rows()->pluck('field')->toArray();
 
-        $_fieldOptions = SchemaManager::describeTable(
+        $fieldOptions = SchemaManager::describeTable(
             (strlen($this->model_name) != 0)
             ? DB::getTablePrefix().app($this->model_name)->getTable()
             : DB::getTablePrefix().$this->name
-        )->toArray();
-        // dump($_fieldOptions,$orderedFields);
+        );
+        // dump($_fieldOptions,$orderedFields,'===');
         
-        $fieldOptions = [];
-        $f_size = count($orderedFields);
-        for ($i = 0; $i < $f_size; $i++) {
-            // if(array_key_exists($orderedFields[$i],$_fieldOptions))
-            $fieldOptions[$orderedFields[$i]] = $_fieldOptions[$orderedFields[$i]];
-        }
-        $fieldOptions = collect($fieldOptions);
+        // $fieldOptions = [];
+        // $f_size = count($orderedFields);
+        // for ($i = 0; $i < $f_size; $i++) {
+        //     if(array_key_exists($orderedFields[$i],$_fieldOptions))
+        //         $fieldOptions[$orderedFields[$i]] = $_fieldOptions[$orderedFields[$i]];
+        // }
+        // $fieldOptions = collect($fieldOptions);
 
         if ($extraFields = $this->extraFields()) {
             foreach ($extraFields as $key => $field) {
@@ -251,22 +251,7 @@ class DataType extends Model
     }
 
 
-    /**
-     * This function must by in model
-     * 
-     * public function adminFields():array{
-     * 
-     * return [
-     *  'meta_1' => [
-     *      "name" => "meta_1",
-     *      "type" => "varchar",
-     *      "null" => "YES",
-     *      "field" => "meta_1",
-     *      "key" => null,
-     *  ],
-     * ];
-     * }
-     */
+
 
     public function extraFields()
     {

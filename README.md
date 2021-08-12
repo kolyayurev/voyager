@@ -103,3 +103,60 @@ And you will be prompted for the user's name and password.
 ## Front Control Panel
 
 Add `admin-controls-expanded` cookie to `EncryptCookies` middleware
+
+
+## Custom fields
+
+Model must have function
+
+```
+public function adminFields():array{
+    
+     return [
+      'meta_1' => [
+          "name" => "meta_1",
+          "type" => "varchar",
+          "null" => "YES",
+          "field" => "timestamp",
+          "key" => null,
+          // OTHERS
+          "default" => null,
+          "notnull" => false,
+          "length" => 0,
+          "precision" => 10,
+          "scale" => 0,
+          "fixed" => false,
+          "unsigned" => false,
+          "autoincrement" => false,
+          "columnDefinition" => null,
+          "comment" => null,
+          "oldName" => "timestamp",
+          "extra" => "",
+          "composite" => false,
+          "indexes" => [],
+      ],
+     ];
+    }
+```
+And setter and getter
+
+```
+    public function setOptionsAttribute($value)
+    {
+        $this->attributes['options'] = json_encode($value);
+    }
+
+    public function getOptionsAttribute($value)
+    {
+        return json_decode(!empty($value) ? $value : '{}');
+    }
+
+    public function setMeta1Attribute($value)
+    {
+        $this->attributes['options'] = collect($this->options)->merge(['meta_1' => $value]);
+    }
+    public function getMeta1Attribute()
+    {
+        return $this->options->meta_1 ?? null;
+    }
+```
