@@ -265,4 +265,10 @@ return [
            ],
        ]*/
     ],
+
+    'seeds'=>[
+        'make_bread'=>[
+            'path'=> '/database/seeders/',
+        ]
+    ]
 ];
