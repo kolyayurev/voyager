@@ -58,7 +58,7 @@ class MakeBreadIseed extends BaseIseed
      */
     public function getFolder()
     {
-        return config('voyage.seeds.make_bread.path','/database/seeders/');
+        return config('voyager.seeds.make_bread.path','/database/seeders/');
     }
 
     /**
