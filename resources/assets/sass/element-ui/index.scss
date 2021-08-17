@@ -4,7 +4,6 @@
 .dialog{
     z-index: 100001 !important;
     .el-dialog{
-        width: 90%;
         border-radius: 4px;
         &__header{
             padding: 15px 20px;
@@ -27,7 +26,15 @@
     background-color: $--color--accent;
 }
 .dialog-media-picker{
-    
+    .el-dialog{
+        width: 90%;
+    }
+}
+.dialog-create-custom-bread{
+    .el-dialog{
+        width: 100%;
+        max-width: 750px;
+    }
 }
 .modal-info{
     .el-dialog__header{
@@ -43,3 +50,9 @@
         }
     } 
 }
+
+.el-form--label-top{
+    .el-form-item__label{
+        padding-bottom: 0;
+    }
+} 

@@ -121,11 +121,12 @@ Route::group(['as' => 'voyager.'], function () {
         ], function () use ($namespacePrefix) {
             Route::get('/', ['uses' => $namespacePrefix.'VoyagerBreadController@index',              'as' => 'index']);
             Route::get('{table}/create', ['uses' => $namespacePrefix.'VoyagerBreadController@create',     'as' => 'create']);
+            Route::post('create_custom', ['uses' => $namespacePrefix.'VoyagerBreadController@createCustom',  'as' => 'create_custom']);
             Route::post('/', ['uses' => $namespacePrefix.'VoyagerBreadController@store',   'as' => 'store']);
-            Route::get('{table}/edit', ['uses' => $namespacePrefix.'VoyagerBreadController@edit', 'as' => 'edit']);
+            Route::get('{slug}/edit', ['uses' => $namespacePrefix.'VoyagerBreadController@edit', 'as' => 'edit']);
             Route::put('{id}', ['uses' => $namespacePrefix.'VoyagerBreadController@update',  'as' => 'update']);
             Route::delete('{id}', ['uses' => $namespacePrefix.'VoyagerBreadController@destroy',  'as' => 'delete']);
-            Route::get('create_seeder/{table}', ['uses' => $namespacePrefix.'VoyagerBreadController@createSeeder',  'as' => 'create_seeder']);
+            Route::get('create_seeder/{slug}', ['uses' => $namespacePrefix.'VoyagerBreadController@createSeeder',  'as' => 'create_seeder']);
             Route::post('relationship', ['uses' => $namespacePrefix.'VoyagerBreadController@addRelationship',  'as' => 'relationship']);
             Route::get('delete_relationship/{id}', ['uses' => $namespacePrefix.'VoyagerBreadController@deleteRelationship',  'as' => 'delete_relationship']);
         });

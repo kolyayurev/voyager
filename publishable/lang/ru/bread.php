@@ -27,6 +27,8 @@ return [
     'success_created_seeder' => 'Для BREAD :datatype успешно создан seeder :path',
     'controller_name'        => 'Имя контроллера',
     'create_migration'       => 'Создать миграцию для данной таблицы?',
+    'create_custom_bread'    => 'Создать CUSTOM BREAD',
+    'custom_bread'           => 'Custom Bread',
     'description'            => 'Описание',
     'display_name'           => 'Отображаемое имя',
     'display_name_plural'    => 'Отображаемое имя (во множественном числе)',

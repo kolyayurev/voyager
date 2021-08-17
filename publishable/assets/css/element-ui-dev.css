@@ -3,7 +3,6 @@
   z-index: 100001 !important;
 }
 .dialog .el-dialog {
-  width: 90%;
   border-radius: 4px;
 }
 .dialog .el-dialog__header {
@@ -24,6 +23,15 @@
   background-color: #22A7F0;
 }
 
+.dialog-media-picker .el-dialog {
+  width: 90%;
+}
+
+.dialog-create-custom-bread .el-dialog {
+  width: 100%;
+  max-width: 750px;
+}
+
 .modal-info .el-dialog__header {
   background-color: #22A7F0;
   color: #FFFFFF;
@@ -33,4 +41,8 @@
 }
 .modal-info .el-dialog__headerbtn .el-dialog__close {
   color: #FFFFFF;
+}
+
+.el-form--label-top .el-form-item__label {
+  padding-bottom: 0;
 }

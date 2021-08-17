@@ -12,6 +12,7 @@
 
     <div class="page-content container-fluid">
         @include('voyager::alerts')
+        
         <div class="row">
             <div class="col-md-12">
 
@@ -43,15 +44,15 @@
                                    class="btn btn-warning btn-sm browse_bread" style="margin-right: 0;">
                                     <i class="voyager-plus"></i> {{ __('voyager::generic.browse') }}
                                 </a>
-                                <a href="{{ route('voyager.bread.edit', $table->name) }}"
+                                <a href="{{ route('voyager.bread.edit', $table->slug) }}"
                                    class="btn btn-primary btn-sm edit">
                                     <i class="voyager-edit"></i> {{ __('voyager::generic.edit') }}
                                 </a>
-                                <a href="{{ route('voyager.bread.create_seeder', $table->name) }}"
+                                <a href="{{ route('voyager.bread.create_seeder', $table->slug) }}"
                                     class="btn btn-warning btn-sm edit">
                                      <i class="voyager-external"></i> {{ __('voyager::generic.export') }}
                                  </a>
-                                <a href="#delete-bread" data-id="{{ $table->dataTypeId }}" data-name="{{ $table->name }}"
+                                <a href="#delete-bread" data-id="{{ $table->dataTypeId }}" data-slug="{{ $table->slug }}"
                                      class="btn btn-danger btn-sm delete">
                                     <i class="voyager-trash"></i> {{ __('voyager::generic.delete') }}
                                 </a>
@@ -67,6 +68,51 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-primary btn-sm" id="createCustomBread">
+                     <i class="voyager-plus"></i> {{ __('voyager::bread.create_custom_bread') }}
+                </button>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-striped database-tables">
+                    <thead>
+                        <tr>
+                            <th>{{ __('voyager::bread.custom_bread') }}</th>
+                            <th style="text-align:right">{{ __('voyager::bread.bread_crud_actions') }}</th>
+                        </tr>
+                    </thead>
+                    @foreach($customDataTypes as $customDataType)
+                        <tr>
+                            <td>
+                                <p class="name">
+                                    {{ $customDataType->slug }}
+                                </p>
+                            </td>
+
+                            <td class="actions text-right">
+                                <a href="{{ route('voyager.' . $customDataType->slug . '.index') }}"
+                                class="btn btn-warning btn-sm browse_bread" style="margin-right: 0;">
+                                    <i class="voyager-plus"></i> {{ __('voyager::generic.browse') }}
+                                </a>
+                                <a href="{{ route('voyager.bread.edit', $customDataType->slug) }}"
+                                class="btn btn-primary btn-sm edit">
+                                    <i class="voyager-edit"></i> {{ __('voyager::generic.edit') }}
+                                </a>
+                                <a href="{{ route('voyager.bread.create_seeder', $customDataType->slug) }}"
+                                    class="btn btn-warning btn-sm edit">
+                                    <i class="voyager-external"></i> {{ __('voyager::generic.export') }}
+                                </a>
+                                <a href="#delete-bread" data-id="{{ $customDataType->id }}" data-slug="{{ $customDataType->slug }}"
+                                    class="btn btn-danger btn-sm delete">
+                                    <i class="voyager-trash"></i> {{ __('voyager::generic.delete') }}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
     </div>
     {{-- Delete BREAD Modal --}}
     <div class="modal modal-danger fade" tabindex="-1" id="delete_builder_modal" role="dialog">
@@ -75,7 +121,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('voyager::generic.close') }}"><span
                                 aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="voyager-trash"></i>  {!! __('voyager::bread.delete_bread_quest', ['table' => '<span id="delete_builder_name"></span>']) !!}</h4>
+                    <h4 class="modal-title"><i class="voyager-trash"></i>  {!! __('voyager::bread.delete_bread_quest', ['table' => '<span id="delete_builder_slug"></span>']) !!}</h4>
                 </div>
                 <div class="modal-footer">
                     <form action="#" id="delete_builder_form" method="POST">
@@ -89,44 +135,56 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <div class="modal modal-info fade" tabindex="-1" id="table_info" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('voyager::generic.close') }}"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><i class="voyager-data"></i> @{{ table.name }}</h4>
-                </div>
-                <div class="modal-body" style="overflow:scroll">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>{{ __('voyager::database.field') }}</th>
-                            <th>{{ __('voyager::database.type') }}</th>
-                            <th>{{ __('voyager::database.null') }}</th>
-                            <th>{{ __('voyager::database.key') }}</th>
-                            <th>{{ __('voyager::database.default') }}</th>
-                            <th>{{ __('voyager::database.extra') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="row in table.rows">
-                            <td><strong>@{{ row.Field }}</strong></td>
-                            <td>@{{ row.Type }}</td>
-                            <td>@{{ row.Null }}</td>
-                            <td>@{{ row.Key }}</td>
-                            <td>@{{ row.Default }}</td>
-                            <td>@{{ row.Extra }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">{{ __('voyager::generic.close') }}</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    <div id="vueModals">
+        <div class="modal modal-info fade" tabindex="-1" id="table_info" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('voyager::generic.close') }}"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><i class="voyager-data"></i> @{{ table.name }}</h4>
+                    </div>
+                    <div class="modal-body" style="overflow:scroll">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>{{ __('voyager::database.field') }}</th>
+                                <th>{{ __('voyager::database.type') }}</th>
+                                <th>{{ __('voyager::database.null') }}</th>
+                                <th>{{ __('voyager::database.key') }}</th>
+                                <th>{{ __('voyager::database.default') }}</th>
+                                <th>{{ __('voyager::database.extra') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="row in table.rows">
+                                <td><strong>@{{ row.Field }}</strong></td>
+                                <td>@{{ row.Type }}</td>
+                                <td>@{{ row.Null }}</td>
+                                <td>@{{ row.Key }}</td>
+                                <td>@{{ row.Default }}</td>
+                                <td>@{{ row.Extra }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">{{ __('voyager::generic.close') }}</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    
+        <v-dialog-create-custom-bread
+            ref="dialogCreateCustomBread"
+            title="{{ __('voyager::bread.create_custom_bread') }}"
+            url="{{ route('voyager.bread.create_custom') }}"
+            >
+            <div slot="field">
+                @csrf
+            </div>
+        </v-dialog-create-custom-bread>
+    </div>
 
 @stop
 
@@ -139,22 +197,29 @@
             rows: []
         };
 
-        new Vue({
-            el: '#table_info',
-            data: {
-                table: table,
+        var vueModals = new Vue({
+            el: '#vueModals',
+            data() {
+                return {
+                    table: table,
+                }
             },
         });
 
         $(function () {
 
+            // Create custom BREAD
+            //
+            $('#createCustomBread').on('click',  function (e) {
+                vueModals.$refs.dialogCreateCustomBread.openDialog();
+            });
             // Setup Delete BREAD
             //
             $('table .actions').on('click', '.delete', function (e) {
                 id = $(this).data('id');
-                name = $(this).data('name');
+                slug = $(this).data('slug');
 
-                $('#delete_builder_name').text(name);
+                $('#delete_builder_slug').text(slug);
                 $('#delete_builder_form')[0].action = '{{ route('voyager.bread.delete', ['__id']) }}'.replace('__id', id);
                 $('#delete_builder_modal').modal('show');
             });

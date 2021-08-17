@@ -2,6 +2,8 @@
 
 namespace TCG\Voyager\Http\Controllers;
 
+use Arr;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -35,8 +37,12 @@ class VoyagerBreadController extends Controller
 
             return (object) $table;
         }, SchemaManager::listTableNames());
+        
+        $customDataTypes = array_map(function ($type){
+            return (object) $type;
+        }, Arr::except($dataTypes,Arr::pluck($tables,'name')));
 
-        return Voyager::view('voyager::tools.bread.index')->with(compact('dataTypes', 'tables'));
+        return Voyager::view('voyager::tools.bread.index')->with(compact('dataTypes','customDataTypes', 'tables'));
     }
 
     /**
@@ -86,6 +92,45 @@ class VoyagerBreadController extends Controller
     }
 
     /**
+     * Create custom BREAD.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function createCustom(Request $request)
+    {
+        $this->authorize('browse_bread');
+
+        try {
+
+            $table = $request->slug;
+
+            $displayName = Str::singular(implode(' ', explode('_', Str::title($table))));
+
+            $dataType = Voyager::model('DataType')->firstOrNew([
+                'name'                 => $table,
+                'slug'                 => Str::slug($table),
+                'display_name_singular'=> $displayName,
+                'display_name_plural'  => Str::plural($displayName),
+                'model_name'           => $request->model_name,
+            ]);
+
+        } catch (Exception $e) {
+            return redirect()->route('voyager.bread.index')->with($this->alertException($e, 'Creating Custom Failed'));
+        }
+
+        $data = $this->prepopulateBreadInfo($request->slug);
+
+        $data['fieldOptions'] = $dataType->fieldOptions();
+
+        $data['model_name'] = $dataType->model_name;
+
+        return Voyager::view('voyager::tools.bread.edit-add', $data);
+    }
+
+    
+    /**
      * Store BREAD.
      *
      * @param \Illuminate\Http\Request $request
@@ -119,11 +164,11 @@ class VoyagerBreadController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($table)
+    public function edit($slug)
     {
         $this->authorize('browse_bread');
 
-        $dataType = Voyager::model('DataType')->whereName($table)->first();
+        $dataType = Voyager::model('DataType')->whereSlug($slug)->first();
 
         $fieldOptions = $dataType->fieldOptions();
 
@@ -223,14 +268,14 @@ class VoyagerBreadController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function createSeeder($table)
+    public function createSeeder($slug)
     {
         $this->authorize('browse_bread');
 
-        $res = MakeBreadIseed::generateSeed($table);
+        $res = MakeBreadIseed::generateSeed($slug);
 
         $data = $res
-            ? $this->alertSuccess(__('voyager::bread.success_created_seeder', ['datatype' => $table,'path' => $res]))
+            ? $this->alertSuccess(__('voyager::bread.success_created_seeder', ['datatype' => $slug,'path' => $res]))
             : $this->alertError(__('voyager::bread.error_creating_seeder'));
             
         return redirect()->route('voyager.bread.index')->with($data);

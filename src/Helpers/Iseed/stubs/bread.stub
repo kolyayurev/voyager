@@ -18,7 +18,7 @@ class {{class}} extends Seeder
      */
     public function run()
     {
-        $dataType = $this->dataType('name', '{{table}}');
+        $dataType = $this->dataType('slug', '{{slug}}');
         if (!$dataType->exists) {
             $dataType->fill({{data_type}})->save();
             {{dataTypeTranslations}}

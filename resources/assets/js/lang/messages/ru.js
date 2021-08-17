@@ -7,7 +7,8 @@ export default {
     ok: 'Ок',
     update: 'Обновить',
     yes: 'Да',
-    cancel: 'Отмена'
+    cancel: 'Отмена',
+    save:'Сохранить',
   },
   messages:{
     success: 'Успешно',

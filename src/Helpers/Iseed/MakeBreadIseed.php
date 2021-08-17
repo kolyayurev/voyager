@@ -21,14 +21,14 @@ class MakeBreadIseed extends BaseIseed
 
     /**
      * Generates a seed file.
-     * @param  string   $table
+     * @param  string   $slug
      * @return bool
      */
-    public function generateSeed($table)
+    public function generateSeed($slug)
     {
        
         // Generate class name
-        $className = $this->generateClassName($table);
+        $className = $this->generateClassName($slug);
 
         // Get template for a seed file contents
         $stub = $this->readStubFile($this->getStubPath() . '/bread.stub');
@@ -40,7 +40,7 @@ class MakeBreadIseed extends BaseIseed
         $seedContent = $this->populateStub(
             $className,
             $stub,
-            $table,
+            $slug,
         );
 
         // Save a populated stub
@@ -81,12 +81,12 @@ class MakeBreadIseed extends BaseIseed
 
     /**
      * Get the Data
-     * @param  string $table
+     * @param  string $slug
      * @return Array
      */
-    public function getData($table)
+    public function getData($slug)
     {
-        $dataType = Voyager::model('DataType')->where('name',$table)->first();
+        $dataType = Voyager::model('DataType')->where('slug',$slug)->first();
         $dataRows = $dataType->rows;
 
         return [$dataType,$dataRows];
@@ -94,36 +94,31 @@ class MakeBreadIseed extends BaseIseed
 
     /**
      * Generates a seed class name (also used as a filename)
-     * @param  string  $table
+     * @param  string  $slug
      * @return string
      */
-    public function generateClassName($table)
+    public function generateClassName($slug)
     {
-        $tableString = '';
-        $tableName = explode('_', $table);
-        foreach ($tableName as $tableNameExploded) {
-            $tableString .= ucfirst($tableNameExploded);
-        }
-        return 'VoyagerBread' . ucfirst($tableString) .  'Seeder';
+        return 'VoyagerBread' . \Str::studly($slug) .  'Seeder';
     }
 
     /**
      * Populate the place-holders in the seed stub.
      * @param  string   $class
      * @param  string   $stub
-     * @param  string   $table
+     * @param  string   $slug
      * @return string
      */
-    public function populateStub($class, $stub, $table)
+    public function populateStub($class, $stub, $slug)
     {
         // Get the data
-        [$dataType,$dataRows] = $this->getData($table);
+        [$dataType,$dataRows] = $this->getData($slug);
 
         $stub = str_replace('{{class}}', $class, $stub);
 
-        $stub = str_replace('{{table}}', $table, $stub);
+        $stub = str_replace('{{slug}}', $slug, $stub);
 
-        $stub = str_replace('{{data_type}}', $this->prettifyArray($dataType->makeHidden(['id','name','table_name','created_at','updated_at'])->attributesToArray()), $stub);
+        $stub = str_replace('{{data_type}}', $this->prettifyArray($dataType->makeHidden(['id','slug','table_name','created_at','updated_at'])->attributesToArray()), $stub);
 
         $dataTypeTranslationsInserts = '';
 
