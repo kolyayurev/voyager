@@ -160,3 +160,11 @@ And setter and getter
         return $this->options->meta_1 ?? null;
     }
 ```
+
+## Custom breads 
+
+You must enter a unique slug and specify the model for BREAD.
+
+Example slug: `feedback-client`, model: `App\Models\FeedbackClient`
+
+> But first you have to create a model
