@@ -29364,7 +29364,6 @@ p#the_plugin_name {
 .panel-bordered > .panel-body {
   padding: 20px;
   padding-top: 30px;
-  overflow: hidden;
 }
 
 .voyager .panel {
