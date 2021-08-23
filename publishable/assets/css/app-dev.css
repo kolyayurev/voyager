@@ -16393,6 +16393,81 @@ span[data-img-src]::after {
   float: left;
 }
 
+.media-picker-formfield__wrap {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+.media-picker-formfield__items {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  width: 100%;
+  margin: 0px;
+  flex-wrap: wrap;
+  padding: 10px;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.media-picker-formfield__item {
+  flex: 1;
+  width: 100%;
+  min-width: 200px;
+  max-width: 250px;
+}
+.media-picker-formfield__item .file_link {
+  display: flex;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #2581b8;
+  overflow: hidden;
+  background: #f6f8f9;
+  background: #4da7e8;
+  color: #fff;
+}
+.media-picker-formfield__item .file_link .img_icon {
+  display: none;
+}
+.media-picker-formfield__item .file_link img {
+  display: none;
+}
+.media-picker-formfield__item .link_icon {
+  flex: 1;
+  text-align: center;
+  padding-left: 0;
+  margin-left: 0;
+  margin-right: 5px;
+}
+.media-picker-formfield__item .details {
+  flex: 2;
+  overflow: hidden;
+  width: 100%;
+}
+.media-picker-formfield__item .details .folder h4 {
+  color: #fff;
+  margin-bottom: 2px;
+  margin-top: 16px;
+  max-height: 17px;
+  height: 17px;
+  overflow: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
+}
+.media-picker-formfield__btn-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.media-picker-formfield__button {
+  min-width: 100px;
+}
 /********** LOGIN STYLES ***********/
 body.login {
   margin: 0;
@@ -26901,6 +26976,8 @@ th.visible-xlg {
 .detail_img {
   border-bottom: 1px solid #f1f1f1;
   background: #eee;
+  max-height: 400px;
+  overflow-y: hidden;
 }
 
 .detail_img img {

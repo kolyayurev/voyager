@@ -2,7 +2,7 @@
 <div>
     <div v-if="hidden_element" :id="'dd_'+this._uid" class="dd">
         <ol id="files" class="dd-list">
-            <li v-for="file in getSelectedFiles()" class="dd-item" :data-url="file">
+            <li v-for="file in getSelectedFiles()" :key="file" class="dd-item" :data-url="file">
                 <div class="file_link selected" aria-hidden="true" data-toggle="tooltip" data-placement="auto" :title="file">
                     <div class="link_icon">
                         <template v-if="fileIs(file, 'image')">

@@ -27,7 +27,8 @@
 }
 .dialog-media-picker{
     .el-dialog{
-        width: 90%;
+        width: 100%;
+        max-width: 1200px;
     }
 }
 .dialog-create-custom-bread{

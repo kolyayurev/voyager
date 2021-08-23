@@ -26,7 +26,7 @@
       :show-expand-button="options.showExpandButton"
       :element="options.element"
       :details="options.details"
-      v-model="content"
+      v-model="localValue"
     ></media-manager>
     <span slot="footer" class="dialog-footer">
       <el-button type="primary" @click="closeDialog">{{ $t('buttons.ok') }}</el-button>
@@ -35,26 +35,27 @@
 </template>
 
 <script>
+
+import vModel from '../mixins/v-model';
 import {dialog} from '../mixins/dialog'
 
 export default {
-	mixins: [dialog],
+	mixins: [dialog,vModel],
 	name: 'v-dialog-media-picker',
 	props:{
 	},
 	data(){
 		return{
 			options:{},
-      content: null
 		}
 	},
 	created(){
-		this.setDefaultOptions()
+		this.setDefaultOptions();
 	},
 	methods:{
-    init(options,content){
-      this.setOptions(options).setContent(content).openDialog();
-      this.$refs.media_manager.init();
+    init(options){
+      this.setOptions(options).openDialog();
+      // this.$refs.media_manager.init();
     },
 		setOptions(options){
       this.options = {...this.options,...options};

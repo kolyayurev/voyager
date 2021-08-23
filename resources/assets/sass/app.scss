@@ -17,7 +17,7 @@
 @import "fonts";
 @import '~jquery-ui/themes/base/all.css';
 @import "./jquery.ui.timepicker";
-
+@import "./formfields/index.scss";
 
 /********** LOGIN STYLES ***********/
 
@@ -2427,6 +2427,8 @@ table.dataTable.no-footer{
 .detail_img{
   border-bottom:1px solid #f1f1f1;
   background:#eee;
+  max-height: 400px;
+  overflow-y: hidden;
 }
 
 .detail_img img{

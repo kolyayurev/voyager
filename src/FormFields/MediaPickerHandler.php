@@ -22,9 +22,10 @@ class MediaPickerHandler extends AbstractHandler
             }
             json_decode($dataTypeContent->{$row->field});
             if (json_last_error() == JSON_ERROR_NONE) {
-                $content = json_encode($dataTypeContent->{$row->field});
+                $content = json_decode($dataTypeContent->{$row->field});
+                // $content = $dataTypeContent->{$row->field};
             } else {
-                $content = json_encode('[]');
+                $content = [];
             }
         } else {
             $content = "'".$dataTypeContent->{$row->field}."'";

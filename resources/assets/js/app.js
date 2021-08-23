@@ -17,8 +17,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 Vue.component('draggable',require('vuedraggable').default);
 Vue.component('editor',require('@tinymce/tinymce-vue').default);
 Vue.component('admin-menu', require('./components/admin_menu.vue').default);
-// import DialogMediaPicker from './components/DialogMediaPicker'
-// Vue.component('v-dialog-media-picker',DialogMediaPicker);
+import DialogMediaPicker from './components/DialogMediaPicker'
+Vue.component('v-dialog-media-picker',DialogMediaPicker);
 import DialogCreateCustomBread from './components/DialogCreateCustomBread'
 Vue.component('v-dialog-create-custom-bread',DialogCreateCustomBread);
 

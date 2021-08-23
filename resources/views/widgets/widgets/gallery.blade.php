@@ -193,7 +193,7 @@
                     },
                     rules: {
                         title: [
-                            { required: true, message: 'Обязательное поле', trigger: 'change' },
+                            { required: true, message: 'Обязательное поле', trigger: 'blur' },
                         ],
                         url: [
                             { required: true, message: 'Обязательное поле', trigger: 'change' },

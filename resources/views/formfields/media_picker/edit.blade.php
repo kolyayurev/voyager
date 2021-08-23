@@ -1,32 +1,48 @@
-<div class="panel">
-    <div class="page-content settings container-fluid">
-        <div id="media_picker_{{ $row->field }}">
-        <media-manager
-                ref="media_manager"
-                base-path="{{ $options->base_path ?? '/'.$dataType->slug.'/' }}"
-                filename="{{ $options->rename ?? 'null' }}"
-                :allow-multi-select="{{ isset($options->max) && $options->max > 1 ? 'true' : 'false' }}"
-                :max-selected-files="{{ $options->max ?? 0 }}"
-                :min-selected-files="{{ $options->min ?? 0 }}"
-                :show-folders="{{ var_export($options->show_folders ?? false, true) }}"
-                :show-toolbar="{{ var_export($options->show_toolbar ?? true, true) }}"
-                :allow-upload="{{ var_export($options->allow_upload ?? true, true) }}"
-                :allow-move="{{ var_export($options->allow_move ?? false, true) }}"
-                :allow-delete="{{ var_export($options->allow_delete ?? true, true) }}"
-                :allow-create-folder="{{ var_export($options->allow_create_folder ?? true, true) }}"
-                :allow-rename="{{ var_export($options->allow_rename ?? true, true) }}"
-                :allow-crop="{{ var_export($options->allow_crop ?? true, true) }}"
-                :allowed-types="{{ isset($options->allowed) && is_array($options->allowed) ? json_encode($options->allowed) : '[]' }}"
-                :pre-select="false"
-                :expanded="{{ var_export($options->expanded ?? false, true) }}"
-                :show-expand-button="true"
-                :element="'input[name=&quot;{{ $row->field }}&quot;]'"
-                :details="{{ json_encode($options ?? new class{}) }}"
-                v-model="content"
-        ></media-manager>
-        <input type="hidden" name="{{ $row->field }}" :value="{{ $content }}">
+@php
+    $allowMultiSelect = isset($options->max) && $options->max > 1 ? true : false;
+@endphp
+<div id="media_picker_{{ $row->field }}" class="media-picker-formfield">
+    <div class="media-picker-formfield__wrap">
+        <ul class="media-picker-formfield__items" >
+            <li v-for="file in getSelectedFiles()" :key="file" class="media-picker-formfield__item" >
+                <div class="file_link selected" :title="file">
+                    <div class="link_icon">
+                        <template v-if="fileIs(file, 'image')">
+                            <div class="img_icon" :style="imgIcon('{{ Str::finish(Storage::disk(config('voyager.storage.disk'))->url('/'), '/') }}'+file)"></div>
+                        </template>
+                        <template v-else-if="fileIs(file, 'video')">
+                            <i class="icon voyager-video"></i>
+                        </template>
+                        <template v-else-if="fileIs(file, 'audio')">
+                            <i class="icon voyager-music"></i>
+                        </template>
+                        <template v-else-if="fileIs(file, 'zip')">
+                            <i class="icon voyager-archive"></i>
+                        </template>
+                        <template v-else-if="fileIs(file, 'folder')">
+                            <i class="icon voyager-folder"></i>
+                        </template>
+                        <template v-else>
+                            <i class="icon voyager-file-text"></i>
+                        </template>
+                    </div>
+                    <div class="details">
+                        <div class="folder">
+                            <h4>@{{ getFileName(file) }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <div class="media-picker-formfield__empty" v-if="!content || !content.length">
+                Ничего не выбрано
+            </div>
+        </ul>
+        <div class="media-picker-formfield__btn-box">
+            <button class="media-picker-formfield__button btn btn-primary" type="button" @click="openMediaPicker">@lang('voyager::generic.modify')</button>
         </div>
     </div>
+    <input type="hidden" name="{{ $row->field }}" :value="{{ is_array($content)? json_encode(printArray($content)) : $content }}">
+    <v-dialog-media-picker v-model="content" ref="dialog"></v-dialog-media-picker>
 </div>
 @push('javascript')
 <script>
@@ -34,10 +50,70 @@ var media_picker_{{ $row->field }} = new Vue({
     el: '#media_picker_{{ $row->field }}',
     data(){
         return{
-            content: {!! $content !!},
+            options:{
+                basePath:{!! printString($options->base_path ?? '/'.$dataType->slug.'/') !!},
+                filename:{{ $options->rename ?? 'null' }},
+                allowMultiSelect: {{ printBool($allowMultiSelect) }},
+                maxSelectedFiles: {{ printInt($options->max ?? 0) }},
+                minSelectedFiles: {{ printInt($options->min ?? 0) }},
+                showFolders: {{ printBool($options->show_folders ?? false) }},
+                showToolbar: {{ printBool($options->show_toolbar ?? true) }},
+                allowUpload: {{ printBool($options->allow_upload ?? true) }},
+                allowMove: {{ printBool($options->allow_move ?? false) }},
+                allowDelete: {{ printBool($options->allow_delete ?? true) }},
+                allowCreateFolder: {{ printBool($options->allow_create_folder ?? true) }},
+                allowRename: {{ printBool($options->allow_rename ?? true) }},
+                allowCrop: {{ printBool($options->allow_crop ?? true) }},
+                allowedTypes: {{ printArray(isset($options->allowed) && is_array($options->allowed) ? $options->allowed : []) }},
+                preSelect: false,
+                expanded: {{ printBool($options->expanded ?? false) }},
+                showExpandButton: true,
+                element: 'input[name="{{ $row->field }}"]',
+                details: {!! printObject($options ?? new class{}) !!},
+            },
+            content: {!! is_array($content)? printArray($content) : $content !!},
         }
     },
+    methods:{
+        openMediaPicker(){
+            this.$refs.dialog.init(this.options);
+        },
+        getSelectedFiles: function() {
+            if (!this.options.allowMultiSelect) {
+                var content = [];
+                if (this.content != '') {
+                    content.push(this.content);
+                }
+                return content;
+            } else {
+                return this.content;
+            }
+        },
+        fileIs: function(file, type) {
+            if (typeof file === 'string') {
+                if (type == 'image') {
+                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], file.toLowerCase());
+                }
+            } else {
+                return file.type.includes(type);
+            }
 
+            return false;
+        },
+        endsWithAny: function(suffixes, string) {
+            return suffixes.some(function (suffix) {
+                return string.endsWith(suffix);
+            });
+        },
+        imgIcon: function(path) {
+            path = path.replace(/\\/g,"/");
+            return 'background-size: cover; background-image: url("' + path + '"); background-repeat:no-repeat; background-position:center center;display:inline-block; width:100%; height:100%;';
+        },
+        getFileName: function(name) {
+            var name = name.split('/');
+            return name[name.length -1];
+        },
+    }
 });
 </script>
 @endpush
