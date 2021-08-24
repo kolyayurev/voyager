@@ -24,6 +24,7 @@
 
 @php
     $dataTypeRows = $dataType->rows;
+    $widgetId = 'widget_form_'.$dataTypeContent->getKey();
 @endphp
 
 @push('css')
@@ -96,7 +97,7 @@
     ref="form"
     role="form"
     class="form-edit-add widget-form"  {{--  important --}}
-    id="widget_form_{{$dataTypeContent->getKey()}}"> {{--  important --}}
+    id="{{$widgetId}}"> {{--  important --}}
     @method("PUT")
     @csrf
     
@@ -106,7 +107,7 @@
     @endphp
     @include('voyager::multilingual.input-hidden-bread-edit-add')
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
-    <draggable class="widget-gallery" v-if="items.length"v-model="items">
+    <draggable class="widget-gallery" v-if="items.length" v-model="items">
         <el-card :body-style="{ padding: '0px'}" v-for="(item, key) in items" :key="key">
             <div class="image-box">
                 <img :src="storageLink(item.url)" class="image">
@@ -135,40 +136,40 @@
         label-position="top">
         <el-divider>@lang('voyager::widgets.messages.add_new_item')</el-divider>
 
-        <el-form-item label="{{ $title->title??__('voyager::fields.title')}}" prop="title">
-            <el-input type="text" v-model="model.title" placeholder="{{ $title->placeholder??__('voyager::fields.title') }}"> </el-input>
-        </el-form-item>
-        <el-form-item label="{{ $description->title??__('voyager::fields.description')}}" prop="description">
-            <el-input type="textarea" :rows="2" v-model="model.description" placeholder="{{ $description->placeholder??__('voyager::fields.description') }}"> </el-input>
-        </el-form-item>
+        <el-row :gutter="10">
+            <el-col :md="8" >
+                <el-form-item label="{{ $url->title??__('voyager::fields.image')}}" prop="url">
+                    <div id="media_picker_{{ $row->field }}" class="media-picker-formfield">
+                        <div class="media-picker-formfield__wrap">
+                            <div class="media-picker-formfield__single" v-if="model.url">
+                                <img class="media-picker-formfield__single-img" :src="'{{ Str::finish(Storage::disk(config('voyager.storage.disk'))->url('/'), '/') }}'+model.url">
+                            </div>
+                            <div class="media-picker-formfield__empty" v-else>
+                                @lang('voyager::media.empty')
+                            </div>
+                            <div class="media-picker-formfield__btn-box">
+                                <button class="media-picker-formfield__button btn" type="button" @click="openMediaPicker">@lang('voyager::generic.modify')</button>
+                            </div>
+                        </div>
+                        <input type="hidden" v-model="model.url" />
+                        <input type="hidden" name="url"/>
+                        <v-dialog-media-picker v-model="model.url" ref="dialog"></v-dialog-media-picker>
+                    </div>
+                </el-form-item>
+            </el-col>
+            <el-col :md="16" >
+                <el-form-item label="{{ $title->title??__('voyager::fields.title')}}" prop="title">
+                    <el-input type="text" v-model="model.title" placeholder="{{ $title->placeholder??__('voyager::fields.title') }}"> </el-input>
+                </el-form-item>
+                <el-form-item label="{{ $description->title??__('voyager::fields.description')}}" prop="description">
+                    <el-input type="textarea" :rows="2" v-model="model.description" placeholder="{{ $description->placeholder??__('voyager::fields.description') }}"> </el-input>
+                </el-form-item>
+            </el-col>
+            
+        </el-row>
+        
        
-        <el-form-item label="{{ $url->title??__('voyager::fields.image')}}" prop="url">
-            <media-manager
-                ref="mediaManager"
-                base-path="{{ $manager_options->base_path ?? '/'.$dataType->slug.'/'. $dataTypeContent->getKey().'/'}}"
-                filename="{{ $manager_options->rename ?? 'null' }}"
-                :allow-multi-select="false"
-                :max-selected-files="1"
-                :min-selected-files="0"
-                :show-folders="{{ var_export($manager_options->show_folders ?? true, true) }}"
-                :show-toolbar="{{ var_export($manager_options->show_toolbar ?? true, true) }}"
-                :allow-upload="{{ var_export($manager_options->allow_upload ?? true, true) }}"
-                :allow-move="{{ var_export($manager_options->allow_move ?? false, true) }}"
-                :allow-delete="{{ var_export($manager_options->allow_delete ?? true, true) }}"
-                :allow-create-folder="{{ var_export($manager_options->allow_create_folder ?? true, true) }}"
-                :allow-rename="{{ var_export($manager_options->allow_rename ?? true, true) }}"
-                :allow-crop="{{ var_export($manager_options->allow_crop ?? true, true) }}"
-                :allowed-types="{{ isset($manager_options->allowed) && is_array($manager_options->allowed) ? json_encode($manager_options->allowed) : '["image"]' }}"
-                :pre-select="false"
-                :expanded="{{ var_export($manager_options->expanded ?? false, true) }}"
-                :show-expand-button="true"
-                :element="'input[name=&quot;url&quot;]'"
-                :details="{{ json_encode($manager_options ?? []) }}"
-                v-model="model.url"
-            ></media-manager>
-            <input type="hidden" v-model="model.url" />
-            <input type="hidden" name="url"/>
-        </el-form-item>
+        
 
         <el-button type="success" icon="el-icon-circle-plus-outline" @click="addItem" v-if="!isEdit" >@lang('voyager::generic.add')</el-button>
         <el-button type="success" icon="el-icon-check" @click="saveItem" v-if="isEdit">@lang('voyager::generic.save')</el-button>
@@ -183,7 +184,7 @@
 @push('vue')
     <script>
         var {{$vue_instance_name}} = new Vue({ // important
-            el:'#widget_form_{{$dataTypeContent->getKey()}}', // important
+            el:'#{{$widgetId}}', // important
             data(){
                 return {
                     model:{
@@ -202,7 +203,27 @@
                     items: {!! printArray(old('value',$dataTypeContent->value)) !!},
                     isEdit:false,
                     editIndex:false,
-                    
+                    manager_options:{
+                        basePath:{!! printString( $manager_options->base_path ?? '/'.$dataType->slug.'/'. $dataTypeContent->getKey().'/') !!},
+                        filename:{!! isset($manager_options->rename) ? printString($manager_options->rename) : 'null' !!},
+                        allowMultiSelect: false,
+                        maxSelectedFiles: 1,
+                        minSelectedFiles: 0,
+                        showFolders: {{ printBool($manager_options->show_folders ?? true) }},
+                        showToolbar: {{ printBool($manager_options->show_toolbar ?? true) }},
+                        allowUpload: {{ printBool($manager_options->allow_upload ?? true) }},
+                        allowMove: {{ printBool($manager_options->allow_move ?? false) }},
+                        allowDelete: {{ printBool($manager_options->allow_delete ?? true) }},
+                        allowCreateFolder: {{ printBool($manager_options->allow_create_folder ?? true) }},
+                        allowRename: {{ printBool($manager_options->allow_rename ?? true) }},
+                        allowCrop: {{ printBool($manager_options->allow_crop ?? true) }},
+                        allowedTypes: {!! printArray(isset($manager_options->allowed) && is_array($manager_options->allowed) ? $manager_options->allowed : ["image"]) !!},
+                        preSelect: false,
+                        expanded: {{ printBool($manager_options->expanded ?? true) }},
+                        showExpandButton: true,
+                        element: '#{{$widgetId}} input[name="url"]',
+                        details: {!! printObject($manager_options ?? new class{}) !!},
+                    },
                 }
             },
             created(){
@@ -213,11 +234,14 @@
             },
 
             methods:{
+                openMediaPicker(){
+                    this.$refs.dialog.init(this.manager_options);
+                },
                 addItem(){
                     this.$refs.vueForm.validate((valid) => {
                         if (valid) {
                             this.items.push({...this.model})
-                            this.$refs.mediaManager.close() 
+                            // this.$refs.mediaManager.close() 
                             this.clearForm() 
                         } else {
                             return false;
@@ -228,7 +252,6 @@
                     this.isEdit = true
                     this.editIndex = key
                     this.model = {...this.items[key]}
-                    this.$refs.mediaManager.open() 
                 },
                 saveItem(){
                     this.$refs.vueForm.validate((valid) => {
@@ -236,7 +259,6 @@
                         this.items[this.editIndex] =  {...this.model}
                         this.editIndex = false
                         this.isEdit= false
-                        this.$refs.mediaManager.close() 
                         this.clearForm()
                     } else {
                         return false;
@@ -277,7 +299,7 @@
                 },
                 storageLink(url){
                     return '{{Storage::disk(config('voyager.storage.disk'))->url('/')}}'+url;
-                }
+                },
             }
         });
     </script>

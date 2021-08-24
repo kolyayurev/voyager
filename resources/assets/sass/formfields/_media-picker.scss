@@ -1,7 +1,8 @@
 .media-picker-formfield{
     &__wrap{
-        display: grid;
-        grid-template-columns: 1fr auto;
+        display: flex;
+        flex-wrap: wrap;
+        // grid-template-columns: 1fr auto;
         // background-color: #f9f9f9;
         // border-radius: 4px;
         @include mq(md)
@@ -9,7 +10,19 @@
             grid-template-columns: 1fr;
         }
     }
+    &__single{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        max-height: 200px;
+    }
+    &__single-img{
+        max-width: 100%;
+        max-height: 100%;
+    }
     &__items{
+        flex: 2;
         display: flex;
         align-items: center;
         list-style: none;
@@ -51,13 +64,14 @@
     &__item-title{
         margin-bottom: 2px;
         margin-top: 16px;
-        max-height: 17px;
-        height: 17px;
+        max-height: 25px;
+        height: 25px;
         overflow: hidden;
         font-size: 14px;
         text-overflow: ellipsis;
     }
     &__btn-box{
+        flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
