@@ -1,5 +1,15 @@
 $icon-font-path: "voyager-assets?path=fonts/bootstrap/";
 
+
+
+$breakpoints: (
+  "xxl":  1400px,
+  "xl":   1200px,
+  "lg":   992px,
+  "md":   768px,
+  "sm":   576px,
+);
+
 // Colors
 $--color--accent: #22A7F0;
 $--color-accent-dark: #128656;

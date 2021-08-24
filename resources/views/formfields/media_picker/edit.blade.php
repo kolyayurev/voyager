@@ -5,40 +5,36 @@
     <div class="media-picker-formfield__wrap">
         <ul class="media-picker-formfield__items" >
             <li v-for="file in getSelectedFiles()" :key="file" class="media-picker-formfield__item" >
-                <div class="file_link selected" :title="file">
-                    <div class="link_icon">
-                        <template v-if="fileIs(file, 'image')">
-                            <div class="img_icon" :style="imgIcon('{{ Str::finish(Storage::disk(config('voyager.storage.disk'))->url('/'), '/') }}'+file)"></div>
-                        </template>
-                        <template v-else-if="fileIs(file, 'video')">
-                            <i class="icon voyager-video"></i>
-                        </template>
-                        <template v-else-if="fileIs(file, 'audio')">
-                            <i class="icon voyager-music"></i>
-                        </template>
-                        <template v-else-if="fileIs(file, 'zip')">
-                            <i class="icon voyager-archive"></i>
-                        </template>
-                        <template v-else-if="fileIs(file, 'folder')">
-                            <i class="icon voyager-folder"></i>
-                        </template>
-                        <template v-else>
-                            <i class="icon voyager-file-text"></i>
-                        </template>
-                    </div>
-                    <div class="details">
-                        <div class="folder">
-                            <h4>@{{ getFileName(file) }}</h4>
-                        </div>
-                    </div>
+                <div class="media-picker-formfield__item-icon">
+                    <template v-if="fileIs(file, 'image')">
+                        <div class="media-picker-formfield__item-img" :style="imgIcon('{{ Str::finish(Storage::disk(config('voyager.storage.disk'))->url('/'), '/') }}'+file)"></div>
+                    </template>
+                    <template v-else-if="fileIs(file, 'video')">
+                        <i class="icon voyager-video"></i>
+                    </template>
+                    <template v-else-if="fileIs(file, 'audio')">
+                        <i class="icon voyager-music"></i>
+                    </template>
+                    <template v-else-if="fileIs(file, 'zip')">
+                        <i class="icon voyager-archive"></i>
+                    </template>
+                    <template v-else-if="fileIs(file, 'folder')">
+                        <i class="icon voyager-folder"></i>
+                    </template>
+                    <template v-else>
+                        <i class="icon voyager-file-text"></i>
+                    </template>
+                </div>
+                <div class="media-picker-formfield__item-details">
+                    <div class="media-picker-formfield__item-title">@{{ getFileName(file) }}</h4>
                 </div>
             </li>
             <div class="media-picker-formfield__empty" v-if="!content || !content.length">
-                Ничего не выбрано
+                @lang('voyager::media.empty')
             </div>
         </ul>
         <div class="media-picker-formfield__btn-box">
-            <button class="media-picker-formfield__button btn btn-primary" type="button" @click="openMediaPicker">@lang('voyager::generic.modify')</button>
+            <button class="media-picker-formfield__button btn" type="button" @click="openMediaPicker">@lang('voyager::generic.modify')</button>
         </div>
     </div>
     <input type="hidden" name="{{ $row->field }}" :value="{{ is_array($content)? json_encode(printArray($content)) : $content }}">

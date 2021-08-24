@@ -1,4 +1,5 @@
-@import "_variables";
+@import "./variables";
+@import "./mixins";
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker";
 @import "node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch";
@@ -8561,3 +8562,11 @@ div.cropper-container img {
 }
 
 /********** END SimpleMDE Style **********/
+
+.media-picker{
+  &__content{
+    @include mq(md){
+      flex-direction: column;
+    }
+  }
+}

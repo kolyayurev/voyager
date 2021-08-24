@@ -16396,8 +16396,11 @@ span[data-img-src]::after {
 .media-picker-formfield__wrap {
   display: grid;
   grid-template-columns: 1fr auto;
-  background-color: #f9f9f9;
-  border-radius: 4px;
+}
+@media only screen and (max-width: 768px) {
+  .media-picker-formfield__wrap {
+    grid-template-columns: 1fr;
+  }
 }
 .media-picker-formfield__items {
   display: flex;
@@ -16406,7 +16409,7 @@ span[data-img-src]::after {
   width: 100%;
   margin: 0px;
   flex-wrap: wrap;
-  padding: 10px;
+  padding: 0;
   position: relative;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -16418,39 +16421,30 @@ span[data-img-src]::after {
   width: 100%;
   min-width: 200px;
   max-width: 250px;
-}
-.media-picker-formfield__item .file_link {
   display: flex;
   padding: 10px;
   margin: 10px;
-  cursor: pointer;
   border-radius: 4px;
-  border: 1px solid #2581b8;
+  border: 1px solid #ecf0f1;
   overflow: hidden;
-  background: #f6f8f9;
-  background: #4da7e8;
-  color: #fff;
+  background: #f9f9f9;
 }
-.media-picker-formfield__item .file_link .img_icon {
+.media-picker-formfield__item .media-picker-formfield__item-img {
   display: none;
 }
-.media-picker-formfield__item .file_link img {
-  display: none;
-}
-.media-picker-formfield__item .link_icon {
+.media-picker-formfield__item-icon {
   flex: 1;
   text-align: center;
   padding-left: 0;
   margin-left: 0;
   margin-right: 5px;
 }
-.media-picker-formfield__item .details {
+.media-picker-formfield__item-details {
   flex: 2;
   overflow: hidden;
   width: 100%;
 }
-.media-picker-formfield__item .details .folder h4 {
-  color: #fff;
+.media-picker-formfield__item-title {
   margin-bottom: 2px;
   margin-top: 16px;
   max-height: 17px;
@@ -16468,6 +16462,18 @@ span[data-img-src]::after {
 .media-picker-formfield__button {
   min-width: 100px;
 }
+.media-picker-formfield__empty {
+  width: 100%;
+  min-width: 200px;
+  max-width: 250px;
+  display: flex;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 4px;
+  border: 1px solid #ecf0f1;
+  background: #f9f9f9;
+}
+
 /********** LOGIN STYLES ***********/
 body.login {
   margin: 0;
@@ -33399,3 +33405,8 @@ div.cropper-container img {
 }
 
 /********** END SimpleMDE Style **********/
+@media only screen and (max-width: 768px) {
+  .media-picker__content {
+    flex-direction: column;
+  }
+}

@@ -90,7 +90,7 @@
                 </li>
             </ol>
         </div>
-        <div class="flex">
+        <div class="media-picker__content flex">
             <div id="left">
                 <ul id="files">
                     <li v-for="(file) in files" v-on:click="selectFile(file, $event)" v-on:dblclick="openFile(file)" v-if="filter(file)">

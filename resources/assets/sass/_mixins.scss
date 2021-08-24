@@ -1,0 +1,63 @@
+$maxWidth: 1920;
+$minWidth: 320;
+$vw-enable: false;
+
+@function vw($px, $base-vw: 1920px) {
+    @if $vw-enable {
+        @return ($px * 100vw) / $base-vw;
+    }
+
+    @return $px;
+}
+
+// header height
+@function hh($type) {
+  @if map_has_key($headers, $type) {
+    @return map_get($headers, $type);
+  }
+  @else
+  {
+    @error 'Wrong header type "#{$type}" in header list; ';
+    @return null;
+  }
+}
+
+
+@mixin mq($width, $type: max) {
+  @if map_has_key($breakpoints, $width) {
+   $width: map_get($breakpoints, $width);
+  //  @if $type == max {
+  //   $width: $width - 1px;
+  //  }
+   @media only screen and (#{$type}-width: $width) {
+    @content;
+   }
+  }
+}
+
+
+@mixin autoAdaptiveValue($property, $startSize) {
+    $minSize: $startSize/($maxWidth/$minWidth);
+    @include adaptiveValue($property, $startSize, $minSize)
+}
+
+@mixin adaptiveValue($property, $startSize, $minSize) {
+    $addSize: $startSize - $minSize;
+    #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$minWidth + px})/(#{$maxWidth} - #{$minWidth})));
+}
+
+@function HexToRGB($hex) {
+    @return red($hex),
+    green($hex),
+    blue($hex);
+}
+
+@function cl($name, $opacity: false) {
+    @if $opacity {
+        @return rgba(var(--color-#{$name}--rgb), $opacity);
+    }
+
+    @else {
+        @return var(--color-#{$name});
+    }
+}

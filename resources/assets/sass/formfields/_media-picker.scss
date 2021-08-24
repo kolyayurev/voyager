@@ -2,8 +2,12 @@
     &__wrap{
         display: grid;
         grid-template-columns: 1fr auto;
-        background-color: #f9f9f9;
-        border-radius: 4px;
+        // background-color: #f9f9f9;
+        // border-radius: 4px;
+        @include mq(md)
+        {
+            grid-template-columns: 1fr;
+        }
     }
     &__items{
         display: flex;
@@ -12,7 +16,7 @@
         width: 100%;
         margin: 0px;
         flex-wrap: wrap;
-        padding: 10px;
+        padding: 0;
         position: relative;
         user-select: none;
     }
@@ -21,49 +25,37 @@
         width: 100%;
         min-width: 200px;
         max-width: 250px;
-        .file_link{
-            display: flex;
-            padding: 10px;
-            margin: 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            border: 1px solid #2581b8;
-            overflow: hidden;
-            background: #f6f8f9;
-            background: #4da7e8 ;
-            color: #fff;
-            .img_icon{
-                display: none;
-            }
-            img{
-                display: none;
-            }
+        display: flex;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 4px;
+        border: 1px solid #ecf0f1;
+        overflow: hidden;
+        background: #f9f9f9;
+        .media-picker-formfield__item-img{
+            display: none;
         }
-        .link_icon{
-            flex: 1;
-            text-align: center;
-            padding-left: 0;
-            margin-left: 0;
-            margin-right: 5px;
-            
-        }
-        .details{
-            flex: 2;
-            overflow: hidden;
-            width: 100%;
-            .folder{
-                h4{
-                    color: #fff;
-                    margin-bottom: 2px;
-                    margin-top: 16px;
-                    max-height: 17px;
-                    height: 17px;
-                    overflow: hidden;
-                    font-size: 14px;
-                    text-overflow: ellipsis;
-                }
-            }   
-        }
+    }
+    &__item-icon{
+        flex: 1;
+        text-align: center;
+        padding-left: 0;
+        margin-left: 0;
+        margin-right: 5px;
+    }
+    &__item-details{
+        flex: 2;
+        overflow: hidden;
+        width: 100%;
+    }
+    &__item-title{
+        margin-bottom: 2px;
+        margin-top: 16px;
+        max-height: 17px;
+        height: 17px;
+        overflow: hidden;
+        font-size: 14px;
+        text-overflow: ellipsis;
     }
     &__btn-box{
         display: flex;
@@ -74,5 +66,15 @@
     &__button{
         min-width: 100px;
     }
-    &__empty{}
+    &__empty{
+        width: 100%;
+        min-width: 200px;
+        max-width: 250px;
+        display: flex;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 4px;
+        border: 1px solid #ecf0f1;
+        background: #f9f9f9;
+    }
 }
