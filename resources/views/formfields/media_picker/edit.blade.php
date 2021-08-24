@@ -48,7 +48,7 @@ var media_picker_{{ $row->field }} = new Vue({
         return{
             options:{
                 basePath:{!! printString($options->base_path ?? '/'.$dataType->slug.'/') !!},
-                filename:{{ $options->rename ?? 'null' }},
+                filename:{!! isset($options->rename) ? printString($options->rename) : 'null' !!},
                 allowMultiSelect: {{ printBool($allowMultiSelect) }},
                 maxSelectedFiles: {{ printInt($options->max ?? 0) }},
                 minSelectedFiles: {{ printInt($options->min ?? 0) }},
