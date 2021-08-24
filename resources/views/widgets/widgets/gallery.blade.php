@@ -27,76 +27,12 @@
     $widgetId = 'widget_form_'.$dataTypeContent->getKey();
 @endphp
 
-@push('css')
 
-<style>
-    .el-card{
-        min-width: 300px;
-        max-width: 400px;
-        margin-right: .5rem;
-    }
-    .el-form{
-        margin-top: .5rem;
-        padding: .5rem 1rem;
-        border: 1px solid #dcdfe6;
-        border-radius: 4px;
-    }
-    .el-carousel__item{
-        display: flex;
-        justify-content: center;
-    }
-    .el-form--label-top .el-form-item__label{
-        padding: 0;
-    }
-    .widget-form .language-label{
-        display: none;
-    }
-    .bottom {
-      margin-top: 13px;
-      line-height: 12px;
-    }
-  
-    .button {
-      padding: 0;
-      float: right;
-    }
-  
-    .image-box {
-        height: 200px;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .image-box > img {
-      max-width: 100%;
-      display: block;
-    }
-  
-    .clearfix:before,
-    .clearfix:after {
-        display: table;
-        content: "";
-    }
-    
-    .clearfix:after {
-        clear: both
-    }
-    .dd-empty{
-        min-height: 60px;
-    }
-    .widget-gallery{
-        display: flex;
-        overflow-x : auto;
-    }
-  </style>
-@endpush
 
 <form
     ref="form"
     role="form"
-    class="form-edit-add widget-form"  {{--  important --}}
+    class="form-edit-add widget-form gallery-widget"  {{--  important --}}
     id="{{$widgetId}}"> {{--  important --}}
     @method("PUT")
     @csrf
@@ -107,7 +43,7 @@
     @endphp
     @include('voyager::multilingual.input-hidden-bread-edit-add')
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
-    <draggable class="widget-gallery" v-if="items.length" v-model="items">
+    <draggable class="gallery-widget__items" v-if="items.length" v-model="items">
         <el-card :body-style="{ padding: '0px'}" v-for="(item, key) in items" :key="key">
             <div class="image-box">
                 <img :src="storageLink(item.url)" class="image">
@@ -288,7 +224,6 @@
                     this.model.title = {!! printString($title->default??'') !!};
                     this.model.description = {!! printString($description->default??'') !!};
                     this.model.url = {!! printString($url->default??'') !!};
-                    
                 },
                 printObject(obj){
                     return JSON.stringify(obj);

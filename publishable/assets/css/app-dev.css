@@ -16487,6 +16487,84 @@ span[data-img-src]::after {
   background: #f9f9f9;
 }
 
+.widget-form .el-form {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+}
+.widget-form .el-form--label-top .el-form-item__label {
+  padding: 0;
+}
+.widget-form .language-label {
+  display: none;
+}
+
+.gallery-widget__items {
+  display: flex;
+  overflow-x: auto;
+}
+.gallery-widget .el-carousel__item {
+  display: flex;
+  justify-content: center;
+}
+.gallery-widget .el-card {
+  min-width: 300px;
+  max-width: 400px;
+  margin-right: 0.5rem;
+}
+.gallery-widget .dd-empty {
+  min-height: 60px;
+}
+.gallery-widget .image-box {
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gallery-widget .image-box > img {
+  max-width: 100%;
+  display: block;
+}
+.gallery-widget .bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+.gallery-widget .button {
+  padding: 0;
+  float: right;
+}
+.gallery-widget .clearfix:before,
+.gallery-widget .clearfix:after {
+  display: table;
+  content: "";
+}
+.gallery-widget .clearfix:after {
+  clear: both;
+}
+
+.array-builder-widget .item {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  height: 34px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  padding: 0 110px 0 10px;
+  line-height: 30px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  background-color: #eeeeee;
+}
+.array-builder-widget .item__buttons {
+  position: absolute;
+  top: 46%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
 /********** LOGIN STYLES ***********/
 body.login {
   margin: 0;
