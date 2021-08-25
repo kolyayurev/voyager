@@ -63,14 +63,11 @@ class VoyagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // dd( request()->getRequestUri());
-        //TODO: regiter only in admin papel, but setting anywhere
         $this->app->register(VoyagerEventServiceProvider::class);
         $this->app->register(ImageServiceProvider::class);
         $this->app->register(VoyagerDummyServiceProvider::class);
-        $this->app->register(VoyagerHooksServiceProvider::class);
+        // $this->app->register(VoyagerHooksServiceProvider::class);
         $this->app->register(DoctrineSupportServiceProvider::class);
-        // $this->app->register(LaravelModulesServiceProvider::class);
 
         $loader = AliasLoader::getInstance();
         $loader->alias('Voyager', VoyagerFacade::class);

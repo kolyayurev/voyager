@@ -16513,6 +16513,9 @@ span[data-img-src]::after {
   max-width: 400px;
   margin-right: 0.5rem;
 }
+.gallery-widget .el-input {
+  max-width: 100%;
+}
 .gallery-widget .dd-empty {
   min-height: 60px;
 }

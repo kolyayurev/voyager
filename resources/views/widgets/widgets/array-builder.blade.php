@@ -4,24 +4,22 @@
             {
                 "label":"fieldlabel", 
                 "name":"fieldName",
-                "component":"el-input", // ['el-input'], required
-                "type":"textarea", // ['textarea','text']
-                "placeholder":"placeholder text", 
+                "component":"el-input", // ['el-input','el-input-number','el-time-select','el-rate',...], required
                 "default": "default text", // default value
-                "rows":3, // only for textarea
                 "rules":[{ "required": true, "message": "Обязательное поле", "trigger": "blur" }] // validation rules
-                "col":12, // column
+                "props": { }, // component props, example { "rows":3 , "type":"textarea", "placeholder":"text" } for textarea
+                "col":12, // column,
             },
         ],
-        "displayField" : "fieldName"
+        "displayValue" : {"body":"return 'text:' + item.field1;"} // this is body of function. function has one parameter "item"
     } 
 --}}
 
 @php
-    $dataTypeRows = $dataType->rows;
-    $widgetId = 'widget_form_'.$dataTypeContent->getKey();
-    $fields = $options->fields;
-    $displayField = $options->displayField;
+    $dataTypeRows = $dataType->rows; // important
+    $widgetId = 'widget_form_'.$dataTypeContent->getKey(); // important
+    $row = $dataTypeRows->where('field', 'value')->first(); // important
+    $vue_instance_name = 'vue_form_'.$dataTypeContent->getKey().'_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n':''); // important
 @endphp
 
 <form
@@ -29,18 +27,14 @@
     role="form"
     class="form-edit-add widget-form array-builder-widget"  {{--  important --}}
     id="{{$widgetId}}"> {{--  important --}}
-    @method("PUT")
-    @csrf
+    @method("PUT"){{--  important --}}
+    @csrf{{--  important --}}
     
-    @php
-        $row = $dataTypeRows->where('field', 'value')->first();
-        $vue_instance_name = 'vue_form_'.$dataTypeContent->getKey().'_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n':'');
-    @endphp
     @include('voyager::multilingual.input-hidden-bread-edit-add'){{--  important --}}
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>{{--  important --}}
     <draggable v-if="items.length" v-model="items">
         <div v-for="(item, key) in items" :key="key"  v-if="items.length" class="item"> 
-            @{{ item[displayField] }}
+            @{{ functions.displayValue(item)  }}
             <div class="item__buttons">
                 <el-button type="primary" icon="el-icon-edit"  @click="editItem(key)"   size="mini"></el-button>
                 <el-button type="danger" icon="el-icon-delete" @click="deleteItem(key)"   size="mini"></el-button>
@@ -62,9 +56,9 @@
         label-position="top">
         <el-divider>@lang('voyager::widgets.messages.add_new_item')</el-divider>
         <el-row :gutter="10">
-            <el-col v-for="field in fields" :md="field.col">
+            <el-col v-for="field in options.fields" :md="field.col" :key="field.name">
                 <el-form-item  :label="field.label" :prop="field.name">
-                    <component :is="field.component" :type="field.type" :rows="field.rows" v-model="model[field.name]" :placeholder="field.placeholder"> </component>
+                    <component :is="field.component" v-bind="field.props" v-model="model[field.name]"> </component>
                 </el-form-item>
             </el-col>
         </el-row>
@@ -85,15 +79,13 @@
             el:'#{{$widgetId}}', // important
             data(){
                 return {
-                    fields: {!! printArray($fields) !!},
-                    displayField: {!! printString($displayField) !!},
+                    options: {!! printObject($options) !!},
                     model:{},
-                    rules: {
-                       
-                    },
+                    rules: {},
                     items: {!! printArray(old('value',$dataTypeContent->value)) !!},
                     isEdit:false,
                     editIndex:false,
+                    functions:{}
                 }
             },
             created(){
@@ -101,18 +93,17 @@
                 this.updateLocaleData(this.items)  // important
             },
             mounted(){
-                
                 vueFieldInstances['{{$vue_instance_name}}']=this  // important
             },
 
             methods:{
                 init(){
                     var _this = this;
-                    this.fields.forEach(function(field){
-                        console.log(field);
+                    _this.options.fields.forEach(function(field){
                         _this.$set(_this.model, field.name, field.default);
                         _this.$set(_this.rules, field.name, field.rules);
                     })
+                    _this.$set(_this.functions,'displayValue' , new Function("item",_this.options.displayValue.body));
                 },
                 addItem(){
                     this.$refs.vueForm.validate((valid) => {
@@ -173,6 +164,7 @@
                 updateLocaleData(items){ 
                     this.items = this.isJsonValid(items)?JSON.parse(items):(items?items:[])
                 },
+                displayValue(item) { }
             }
         });
     </script>
