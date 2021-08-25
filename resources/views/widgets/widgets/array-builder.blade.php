@@ -6,10 +6,10 @@
                 "name":"fieldName",
                 "component":"el-input", // ['el-input','el-input-number','el-time-select','el-rate',...], required
                 "default": "default text", // default value
-                "rules":[{ "required": true, "message": "Обязательное поле", "trigger": "blur" }] // validation rules
+                "rules":[{ "required": true, "message": "Обязательное поле", "trigger": "blur" }], // validation rules
                 "props": { }, // component props, example { "rows":3 , "type":"textarea", "placeholder":"text" } for textarea
-                "col":12, // column,
-            },
+                "col":12 // column,
+            }
         ],
         "displayValue" : {"body":"return 'text:' + item.field1;"} // this is body of function. function has one parameter "item"
     } 
