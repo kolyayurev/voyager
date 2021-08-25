@@ -23,7 +23,7 @@
     }
 }
 .el-button--primary{
-    background-color: $--color--accent;
+    background-color: cl(primary);
 }
 .dialog-media-picker{
     .el-dialog{
@@ -39,15 +39,15 @@
 }
 .modal-info{
     .el-dialog__header{
-        background-color: $--color--accent;
-        color: $--color-white;
+        background-color: cl(primary);
+        color: cl(text-white);
     }
     .el-dialog__title{
-        color: $--color-white;
+        color: cl(text-white);
     }
     .el-dialog__headerbtn{
         .el-dialog__close{
-            color: $--color-white;
+            color: cl(text-white);
         }
     } 
 }

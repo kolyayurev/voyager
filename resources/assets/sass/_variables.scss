@@ -23,3 +23,36 @@ $--light-gray: #F7F9FA;
 $--color-light-light-gray: #FBFBFB;
 $--color-white: #FFFFFF;
 
+
+$colors_theme : (
+  "primary"   : "blue",
+  "danger": "red",
+  "warning": "orange",
+  "success":"green",
+);
+
+$voyager_colors : (
+  "blue"  : #22A7F0,
+  "red"  : #FA2A00,
+  "orange"  : #f39c12,
+  "green"  : #2ecc71,
+  "indigo"  : #8965EE,
+  "grey"  : #9F9F9F,
+  "light-grey"  : #f9f9f9,
+  "white" : #FFFFFF,
+  "black" : #232323,
+
+  "border-grey" :  #dcdfe6,
+  "border-light-grey" :  #f9f9f9,
+  "border-white" :  #ffffff,
+
+  "background-light": #f9f9f9,
+  "background-white": #ffffff,
+  "background-dark-gray": #ECECEC,
+
+  "text-black": #232323,
+  "text-gray": #76838f,
+  "text-dark-gray": #555555,
+  "text-light-gray": #F9F9F9,
+  "text-white": #ffffff,
+);

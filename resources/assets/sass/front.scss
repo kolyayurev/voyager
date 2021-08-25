@@ -1,6 +1,24 @@
 @import "fonts";
+@import "./variables";
+@import "./mixins";
 
 $button-size: 50px;
+:root{
+    @if $colors_theme {
+        @each $key, $value in $colors_theme {
+          --voyager--color-#{$key} : var(--voyager--color-#{$value});
+            --voyager--color-#{$key}--rgb : var(--voyager--color-#{$value}--rgb);
+        }
+    }
+  
+    @if $voyager_colors {
+      @each $key, $value in $voyager_colors {
+        --voyager--color-#{$key} : #{$value};
+        --voyager--color-#{$key}--rgb : #{HexToRGB($value)};
+      }
+    }
+  }
+  
 body{
     position: relative;
 }
@@ -73,12 +91,23 @@ body{
         font-size: $button-size/2;
         opacity: .8;
         // box-shadow: 0 0 4px 0px #7b7b7b;
-        &.-edit{
-            background-color: #20ca00;
+        &.-primary,&.-edit,&.-warning,&.-browse,&.-danger,&.-success{
             color: white;
             &:hover{
                 color: white;
             }
+        }
+        &.-primary,&.-edit{
+            background-color: cl(primary);
+        }
+        &.-warning,&.-browse{
+            background-color: cl(warning);
+        }
+        &.-danger{
+            background-color: cl(danger);
+        }
+        &.-success{
+            background-color: cl(success);
         }
         &:hover{
             text-decoration: none;

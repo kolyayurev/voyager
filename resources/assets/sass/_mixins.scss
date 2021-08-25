@@ -54,10 +54,10 @@ $vw-enable: false;
 
 @function cl($name, $opacity: false) {
     @if $opacity {
-        @return rgba(var(--color-#{$name}--rgb), $opacity);
+        @return rgba(var(--voyager--color-#{$name}--rgb), $opacity);
     }
 
     @else {
-        @return var(--color-#{$name});
+        @return var(--voyager--color-#{$name});
     }
 }

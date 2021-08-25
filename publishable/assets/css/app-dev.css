@@ -16414,7 +16414,7 @@ span[data-img-src]::after {
   max-height: 100%;
 }
 .media-picker-formfield__items {
-  flex: 2;
+  flex: 1;
   display: flex;
   align-items: center;
   list-style: none;
@@ -16437,9 +16437,9 @@ span[data-img-src]::after {
   padding: 10px;
   margin: 10px;
   border-radius: 4px;
-  border: 1px solid #ecf0f1;
+  border: 1px solid var(--voyager--color-border-grey);
   overflow: hidden;
-  background: #f9f9f9;
+  background: var(--voyager--color-background-light);
 }
 .media-picker-formfield__item .media-picker-formfield__item-img {
   display: none;
@@ -16466,7 +16466,7 @@ span[data-img-src]::after {
   text-overflow: ellipsis;
 }
 .media-picker-formfield__btn-box {
-  flex: 1;
+  flex: 0 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16483,14 +16483,14 @@ span[data-img-src]::after {
   padding: 10px;
   margin: 10px;
   border-radius: 4px;
-  border: 1px solid #ecf0f1;
-  background: #f9f9f9;
+  border: 1px solid var(--voyager--color-border-grey);
+  background: var(--voyager--color-background-light);
 }
 
 .widget-form .el-form {
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
-  border: 1px solid #dcdfe6;
+  border: 1px solid var(--voyager--color-border-grey);
   border-radius: 4px;
 }
 .widget-form .el-form--label-top .el-form-item__label {
@@ -16553,19 +16553,70 @@ span[data-img-src]::after {
   margin-bottom: 0.5rem;
   width: 100%;
   height: 34px;
-  border: 1px solid #dcdfe6;
+  border: 1px solid var(--voyager--color-border-grey);
   border-radius: 4px;
   padding: 0 110px 0 10px;
   line-height: 30px;
   box-sizing: border-box;
   white-space: nowrap;
-  background-color: #eeeeee;
+  background-color: var(--voyager--color-background-light);
 }
 .array-builder-widget .item__buttons {
   position: absolute;
   top: 46%;
   right: 10px;
   transform: translateY(-50%);
+}
+
+:root {
+  --voyager--color-primary: var(--voyager--color-blue);
+  --voyager--color-primary--rgb: var(--voyager--color-blue--rgb);
+  --voyager--color-danger: var(--voyager--color-red);
+  --voyager--color-danger--rgb: var(--voyager--color-red--rgb);
+  --voyager--color-warning: var(--voyager--color-orange);
+  --voyager--color-warning--rgb: var(--voyager--color-orange--rgb);
+  --voyager--color-success: var(--voyager--color-green);
+  --voyager--color-success--rgb: var(--voyager--color-green--rgb);
+  --voyager--color-blue: #22A7F0;
+  --voyager--color-blue--rgb: 34, 167, 240;
+  --voyager--color-red: #FA2A00;
+  --voyager--color-red--rgb: 250, 42, 0;
+  --voyager--color-orange: #f39c12;
+  --voyager--color-orange--rgb: 243, 156, 18;
+  --voyager--color-green: #2ecc71;
+  --voyager--color-green--rgb: 46, 204, 113;
+  --voyager--color-indigo: #8965EE;
+  --voyager--color-indigo--rgb: 137, 101, 238;
+  --voyager--color-grey: #9F9F9F;
+  --voyager--color-grey--rgb: 159, 159, 159;
+  --voyager--color-light-grey: #f9f9f9;
+  --voyager--color-light-grey--rgb: 249, 249, 249;
+  --voyager--color-white: #FFFFFF;
+  --voyager--color-white--rgb: 255, 255, 255;
+  --voyager--color-black: #232323;
+  --voyager--color-black--rgb: 35, 35, 35;
+  --voyager--color-border-grey: #dcdfe6;
+  --voyager--color-border-grey--rgb: 220, 223, 230;
+  --voyager--color-border-light-grey: #f9f9f9;
+  --voyager--color-border-light-grey--rgb: 249, 249, 249;
+  --voyager--color-border-white: #ffffff;
+  --voyager--color-border-white--rgb: 255, 255, 255;
+  --voyager--color-background-light: #f9f9f9;
+  --voyager--color-background-light--rgb: 249, 249, 249;
+  --voyager--color-background-white: #ffffff;
+  --voyager--color-background-white--rgb: 255, 255, 255;
+  --voyager--color-background-dark-gray: #ECECEC;
+  --voyager--color-background-dark-gray--rgb: 236, 236, 236;
+  --voyager--color-text-black: #232323;
+  --voyager--color-text-black--rgb: 35, 35, 35;
+  --voyager--color-text-gray: #76838f;
+  --voyager--color-text-gray--rgb: 118, 131, 143;
+  --voyager--color-text-dark-gray: #555555;
+  --voyager--color-text-dark-gray--rgb: 85, 85, 85;
+  --voyager--color-text-light-gray: #F9F9F9;
+  --voyager--color-text-light-gray--rgb: 249, 249, 249;
+  --voyager--color-text-white: #ffffff;
+  --voyager--color-text-white--rgb: 255, 255, 255;
 }
 
 /********** LOGIN STYLES ***********/
@@ -16588,8 +16639,8 @@ body.login .login-sidebar {
   z-index: 2;
   padding: 0;
   justify-content: center;
-  background: #ffffff;
-  border-top: 5px solid #22A7F0;
+  background: var(--voyager--color-background-white);
+  border-top: 5px solid var(--voyager--color-primary);
   border-radius: 0px;
 }
 body.login .login-sidebar:after {
@@ -16704,7 +16755,7 @@ body.login .login-button {
   transition: width 0.3s ease;
 }
 body.login .login-button:hover, body.login .login-button:focus {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
   opacity: 1;
 }
 body.login .copy {
@@ -16715,7 +16766,7 @@ body.login .copy {
 body.login .copy h1 {
   display: inline-block;
   vertical-align: middle;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   z-index: 9999;
   position: relative;
   text-transform: uppercase;
@@ -16727,7 +16778,7 @@ body.login .copy h1 {
   margin-left: 14px;
 }
 body.login .copy p {
-  color: #fff;
+  color: var(--voyager--color-text-white);
   font-size: 13px;
   max-width: 650px;
   opacity: 0.9;
@@ -16775,7 +16826,7 @@ body.login .alert-red {
   margin-top: 20px;
 }
 body.login .form-group-default {
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
   position: relative;
   border: 2px solid rgba(28, 43, 54, 0.07);
   border-radius: 3px;
@@ -16803,7 +16854,7 @@ body.login .form-group-default .form-control {
   background: 0 0;
 }
 body.login .form-control {
-  background: #fff;
+  background: var(--voyager--color-background-white);
   -webkit-appearance: none;
   color: #1c2b36;
   outline: 0;
@@ -17111,7 +17162,7 @@ a:hover {
 .app-container {
   min-height: 100%;
   position: relative;
-  background: #f9f9f9;
+  background: var(--voyager--color-background-light);
   padding-bottom: 30px;
 }
 
@@ -17477,7 +17528,7 @@ a:hover {
 }
 /* Card */
 .card {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
   border-radius: 1px;
   overflow: hidden;
   position: relative;
@@ -17877,7 +17928,7 @@ table.dataTable.no-footer {
 }
 
 .tab-content > .tab-pane {
-  background-color: #ffffff;
+  background-color: var(--voyager--color-background-white);
 }
 
 .tab-content > .tab-pane,
@@ -18194,7 +18245,7 @@ table.dataTable.no-footer {
   position: absolute;
   top: 10px;
   right: 10px;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   display: none;
   cursor: pointer;
 }
@@ -18600,7 +18651,7 @@ table.dataTable.no-footer {
   font-size: 16px;
   position: relative;
   padding: 5px;
-  background: #fff;
+  background: var(--voyager--color-background-white);
   border-radius: 50px;
   color: #F7325B;
   border: 2px solid #F2435C;
@@ -18622,7 +18673,7 @@ table.dataTable.no-footer {
   background: red;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 0px;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   font-size: 10px;
   font-weight: 700;
   cursor: pointer;
@@ -18637,7 +18688,7 @@ table.dataTable.no-footer {
   top: 4px;
   height: 21px;
   width: 21px;
-  color: #ffffff;
+  color: var(--voyager--color-text-white);
   line-height: 22px;
   text-align: center;
   border-top-right-radius: 3px;
@@ -18648,7 +18699,7 @@ table.dataTable.no-footer {
 }
 .row-dd-relationship .voyager-relationship-details-btn {
   color: #F7325B;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--voyager--color-border-white);
   border-radius: 25px;
   padding: 10px 15px;
   font-weight: 400;
@@ -18738,7 +18789,7 @@ table.dataTable.no-footer {
 .row-dd-relationship .relationship_details_content p {
   float: left;
   padding: 6px 20px;
-  background: #fff;
+  background: var(--voyager--color-background-white);
   line-height: 22px;
   margin-right: 0;
   border: 1px solid #eaeaea;
@@ -26712,7 +26763,7 @@ th.visible-xlg {
 }
 
 .media-section .modal-header h4 {
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 .confirm_delete_name {
@@ -26895,7 +26946,7 @@ th.visible-xlg {
 
 #filemanager #content {
   display: block;
-  background: #fff;
+  background: var(--voyager--color-background-white);
 }
 
 .flex {
@@ -26938,7 +26989,7 @@ th.visible-xlg {
   margin-left: 0;
   padding: 50px;
   display: block;
-  background: #f9f9f9;
+  background: var(--voyager--color-background-light);
 }
 
 #right .right_none_selected p {
@@ -27025,11 +27076,11 @@ th.visible-xlg {
 #files li .file_link.selected, #files li .file_link:hover {
   background: #4da7e8 !important;
   border-color: #2581b8;
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 #files li .file_link.selected h4, #files li .file_link:hover h4 {
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 #files li .details h4 {
@@ -27093,7 +27144,7 @@ th.visible-xlg {
   font-size: 70px;
   margin-left: 0;
   padding: 30px;
-  background: #f9f9f9;
+  background: var(--voyager--color-background-light);
 }
 
 .detail_img .folder i.fa-folder {
@@ -27214,11 +27265,11 @@ html, body {
   font-size: 14px;
   line-height: 1.57142857;
   color: #76838f;
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
 }
 
 .skin-voyager .main-header .navbar {
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
   border-bottom: 1px solid #f1f1f1;
 }
 
@@ -27247,7 +27298,7 @@ html, body {
   }
 
   .skin-voyager .main-header .navbar .dropdown-menu li a {
-    color: #fff;
+    color: var(--voyager--color-text-white);
   }
 
   .skin-voyager .main-header .navbar .dropdown-menu li a:hover {
@@ -27256,7 +27307,7 @@ html, body {
 }
 .skin-voyager .main-header .logo {
   background-color: #212936;
-  color: #ffffff;
+  color: var(--voyager--color-text-white);
   border-bottom: 0 solid transparent;
 }
 
@@ -27280,7 +27331,7 @@ html, body {
 
 .skin-voyager .user-panel > .info,
 .skin-voyager .user-panel > .info > a {
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 .skin-voyager .sidebar-menu > li.header {
@@ -27294,7 +27345,7 @@ html, body {
 
 .skin-voyager .sidebar-menu > li:hover > a,
 .skin-voyager .sidebar-menu > li.active > a {
-  color: #ffffff;
+  color: var(--voyager--color-text-white);
   background: #1e282c;
   border-left-color: #3c8dbc;
 }
@@ -27318,7 +27369,7 @@ html, body {
 
 .skin-voyager .treeview-menu > li.active > a,
 .skin-voyager .treeview-menu > li > a:hover {
-  color: #ffffff;
+  color: var(--voyager--color-text-white);
 }
 
 .skin-voyager .sidebar-form {
@@ -27346,12 +27397,12 @@ html, body {
 
 .skin-voyager .sidebar-form input[type=text]:focus,
 .skin-voyager .sidebar-form input[type=text]:focus + .input-group-btn .btn {
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
   color: #666;
 }
 
 .skin-voyager .sidebar-form input[type=text]:focus + .input-group-btn .btn {
-  border-left-color: #fff;
+  border-left-color: var(--voyager--color-border-white);
 }
 
 .skin-voyager .sidebar-form .btn {
@@ -27364,7 +27415,7 @@ html, body {
 
 .skin-voyager.layout-top-nav .main-header > .logo {
   background-color: #22262E;
-  color: #ffffff;
+  color: var(--voyager--color-text-white);
   border-bottom: 0 solid transparent;
 }
 
@@ -27377,7 +27428,7 @@ html, body {
 * ----------
 */
 .voyager {
-  background-color: #F9F9F9;
+  background-color: var(--voyager--color-background-light);
   /* small screen */
 }
 
@@ -27387,7 +27438,7 @@ html, body {
   width: 100%;
   text-align: right;
   padding: 10px 0;
-  background: #fff;
+  background: var(--voyager--color-background-white);
   left: 0px;
 }
 
@@ -27418,7 +27469,7 @@ html, body {
 
 .voyager .navbar .navbar-header .navbar-brand,
 .voyager .navbar.navbar-default .navbar-header .navbar-brand {
-  color: #F9F9F9;
+  color: var(--voyager--color-background-light);
 }
 
 .voyager .navbar .navbar-header .navbar-expand-toggle,
@@ -27443,7 +27494,7 @@ html, body {
 
 .voyager .navbar .navbar-nav > li,
 .voyager .navbar.navbar-default .navbar-nav > li {
-  border-left: 1px solid #F9F9F9;
+  border-left: 1px solid var(--voyager--color-border-light-grey);
 }
 
 .voyager .navbar .navbar-nav > li.profile,
@@ -27458,37 +27509,37 @@ html, body {
 
 .voyager .navbar .navbar-nav > li:hover > a,
 .voyager .navbar.navbar-default .navbar-nav > li:hover > a {
-  color: #22A7F0;
+  color: var(--voyager--color-primary);
 }
 
 .voyager .navbar .navbar-nav > li.open > a,
 .voyager .navbar.navbar-default .navbar-nav > li.open > a {
   background-color: transparent;
-  color: #22A7F0;
+  color: var(--voyager--color-primary);
 }
 
 .voyager .navbar .navbar-nav > li.danger > a,
 .voyager .navbar.navbar-default .navbar-nav > li.danger > a {
   background-color: transparent;
-  border-bottom: 4px solid #FA2A00;
-  color: #FA2A00;
+  border-bottom: 4px solid var(--voyager--color-danger);
+  color: var(--voyager--color-danger);
 }
 
 .voyager .navbar .navbar-nav > li.danger.open > a,
 .voyager .navbar.navbar-default .navbar-nav > li.danger.open > a {
-  background-color: #FA2A00;
-  color: #FFF;
+  background-color: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .navbar .navbar-nav .dropdown-menu,
 .voyager .navbar.navbar-default .navbar-nav .dropdown-menu {
-  background-color: #F9F9F9;
+  background-color: var(--voyager--color-background-light);
   border-color: #E4E4E4;
 }
 
 .voyager .navbar .navbar-nav .dropdown-menu .title,
 .voyager .navbar.navbar-default .navbar-nav .dropdown-menu .title {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
 }
 
 .voyager .navbar .navbar-nav .dropdown-menu .title .badge,
@@ -27498,19 +27549,19 @@ html, body {
 
 .voyager .navbar .navbar-nav .dropdown-menu.danger,
 .voyager .navbar.navbar-default .navbar-nav .dropdown-menu.danger {
-  border-color: #FA2A00;
+  border-color: var(--voyager--color-danger);
 }
 
 .voyager .navbar .navbar-nav .dropdown-menu.danger .title,
 .voyager .navbar.navbar-default .navbar-nav .dropdown-menu.danger .title {
-  background-color: #FA2A00;
-  color: #FFF;
+  background-color: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .navbar .navbar-nav .dropdown-menu.danger .title .badge,
 .voyager .navbar.navbar-default .navbar-nav .dropdown-menu.danger .title .badge {
-  background-color: #FFF;
-  color: #FA2A00;
+  background-color: var(--voyager--color-background-white);
+  color: var(--voyager--color-danger);
 }
 
 .voyager .navbar.navbar-inverse {
@@ -27524,23 +27575,23 @@ html, body {
 }
 
 .voyager .navbar.navbar-inverse .navbar-header .navbar-brand {
-  color: #F9F9F9;
+  color: var(--voyager--color-text-light-gray);
 }
 
 .voyager .navbar.navbar-inverse .navbar-header .navbar-expand-toggle {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .navbar.navbar-inverse .navbar-header .navbar-right-expand-toggle {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .navbar.navbar-inverse .navbar-breadcrumb li {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .navbar.navbar-inverse .navbar-breadcrumb li a {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav > li {
@@ -27548,35 +27599,35 @@ html, body {
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav > li > a {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav > li:hover > a {
-  color: #22A7F0;
+  color: var(--voyager--color-primary);
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav > li.open > a {
   background-color: transparent;
-  color: #22A7F0;
+  color: var(--voyager--color-primary);
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav > li.danger > a {
   background-color: transparent;
-  border-bottom: 4px solid #FA2A00;
-  color: #FFF;
+  border-bottom: 4px solid var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav > li.danger.open > a {
-  background-color: #FA2A00;
+  background-color: var(--voyager--color-danger);
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav .dropdown-menu {
-  background-color: #F9F9F9;
+  background-color: var(--voyager--color-background-light);
   border-color: #353d47;
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav .dropdown-menu .title {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav .dropdown-menu .title .badge {
@@ -27584,26 +27635,26 @@ html, body {
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav .dropdown-menu.danger {
-  border-color: #FA2A00;
+  border-color: var(--voyager--color-danger);
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav .dropdown-menu.danger .title {
-  background-color: #FA2A00;
-  color: #FFF;
+  background-color: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .navbar.navbar-inverse .navbar-nav .dropdown-menu.danger .title .badge {
-  background-color: #FFF;
-  color: #FA2A00;
+  background-color: var(--voyager--color-background-white);
+  color: var(--voyager--color-danger);
 }
 
 .voyager .side-menu {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 .voyager .side-menu .navbar-header {
-  background-color: #22A7F0;
+  background-color: var(--voyager--color-primary);
   margin-bottom: 4px;
 }
 
@@ -27616,7 +27667,7 @@ html, body {
 }
 
 .voyager .side-menu .navbar {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
   border-bottom: 0;
   box-shadow: none;
 }
@@ -27630,13 +27681,13 @@ html, body {
 }
 
 .voyager .side-menu .navbar li.active > a {
-  border-right: 4px solid #22A7F0;
-  background-color: #FFF;
+  border-right: 4px solid var(--voyager--color-primary);
+  background-color: var(--voyager--color-background-white);
 }
 
 .voyager .side-menu .navbar > li:hover > a {
-  background-color: #FA2A00;
-  color: #FFF;
+  background-color: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .side-menu .navbar li.dropdown {
@@ -27667,14 +27718,14 @@ html, body {
 }
 
 .voyager .side-menu.sidebar-inverse .navbar li > a {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .side-menu.sidebar-inverse .navbar li.active > a {
   color: #353d47;
-  border-left: 3px solid #22A7F0;
-  border-right: 0 solid #22A7F0;
-  background-color: #FFF;
+  border-left: 3px solid var(--voyager--color-primary);
+  border-right: 0 solid var(--voyager--color-primary);
+  background-color: var(--voyager--color-background-white);
   font-weight: 400;
 }
 
@@ -27683,8 +27734,8 @@ html, body {
 }
 
 .voyager .side-menu.sidebar-inverse .navbar > li:hover > a {
-  background-color: #FA2A00;
-  color: #FFF;
+  background-color: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .side-menu.sidebar-inverse .navbar li.dropdown > .panel-collapse {
@@ -27701,7 +27752,7 @@ html, body {
   }
 
   .voyager .navbar.navbar-default .navbar-right {
-    background-color: #FFF;
+    background-color: var(--voyager--color-background-white);
   }
 
   .voyager .navbar.navbar-inverse .navbar-nav > li {
@@ -27713,28 +27764,28 @@ html, body {
   }
 }
 .voyager .card.red {
-  background-color: #FA2A00;
-  color: #FFF;
+  background-color: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .card.yellow {
   background-color: #ffb400;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .card.green {
   background-color: #1ABC9C;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .card.blue {
-  background-color: #22A7F0;
-  color: #FFF;
+  background-color: var(--voyager--color-primary);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .card.dark {
   background-color: #353d47;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .card.red,
@@ -27758,7 +27809,7 @@ html, body {
 .voyager .card.green .card-header .title,
 .voyager .card.blue .card-header .title,
 .voyager .card.dark .card-header .title {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .card {
@@ -27788,11 +27839,11 @@ html, body {
 
 .voyager .card.primary .card-jumbotron {
   background-color: #353d47;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .card.profile .card-footer {
-  border-top: 1px solid #F9F9F9;
+  border-top: 1px solid var(--voyager--color-border-light-grey);
 }
 
 .voyager .card.summary-inline.red:hover {
@@ -27820,15 +27871,15 @@ html, body {
 }
 
 .voyager .card.card-success .card-header .title {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .card.card-info .card-header {
-  background-color: #22A7F0;
+  background-color: var(--voyager--color-primary);
 }
 
 .voyager .card.card-info .card-header .title {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .panel.panel-default {
@@ -27879,10 +27930,10 @@ html, body {
 }
 .voyager .modal.modal-relationships.modal-danger .modal-header, .voyager .modal.modal-relationships .btn-relationship {
   background: #F2435C;
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 .voyager .modal.modal-relationships .modal-body {
-  background: #ffffff;
+  background: var(--voyager--color-background-white);
 }
 .voyager .modal.modal-relationships .modal-body .col-md-12 {
   margin-bottom: 0px;
@@ -27921,7 +27972,7 @@ html, body {
 .voyager .modal.modal-relationships .relationship_details p {
   float: left;
   padding: 6px 10px;
-  background: #fff;
+  background: var(--voyager--color-background-white);
   line-height: 22px;
   margin-right: 0;
   border: 1px solid #eaeaea;
@@ -28027,10 +28078,10 @@ html, body {
 .btn-new-relationship {
   background: #F2435C;
   border: 1px solid #F2435C;
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 .btn-new-relationship:hover {
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 .btn-new-relationship i {
   position: relative;
@@ -28045,7 +28096,7 @@ html, body {
 .voyager .panel.panel-primary .panel-heading {
   border-bottom: 1px solid #353d47;
   background-color: #73849d;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .panel.panel-success {
@@ -28059,11 +28110,11 @@ html, body {
 }
 
 .voyager .panel.panel-info {
-  border: 1px solid #22A7F0;
+  border: 1px solid var(--voyager--color-primary);
 }
 
 .voyager .panel.panel-info .panel-heading {
-  border-bottom: 1px solid #22A7F0;
+  border-bottom: 1px solid var(--voyager--color-primary);
   background-color: #91d5fb;
   color: #09486b;
 }
@@ -28095,7 +28146,7 @@ html, body {
 .voyager .panel.fresh-color.panel-primary .panel-heading {
   border-bottom: 1px solid #353d47;
   background-color: #353d47;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .panel.fresh-color.panel-success {
@@ -28105,17 +28156,17 @@ html, body {
 .voyager .panel.fresh-color.panel-success .panel-heading {
   border-bottom: 1px solid #1ABC9C;
   background-color: #1ABC9C;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .panel.fresh-color.panel-info {
-  border: 1px solid #22A7F0;
+  border: 1px solid var(--voyager--color-primary);
 }
 
 .voyager .panel.fresh-color.panel-info .panel-heading {
-  border-bottom: 1px solid #22A7F0;
-  background-color: #22A7F0;
-  color: #FFF;
+  border-bottom: 1px solid var(--voyager--color-primary);
+  background-color: var(--voyager--color-primary);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .panel.fresh-color.panel-warning {
@@ -28125,17 +28176,17 @@ html, body {
 .voyager .panel.fresh-color.panel-warning .panel-heading {
   border-bottom: 1px solid #FABE28;
   background-color: #FABE28;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .panel.fresh-color.panel-danger {
-  border: 1px solid #FA2A00;
+  border: 1px solid var(--voyager--color-danger);
 }
 
 .voyager .panel.fresh-color.panel-danger .panel-heading {
-  border-bottom: 1px solid #FA2A00;
-  background-color: #FA2A00;
-  color: #FFF;
+  border-bottom: 1px solid var(--voyager--color-danger);
+  background-color: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .btn.btn-default {
@@ -28148,8 +28199,8 @@ html, body {
 }
 
 .voyager .btn.btn-success {
-  background: #2ecc71;
-  color: #fff;
+  background: var(--voyager--color-success);
+  color: var(--voyager--color-text-white);
   border: 0px;
   border-radius: 3px;
   opacity: 0.9;
@@ -28160,8 +28211,8 @@ html, body {
 }
 
 .voyager .btn.btn-warning {
-  background: #f39c12;
-  color: #fff;
+  background: var(--voyager--color-warning);
+  color: var(--voyager--color-text-white);
   border: 0px;
   border-radius: 3px;
   opacity: 0.9;
@@ -28172,18 +28223,18 @@ html, body {
 }
 
 .voyager .btn.btn-info {
-  background-color: #22A7F0;
-  color: #FFF;
-  border-color: #22A7F0;
+  background-color: var(--voyager--color-primary);
+  color: var(--voyager--color-text-white);
+  border-color: var(--voyager--color-primary);
 }
 
 .voyager .btn.btn-sm.btn-info, .voyager .btn-group-sm > .btn.btn-info {
-  background: #22A7F0;
+  background: var(--voyager--color-primary);
 }
 
 .voyager .btn.btn-danger {
-  background: #FA2A00;
-  color: #fff;
+  background: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
   border: 0px;
   border-radius: 3px;
   opacity: 0.9;
@@ -28199,7 +28250,7 @@ html, body {
 
 .voyager .progress .progress-bar {
   background-color: #353d47;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .progress .progress-bar.progress-bar-success {
@@ -28207,7 +28258,7 @@ html, body {
 }
 
 .voyager .progress .progress-bar.progress-bar-info {
-  background-color: #22A7F0;
+  background-color: var(--voyager--color-primary);
 }
 
 .voyager .progress .progress-bar.progress-bar-warning {
@@ -28215,11 +28266,11 @@ html, body {
 }
 
 .voyager .progress .progress-bar.progress-bar-danger {
-  background-color: #FA2A00;
+  background-color: var(--voyager--color-danger);
 }
 
 .voyager .color-white {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .pagination > li > a {
@@ -28234,32 +28285,32 @@ html, body {
 .voyager .pagination .active > span:hover {
   background-color: #353d47;
   border-color: #353d47;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .modal.modal-primary .modal-header {
   background-color: #353d47;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .modal.modal-success .modal-header {
   background-color: #1ABC9C;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .modal.modal-info .modal-header {
-  background-color: #22A7F0;
-  color: #FFF;
+  background-color: var(--voyager--color-primary);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .modal.modal-warning .modal-header {
   background-color: #FABE28;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .modal.modal-danger .modal-header {
-  background-color: #FA2A00;
-  color: #FFF;
+  background-color: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .alert.alert-success {
@@ -28280,7 +28331,7 @@ html, body {
 .voyager .alert.alert-info {
   background-color: #91d5fb;
   color: #09486b;
-  border-color: #22A7F0;
+  border-color: var(--voyager--color-primary);
 }
 
 .voyager .alert.alert-info .alert-link {
@@ -28323,16 +28374,16 @@ html, body {
 }
 
 .voyager .alert.fresh-color {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .alert.fresh-color .alert-link {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
   text-decoration: underline;
 }
 
 .voyager .alert.fresh-color .btn-link {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .alert.fresh-color.alert-success {
@@ -28340,7 +28391,7 @@ html, body {
 }
 
 .voyager .alert.fresh-color.alert-info {
-  background-color: #22A7F0;
+  background-color: var(--voyager--color-primary);
 }
 
 .voyager .alert.fresh-color.alert-warning {
@@ -28348,13 +28399,13 @@ html, body {
 }
 
 .voyager .alert.fresh-color.alert-danger {
-  background-color: #FA2A00;
-  border-color: #FA2A00;
+  background-color: var(--voyager--color-danger);
+  border-color: var(--voyager--color-danger);
 }
 
 .voyager .list-group .list-group-item.active {
   background-color: #353d47;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
   border-color: #353d47;
 }
 
@@ -28369,7 +28420,7 @@ html, body {
 }
 
 .voyager .list-group .list-group-item.list-group-item-success .badge {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
   color: #1ABC9C;
 }
 
@@ -28380,8 +28431,8 @@ html, body {
 }
 
 .voyager .list-group .list-group-item.list-group-item-info .badge {
-  background-color: #FFF;
-  color: #22A7F0;
+  background-color: var(--voyager--color-background-white);
+  color: var(--voyager--color-primary);
 }
 
 .voyager .list-group .list-group-item.list-group-item-warning {
@@ -28391,7 +28442,7 @@ html, body {
 }
 
 .voyager .list-group .list-group-item.list-group-item-warning .badge {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
   color: #FABE28;
 }
 
@@ -28402,8 +28453,8 @@ html, body {
 }
 
 .voyager .list-group .list-group-item.list-group-item-danger .badge {
-  background-color: #FFF;
-  color: #FA2A00;
+  background-color: var(--voyager--color-background-white);
+  color: var(--voyager--color-danger);
 }
 
 .voyager .bootstrap-switch {
@@ -28472,24 +28523,24 @@ html, body {
 }
 
 .voyager .login-box .login-form .login-header {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .login-box .login-form .login-body {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
 }
 
 .voyager .login-box input {
-  background-color: #F9F9F9;
-  border: 1px solid #F9F9F9;
+  background-color: var(--voyager--color-background-light);
+  border: 1px solid var(--voyager--color-border-light-grey);
 }
 
 .voyager .login-box .login-footer a {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .login-box .login-footer a:hover {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
   text-decoration: underline;
 }
 
@@ -28502,7 +28553,7 @@ html, body {
 }
 
 .voyager .badge.info {
-  background-color: #22A7F0;
+  background-color: var(--voyager--color-primary);
 }
 
 .voyager .badge.warning {
@@ -28510,7 +28561,7 @@ html, body {
 }
 
 .voyager .badge.danger {
-  background-color: #FA2A00;
+  background-color: var(--voyager--color-danger);
 }
 
 .voyager .nav-tabs {
@@ -28522,7 +28573,7 @@ html, body {
 }
 
 .voyager .nav-tabs > li.active > a:hover {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
   color: #76838f;
 }
 
@@ -28555,7 +28606,7 @@ html, body {
 .voyager .tabs-left > .nav-tabs .active > a:hover,
 .voyager .tabs-left > .nav-tabs .active > a:focus {
   border-color: #E4E4E4 transparent #E4E4E4 #E4E4E4;
-  *border-right-color: #FFF;
+  *border-right-color: var(--voyager--color-border-white);
 }
 
 .voyager .tabs-right > .nav-tabs {
@@ -28571,11 +28622,11 @@ html, body {
 .voyager .tabs-right > .nav-tabs .active > a:hover,
 .voyager .tabs-right > .nav-tabs .active > a:focus {
   border-color: #E4E4E4 #E4E4E4 #E4E4E4 transparent;
-  *border-left-color: #FFF;
+  *border-left-color: var(--voyager--color-border-white);
 }
 
 .voyager .step .nav-tabs {
-  background-color: #FFF;
+  background-color: var(--voyager--color-background-white);
 }
 
 .voyager .step .nav-tabs > li {
@@ -28586,7 +28637,7 @@ html, body {
 .voyager .step .nav-tabs > li:after {
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
-  border-left: 15px solid #FFF;
+  border-left: 15px solid var(--voyager--color-border-white);
 }
 
 .voyager .step .nav-tabs > li:before {
@@ -28660,7 +28711,7 @@ html, body {
 .voyager .step.tabs-left .nav-tabs > li:after {
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
-  border-left: 15px solid #FFF;
+  border-left: 15px solid var(--voyager--color-border-white);
 }
 
 .voyager .step.tabs-left .nav-tabs > li:before {
@@ -28705,7 +28756,7 @@ html, body {
 }
 
 .voyager .pricing-table .pt-body {
-  background-color: #F9F9F9;
+  background-color: var(--voyager--color-background-light);
 }
 
 .voyager .pricing-table .pt-body .plan-detail {
@@ -28715,12 +28766,12 @@ html, body {
 }
 
 .voyager .pricing-table .pt-footer {
-  background-color: #F9F9F9;
+  background-color: var(--voyager--color-background-light);
 }
 
 .voyager .pricing-table.dark-blue .pt-header {
   background-color: #353d47;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .pricing-table.dark-blue .pt-body {
@@ -28730,7 +28781,7 @@ html, body {
 
 .voyager .pricing-table.green .pt-header {
   background-color: #1ABC9C;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .pricing-table.green .pt-body {
@@ -28739,8 +28790,8 @@ html, body {
 }
 
 .voyager .pricing-table.blue .pt-header {
-  background-color: #22A7F0;
-  color: #FFF;
+  background-color: var(--voyager--color-primary);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .pricing-table.blue .pt-body {
@@ -28750,7 +28801,7 @@ html, body {
 
 .voyager .pricing-table.yellow .pt-header {
   background-color: #FABE28;
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .pricing-table.yellow .pt-body {
@@ -28759,8 +28810,8 @@ html, body {
 }
 
 .voyager .pricing-table.red .pt-header {
-  background-color: #FA2A00;
-  color: #FFF;
+  background-color: var(--voyager--color-danger);
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .pricing-table.red .pt-body {
@@ -28783,11 +28834,11 @@ html, body {
 }
 
 .voyager.landing-page .navbar .navbar-nav > li {
-  border-left: 0 solid #F9F9F9;
+  border-left: 0 solid var(--voyager--color-border-light-grey);
 }
 
 .voyager.landing-page .navbar .navbar-nav > li > a {
-  color: #FFF;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager.landing-page .navbar .navbar-collapse {
@@ -28799,7 +28850,7 @@ html, body {
 }
 
 .voyager.landing-page .navbar.affix .navbar-nav > li:hover > a {
-  color: #22A7F0;
+  color: var(--voyager--color-primary);
 }
 
 @media (max-width: 768px) {
@@ -28809,11 +28860,11 @@ html, body {
 
   .voyager.landing-page .navbar .navbar-right {
     background-color: transparent;
-    color: #FFF;
+    color: var(--voyager--color-text-white);
   }
 
   .voyager.landing-page .navbar.affix .navbar-nav > li > a {
-    color: #FFF;
+    color: var(--voyager--color-text-white);
   }
 }
 .voyager.landing-page .navbar.affix .navbar-brand {
@@ -28826,7 +28877,7 @@ html, body {
 
 .voyager.landing-page .app-header .app-btn {
   background-color: transparent;
-  border: 2px solid #FFF;
+  border: 2px solid var(--voyager--color-text-white);
 }
 
 .voyager.landing-page .app-content-a {
@@ -28878,7 +28929,7 @@ html, body {
   top: 0;
   width: 420px;
   height: 100%;
-  background: #fff;
+  background: var(--voyager--color-background-white);
 }
 
 .login-box, .register-box {
@@ -28913,7 +28964,7 @@ html, body {
 
 .main-footer {
   background: #F1F5FA;
-  border-top: 1px solid #f9f9f9;
+  border-top: 1px solid var(--voyager--color-border-light-grey);
   font-size: 11px;
 }
 
@@ -28977,7 +29028,7 @@ html, body {
 }
 
 .content-wrapper {
-  background: #fff;
+  background: var(--voyager--color-background-white);
 }
 
 table.dataTable {
@@ -29004,7 +29055,7 @@ table a.btn-sm, table .btn-group-sm > a.btn {
   left: 0px;
   background-position-y: bottom;
   line-height: 100px;
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 #dashboard_bg p {
@@ -29150,7 +29201,7 @@ p#the_plugin_name {
 }
 
 .voyager .side-menu.sidebar-inverse .navbar li.active > a {
-  color: #fff;
+  color: var(--voyager--color-text-white);
   background: none;
   border-left: 0px;
 }
@@ -29187,7 +29238,7 @@ p#the_plugin_name {
 }
 
 .voyager .side-menu.sidebar-inverse .navbar li > a:hover {
-  color: #fff;
+  color: var(--voyager--color-text-white);
   background: #2A363B;
 }
 
@@ -29297,7 +29348,7 @@ p#the_plugin_name {
 }
 
 #voyager-loader {
-  background: #F9F9F9;
+  background: var(--voyager--color-background-light);
   position: fixed;
   width: 100%;
   height: 100%;
@@ -29319,7 +29370,7 @@ p#the_plugin_name {
 }
 
 .voyager .navbar .navbar-nav .dropdown-menu, .voyager .navbar.navbar-default .navbar-nav .dropdown-menu {
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
 }
 
 .navbar .dropdown-menu.dropdown-menu-animated {
@@ -29336,7 +29387,7 @@ p#the_plugin_name {
   border-radius: 4px;
   border: 0 none;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
   background-clip: padding-box;
   width: 250px;
   z-index: 98;
@@ -29437,17 +29488,17 @@ p#the_plugin_name {
 .breadcrumb {
   padding: 4px 10px;
   list-style: none;
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
   border-radius: 25px;
   position: relative;
   top: 2px;
-  border: 1px solid #f9f9f9;
+  border: 1px solid var(--voyager--color-background-light);
   font-size: 12px;
   padding-right: 15px;
 }
 
 .breadcrumb a {
-  color: #22A7F0;
+  color: var(--voyager--color-primary);
   font-family: "Open Sans";
   font-weight: 400;
 }
@@ -29467,7 +29518,7 @@ p#the_plugin_name {
 
 .form-control {
   color: #76838f;
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
   background-image: none;
   border: 1px solid #e4eaec;
 }
@@ -29527,7 +29578,7 @@ p#the_plugin_name {
 
 .voyager .pagination .active > a, .voyager .pagination .active > a:focus, .voyager .pagination .active > a:hover, .voyager .pagination .active span, .voyager .pagination .active > span:focus, .voyager .pagination .active > span:hover {
   z-index: 3;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   cursor: default;
   background-color: #62a8ea;
   border-color: #62a8ea;
@@ -29545,16 +29596,16 @@ p#the_plugin_name {
 
 .voyager .panel {
   margin-bottom: 22px;
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
   border: 1px solid transparent;
   border-radius: 4px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .btn.btn-primary {
-  color: #fff;
+  color: var(--voyager--color-text-white);
   opacity: 0.9;
-  background: #22A7F0;
+  background: var(--voyager--color-primary);
   border: 0px;
   border-radius: 3px;
 }
@@ -29582,7 +29633,7 @@ p#the_plugin_name {
 .voyager .btn.btn-sm, .voyager .btn-group-sm > .btn, .voyager .btn.btn-sm:hover {
   border-width: 1px;
   border-color: rgba(255, 255, 255, 0);
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 .voyager .btn.btn-default.btn-sm, .voyager .btn-group-sm > .btn.btn-default, .voyager .btn.btn-default.btn-sm:hover {
@@ -29631,7 +29682,7 @@ p#the_plugin_name {
 }
 
 .panel.widget h4 {
-  color: #fff;
+  color: var(--voyager--color-text-white);
   font-weight: 300;
   margin-top: 20px;
   font-size: 20px;
@@ -29650,13 +29701,13 @@ p#the_plugin_name {
 
 .panel.widget .readm-link {
   margin-top: 20px;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   text-decoration: underline;
 }
 
 .panel.widget .btn-primary {
   margin-top: 20px;
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 .btn {
@@ -29847,7 +29898,7 @@ p#the_plugin_name {
   width: 100%;
   border: 1px solid #EAEAEA;
   border-top: 0px;
-  background: #fff;
+  background: var(--voyager--color-background-white);
   display: table;
 }
 
@@ -29908,7 +29959,7 @@ p#the_plugin_name {
 }
 
 .database-tables tr .btn-default:hover {
-  background: #ffffff;
+  background: var(--voyager--color-background-white);
 }
 
 .database-tables tr .btn-danger:hover {
@@ -29946,7 +29997,7 @@ p#the_plugin_name {
   margin-right: 0px;
   margin-bottom: 5px;
   border-radius: 0;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   border: 0;
   border-left: 5px solid rgba(0, 0, 0, 0.1);
   border-color: rgba(0, 0, 0, 0.1);
@@ -29956,25 +30007,25 @@ p#the_plugin_name {
 
 .voyager .alert.alert-success {
   background-color: #55B559;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   border-color: rgba(0, 0, 0, 0.1);
 }
 
 .voyager .alert.alert-danger {
   background-color: #F55145;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   border-color: rgba(0, 0, 0, 0.1);
 }
 
 .voyager .alert.alert-warning {
   background-color: #FF9E0F;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   border-color: rgba(0, 0, 0, 0.1);
 }
 
 .voyager .alert.alert-info {
-  background-color: #22A7F0;
-  color: #fff;
+  background-color: var(--voyager--color-primary);
+  color: var(--voyager--color-text-white);
   border-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -29986,7 +30037,7 @@ p#the_plugin_name {
 
 .voyager input[type=file] {
   padding: 20px;
-  background: #fff;
+  background: var(--voyager--color-background-white);
   border-radius: 4px;
   border: 1px solid #f1f1f1;
   outline: none;
@@ -30059,7 +30110,7 @@ ul.radio li .check {
 }
 
 ul.radio li:hover .check {
-  border: 4px solid #22A7F0;
+  border: 4px solid var(--voyager--color-primary);
 }
 
 ul.radio li .check::before {
@@ -30077,11 +30128,11 @@ ul.radio li .check::before {
 }
 
 input[type=radio]:checked ~ .check {
-  border: 4px solid #22A7F0;
+  border: 4px solid var(--voyager--color-primary);
 }
 
 input[type=radio]:checked ~ .check::before {
-  background: #22A7F0;
+  background: var(--voyager--color-primary);
 }
 
 input[type=radio]:checked ~ label {
@@ -30683,7 +30734,7 @@ limitations under the License.
 }
 
 input.FormField, select.FormField, textarea.FormField {
-  background: #fff;
+  background: var(--voyager--color-background-white);
   border: 1px solid #d4d2d0;
   border-radius: 4px;
   box-sizing: border-box;
@@ -30929,7 +30980,7 @@ limitations under the License.
   align-items: flex-start;
   background: #cc3333;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  color: #fff;
+  color: var(--voyager--color-text-white);
   display: flex;
   padding: 1.5em;
   position: relative;
@@ -31028,7 +31079,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 .Box {
-  background: #fff;
+  background: var(--voyager--color-background-white);
   border: 1px solid #d4d2d0;
   border-radius: 4px;
   margin-bottom: 1.5em;
@@ -31115,7 +31166,7 @@ limitations under the License.
 }
 
 .Button--action {
-  color: #fff;
+  color: var(--voyager--color-text-white);
   background: #4b8df7;
   border-color: transparent;
 }
@@ -31125,7 +31176,7 @@ limitations under the License.
 }
 
 .Button--success {
-  color: #fff;
+  color: var(--voyager--color-text-white);
   background: #29a347;
   border-color: transparent;
 }
@@ -31274,7 +31325,7 @@ limitations under the License.
 */
 .Dashboard {
   border: 0px solid #d4d2d0;
-  background: #fff;
+  background: var(--voyager--color-background-white);
   border-radius: 3px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
@@ -31821,7 +31872,7 @@ limitations under the License.
 .Header-menuIcon:hover {
   background: #000000;
   background: rgba(0, 0, 0, 0.3);
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 .Header-user {
@@ -31930,7 +31981,7 @@ limitations under the License.
 .Site.is-authorized .Header-userIcon:hover {
   background: #000000;
   background: rgba(0, 0, 0, 0.3);
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 .Site.is-authorized .Header-auth {
@@ -31940,7 +31991,7 @@ limitations under the License.
 /* The user has opened the header drawer (showing the user info).
    ========================================================================== */
 .Header.is-open .Header-auth {
-  background: #fff;
+  background: var(--voyager--color-background-white);
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.1);
   color: #777;
   display: block;
@@ -31956,7 +32007,7 @@ limitations under the License.
 .Header.is-open .Header-userIcon {
   background: #000000;
   background: rgba(0, 0, 0, 0.3);
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 .Header.is-open .Header-user:before {
@@ -31966,7 +32017,7 @@ limitations under the License.
 
 @media (min-width: 1024px) {
   .Header-block {
-    background: #fff;
+    background: var(--voyager--color-background-white);
     padding: 2em 3em 3em;
   }
 
@@ -31992,7 +32043,7 @@ limitations under the License.
   }
 
   .Header.is-open .Header-auth {
-    background: #fff;
+    background: var(--voyager--color-background-white);
     border-radius: 0.5em;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     padding: 0 0.5em;
@@ -32109,7 +32160,7 @@ limitations under the License.
 }
 
 .HitElement {
-  background: #FFF;
+  background: var(--voyager--color-background-white);
   border-radius: 4px;
   margin-bottom: 1.5em;
 }
@@ -32125,7 +32176,7 @@ limitations under the License.
 }
 
 .HitElement-body {
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
   border: solid #d4d2d0;
   border-radius: 0 0 4px 4px;
   border-width: 0 1px 1px;
@@ -32427,7 +32478,7 @@ limitations under the License.
 
 .Nav-link--selected, .Nav-link--selected:hover {
   background-color: rgba(255, 255, 255, 0.075);
-  color: #fff;
+  color: var(--voyager--color-text-white);
   cursor: default;
   pointer-events: none;
 }
@@ -32568,7 +32619,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 .QueryReport {
-  background: #fff;
+  background: var(--voyager--color-background-white);
   border: 1px solid #d4d2d0;
   border-radius: 4px;
   margin-bottom: 1.5em;
@@ -32657,7 +32708,7 @@ limitations under the License.
 }
 
 .SearchSuggest-matches {
-  background: #fff;
+  background: var(--voyager--color-background-white);
   border: 1px solid;
   border-color: #eee #3b99fc #3b99fc;
   border-radius: 0 0 4px 4px;
@@ -32759,7 +32810,7 @@ limitations under the License.
 }
 
 .SearchSuggestMatch--selected .SearchSuggestMatch-category, .SearchSuggestMatch--selected .SearchSuggestMatch-content, .SearchSuggestMatch--selected .SearchSuggestMatch-extra {
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 /*
@@ -32778,7 +32829,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 .TechInfo {
-  background: #fff;
+  background: var(--voyager--color-background-white);
   border: 1px solid #36a9e2;
   border-radius: 4px;
   display: flex;
@@ -32836,7 +32887,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 .Table {
-  background: #fff;
+  background: var(--voyager--color-background-white);
   margin: 0 0 1.5em;
 }
 
@@ -32895,7 +32946,7 @@ limitations under the License.
 .Titles-action {
   background: #f05a24;
   border-radius: 0.25em;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   display: inline-block;
   font-weight: 400;
   margin-top: 0.8em;
@@ -33134,7 +33185,7 @@ limitations under the License.
 
 #embed-api-auth-container {
   padding: 50px;
-  background: #fff;
+  background: var(--voyager--color-background-white);
   text-align: center;
   border-radius: 3px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -33197,7 +33248,7 @@ limitations under the License.
 
 .dd-handle:hover {
   color: #2ea8e5;
-  background: #fff;
+  background: var(--voyager--color-background-white);
 }
 
 .dd-item > button {
@@ -33295,7 +33346,7 @@ limitations under the License.
 }
 
 #nestable2 .dd-handle {
-  color: #fff;
+  color: var(--voyager--color-text-white);
   border: 1px solid #999;
   background: #bbb;
   background: linear-gradient(to bottom, #bbb 0%, #999 100%);
@@ -33310,7 +33361,7 @@ limitations under the License.
 }
 
 #nestable2 .dd-item > button:before {
-  color: #fff;
+  color: var(--voyager--color-text-white);
 }
 
 @media only screen and (min-width: 700px) {
@@ -33345,7 +33396,7 @@ limitations under the License.
 
 .dd3-content:hover {
   color: #2ea8e5;
-  background: #fff;
+  background: var(--voyager--color-background-white);
 }
 
 .dd-dragel > .dd3-item > .dd3-content {
@@ -33382,7 +33433,7 @@ limitations under the License.
   width: 100%;
   text-align: center;
   text-indent: 0;
-  color: #fff;
+  color: var(--voyager--color-text-white);
   font-size: 20px;
   font-weight: normal;
 }
@@ -33397,7 +33448,7 @@ limitations under the License.
   padding: 1px;
   border: solid 1px #EAEAF1;
   border-radius: 6px;
-  background-color: #fff;
+  background-color: var(--voyager--color-background-white);
   margin-bottom: 20px;
   display: flex;
 }
