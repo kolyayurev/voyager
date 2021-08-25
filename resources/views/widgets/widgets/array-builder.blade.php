@@ -152,9 +152,10 @@
                     this.items.splice(key, 1);
                 },
                 clearForm(){
-                    for (key in this.model) {
-                        this.model[key] = null
-                    }
+                    var _this = this;
+                    _this.options.fields.forEach(function(field){
+                        _this.model[field.name] = field.default;
+                    });
                 },
                 // important
                 printObject(obj){
