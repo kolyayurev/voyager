@@ -71,7 +71,7 @@ export default {
         });
       },
       resetForm() {
-        this.$refs.form.resetFields();
+        this.$refs.ruleForm.resetFields();
         for (var key in this.model) {
             this.model[key] = '';
         }
