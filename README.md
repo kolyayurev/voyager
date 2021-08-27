@@ -110,6 +110,7 @@ Add `admin-controls-expanded` cookie to `EncryptCookies` middleware
 Model must have function
 
 ```
+
 public function adminFields():array{
     
      return [
@@ -168,3 +169,20 @@ You must enter a unique slug and specify the model for BREAD.
 Example slug: `feedback-client`, model: `App\Models\FeedbackClient`
 
 > But first you have to create a model
+
+Model must have next code 
+
+```
+
+public static function boot(){
+    parent::boot();
+    static::creating(function ($model) {
+        $model->type = 'client';
+    });
+    static::addGlobalScope('client', function($builder){
+        $builder->where('type', 'client');
+    });
+}
+
+```
+
