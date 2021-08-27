@@ -20,7 +20,7 @@
 }
 
 .el-button--primary {
-  background-color: cl(primary);
+  background-color: var(--voyager--color-primary);
 }
 
 .dialog-media-picker .el-dialog {
@@ -34,14 +34,14 @@
 }
 
 .modal-info .el-dialog__header {
-  background-color: cl(primary);
-  color: cl(text-white);
+  background-color: var(--voyager--color-primary);
+  color: var(--voyager--color-text-white);
 }
 .modal-info .el-dialog__title {
-  color: cl(text-white);
+  color: var(--voyager--color-text-white);
 }
 .modal-info .el-dialog__headerbtn .el-dialog__close {
-  color: cl(text-white);
+  color: var(--voyager--color-text-white);
 }
 
 .el-form--label-top .el-form-item__label {

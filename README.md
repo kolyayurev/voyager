@@ -186,3 +186,11 @@ public static function boot(){
 
 ```
 
+
+## Import seeder 
+
+```
+php artisan db:seed --class=VoyagerBreadFeedbacksSeeder
+```
+
+Next, you need go to imported bread edit page and save. Voyager will generate permissions and then you need to give the roles access to this BREAD.
