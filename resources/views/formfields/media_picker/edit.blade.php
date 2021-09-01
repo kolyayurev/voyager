@@ -88,7 +88,7 @@ var media_picker_{{ $row->field }} = new Vue({
         fileIs: function(file, type) {
             if (typeof file === 'string') {
                 if (type == 'image') {
-                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp'], file.toLowerCase());
+                    return this.endsWithAny(['jpg', 'jpeg', 'png', 'bmp', 'svg'], file.toLowerCase());
                 }
             } else {
                 return file.type.includes(type);
