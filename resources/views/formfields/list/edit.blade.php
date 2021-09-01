@@ -1,5 +1,9 @@
 @push('css')
 <style>
+    .list__items{
+        max-height: 300px;
+        overflow-y: auto;
+    }
     .item{
         position: relative;
         display: inline-block;

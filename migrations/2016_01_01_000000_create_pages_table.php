@@ -25,6 +25,7 @@ class CreatePagesTable extends Migration
             $table->text('body')->nullable();
             $table->enum('status', Page::$statuses)->default(Page::STATUS_INACTIVE);
             $table->boolean('visible')->default(0);
+            $table->text('meta_fields')->nullable();
 
             // SEO columns
             $table->string('meta_title')->nullable();
