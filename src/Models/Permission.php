@@ -36,6 +36,9 @@ class Permission extends Model
         self::generateFor($table_name);
         self::generateSettingsGroup('site');
         self::generateSettingsGroup('admin');
+        self::generateSettingsGroup('SEO');
+        self::generateSettingsGroup('Contacts');
+        self::generateSettingsGroup('Social');
     }
     public static function generateForWidgets()
     {

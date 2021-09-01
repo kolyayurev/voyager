@@ -13,6 +13,8 @@
         box-sizing: border-box;
         white-space: nowrap;
         background-color: #eeeeee;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
     .item__title{
         

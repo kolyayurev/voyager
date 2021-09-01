@@ -111,5 +111,22 @@ return [
             'logo'                         => 'Логотип Сайта',
             'title'                        => 'Название Сайта',
         ],
+        'seo'  => [
+            'meta_title'=>'Мета заголовок (по умолчанию)',
+            'meta_description'=>'Мета описание (по умолчанию)',
+            'twitter_name'=>'Twitter name',
+            'logo'=>'Логотип',
+            'yandex_verification'=>'Яндекс.ВебМастер (код верификации)',
+            'yandex_metrica'=>'Яндекс.Метрика (код)',
+        ],
+        'contacts'=>[
+            'phone'=>'Телефон',
+            'email'=>'E-mail',
+        ],
+        'social'=>[
+            'facebook'=>'Facebook',
+            'instagram'=>'Instagram',
+            'whatsapp'=>'WhatsApp',
+        ]
     ],
 ];

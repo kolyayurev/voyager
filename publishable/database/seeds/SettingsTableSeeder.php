@@ -130,6 +130,127 @@ class SettingsTableSeeder extends Seeder
                 'group'        => 'Admin',
             ])->save();
         }
+        $setting = $this->findSetting('seo.meta_title');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.seo.meta_title'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 1,
+                'group'        => 'SEO',
+            ])->save();
+        }
+        $setting = $this->findSetting('seo.meta_description');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.seo.meta_description'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text_area',
+                'order'        => 2,
+                'group'        => 'SEO',
+            ])->save();
+        }
+        $setting = $this->findSetting('seo.twitter_name');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.seo.twitter_name'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 3,
+                'group'        => 'SEO',
+            ])->save();
+        }
+        $setting = $this->findSetting('seo.logo');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.seo.logo'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'image',
+                'order'        => 4,
+                'group'        => 'SEO',
+            ])->save();
+        }
+        $setting = $this->findSetting('seo.yandex_verification');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.seo.yandex_verification'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 5,
+                'group'        => 'SEO',
+            ])->save();
+        }
+        $setting = $this->findSetting('seo.yandex_metrica');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.seo.yandex_metrica'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 6,
+                'group'        => 'SEO',
+            ])->save();
+        }
+        $setting = $this->findSetting('contacts.phone');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.contacts.phone'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 1,
+                'group'        => 'Contacts',
+            ])->save();
+        }
+        $setting = $this->findSetting('contacts.email');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.contacts.email'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 2,
+                'group'        => 'Contacts',
+            ])->save();
+        }
+        $setting = $this->findSetting('social.facebook');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.social.facebook'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 1,
+                'group'        => 'Social',
+            ])->save();
+        }
+        $setting = $this->findSetting('social.instagram');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.social.instagram'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 2,
+                'group'        => 'Social',
+            ])->save();
+        }
+        $setting = $this->findSetting('social.whatsapp');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.social.whatsapp'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 3,
+                'group'        => 'Social',
+            ])->save();
+        }
     }
 
     /**
