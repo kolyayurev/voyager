@@ -58,3 +58,44 @@
         padding-bottom: 0;
     }
 } 
+.el-radio{
+    &:hover{
+        .el-radio__inner{
+            border-color: #409EFF;
+        }
+        .el-radio__label{
+            color: #535B65;
+        }    
+    }
+    &__inner{
+        border: 4px solid #AAAAAA;
+        width: 20px;
+        height: 20px;
+        transition: border 0.25s linear;
+        &::after {
+            width: 8px;
+            height: 8px;
+            background-color: transparent;
+            transform: translate(-50%,-50%) scale(1);
+            transition: transform .15s ease-in, background 0.25s linear;
+        }
+    }
+    &__label{
+        color: #AAAAAA;
+        transition: color 0.25s linear;
+    }
+    &__input{
+        &.is-checked{
+            &+.el-radio__label{
+                color: #535B65;
+            }
+            .el-radio__inner {
+                border-color: #409EFF;
+                background: transparent;
+            }
+            .el-radio__inner::after {
+                background-color: #409EFF;
+            }
+        }
+    }
+}
