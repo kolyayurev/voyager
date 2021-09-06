@@ -16,10 +16,16 @@ abstract class BaseWidgetHandler implements WidgetInterface
     protected $view;
     protected $codename;
     protected $default;
+    protected $details;
+
+    public function setDetails($details)
+    {
+        return $this->details = $details;
+    }
 
     public function getView()
     {
-        return $this->view;
+        return optional($this->details)->view && !empty($this->details->view) ? $this->details->view :$this->view;
     }
 
     public function getCodename()
@@ -48,10 +54,12 @@ abstract class BaseWidgetHandler implements WidgetInterface
 
     public function handle($dataType, $dataTypeContent)
     {
+        $this->setDetails($dataTypeContent->getDetails());
+
         $content = $this->createContent(
             $dataType,
             $dataTypeContent,
-            $dataTypeContent->getDetails()
+            $this->details
         );
 
         return $this->render($content);
