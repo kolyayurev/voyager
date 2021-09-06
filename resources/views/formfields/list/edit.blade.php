@@ -33,16 +33,17 @@
 @endpush
 
 @php
+    $id = 'list_'.$row->field;
     $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n ':'');
 @endphp
 
-<div class="list-formfield" id="list_{{$row->field}}">
+<div class="list-formfield" id="{{ $id }}">
     @include('voyager::multilingual.input-hidden-bread-edit-add')
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
-    <div class="list__items">
-        <div v-for="(item, key) in items" :key="'preview_'+key"  class="item"> 
+    <div class="list__items" class="list-items">
+        <div v-for="(item, key) in items" :key="'preview_'+key"  class="list-item"> 
             @{{ item.text }}
-            <div class="item__buttons">
+            <div class="list-item__buttons">
                 <el-button type="primary" icon="el-icon-edit"  @click="editItem(key)"  size="mini"></el-button>
                 <el-button type="danger" icon="el-icon-delete" @click="deleteItem(key)"  size="mini"></el-button>
             </div>
@@ -70,7 +71,7 @@
 <script>
 
     var {{$vue_instance_name}} = new Vue({
-        el:'#list_{{$row->field}}',
+        el:'#{{ $id }}',
         data(){
             return {
                 model:{

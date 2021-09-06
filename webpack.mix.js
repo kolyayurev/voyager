@@ -21,11 +21,11 @@ mix
 
 if (mix.inProduction()) {
     mix
-        .copy('node_modules/element-ui/lib/theme-chalk/fonts/element-icons.ttf', 'publishable/assets/fonts/element-icons.ttf')
-        .copy('node_modules/tinymce/skins', 'publishable/assets/js/skins')
-        .copy('resources/assets/js/skins', 'publishable/assets/js/skins')
-        .copy('node_modules/tinymce/themes/modern', 'publishable/assets/js/themes/modern')
-        .copy('node_modules/ace-builds/src-noconflict', 'publishable/assets/js/ace/libs')
+        // .copy('node_modules/element-ui/lib/theme-chalk/fonts/element-icons.ttf', 'publishable/assets/fonts/element-icons.ttf')
+        // .copy('node_modules/tinymce/skins', 'publishable/assets/js/skins')
+        // .copy('resources/assets/js/skins', 'publishable/assets/js/skins')
+        // .copy('node_modules/tinymce/themes/modern', 'publishable/assets/js/themes/modern')
+        // .copy('node_modules/ace-builds/src-noconflict', 'publishable/assets/js/ace/libs')
         .sass('resources/assets/sass/app.scss', 'publishable/assets/css')
         .sass('resources/assets/sass/element-ui/index.scss', 'publishable/assets/css/element-ui.css')
         .js('resources/assets/js/app.js', 'publishable/assets/js');

@@ -81,3 +81,7 @@
 .el-radio__input.is-checked .el-radio__inner::after {
   background-color: #409EFF;
 }
+
+.el-date-editor {
+  max-width: 100%;
+}

@@ -14,24 +14,14 @@
         "displayValue" : {"body":"return 'text:' + item.field1;"} // this is body of function. function has one parameter "item"
     } 
 --}}
-
 @php
-    $dataTypeRows = $dataType->rows; // important
-    $widgetId = 'widget_form_'.$dataTypeContent->getKey(); // important
-    $row = $dataTypeRows->where('field', 'value')->first(); // important
-    $vue_instance_name = 'vue_form_'.$dataTypeContent->getKey().'_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n':''); // important
+    $id = 'array-builder_'.$row->field;
+    $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n ':''); // important
 @endphp
 
-<form
-    ref="form"
-    role="form"
-    class="form-edit-add widget-form array-builder-widget"  {{--  important --}}
-    id="{{$widgetId}}"> {{--  important --}}
-    @method("PUT"){{--  important --}}
-    @csrf{{--  important --}}
-    
-    @include('voyager::multilingual.input-hidden-bread-edit-add'){{--  important --}}
-    <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>{{--  important --}}
+<div class="array-builder-formfield" id="{{ $id }}">     
+	@include('voyager::multilingual.input-hidden-bread-edit-add')
+    <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
     <draggable v-if="items.length" v-model="items" class="list-items">
         <div v-for="(item, key) in items" :key="key"  v-if="items.length" class="list-item"> 
             @{{ functions.displayValue(item)  }}
@@ -66,17 +56,14 @@
         <el-button type="success" icon="el-icon-circle-plus-outline" @click="addItem" v-if="!isEdit" >@lang('voyager::generic.add')</el-button>
         <el-button type="success" icon="el-icon-check" @click="saveItem" v-if="isEdit">@lang('voyager::generic.save')</el-button>
     </el-form>
-    <div class="panel-footer">
-        <el-button type="primary" @click.prevent="saveForm" :loading="prLoading">@lang('voyager::generic.save')</el-button>
-    </div>
-</form>
+</div>
 
 
 
 @push('vue')
     <script>
         var {{$vue_instance_name}} = new Vue({ // important
-            el:'#{{$widgetId}}', // important
+            el:'#{{ $id }}', // important
             data(){
                 return {
                     options: {!! printObject($options) !!},
@@ -130,22 +117,6 @@
                     } else {
                         return false;
                     }
-                    });
-                },
-                saveForm(){ // important
-                    @if(is_bread_translatable($dataTypeContent))
-                        window.multilingual.prepareData(); // important
-                    @endif
-
-                    var _this = this
-                    let data = new FormData(this.$refs.form);
-                    let url = '{{ route('voyager.'.$dataType->slug.'.moderate_update', $dataTypeContent->getKey()) }}';
-
-                    _this.baseAxios(url, data, function (response) {
-                        _this.successMsg(response.data.message);
-                    },
-                    function (response) {
-                        _this.warningMsg(response.data.message);
                     });
                 },
                 deleteItem(key){

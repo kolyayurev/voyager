@@ -13,9 +13,6 @@
     .language-label{
         display: none;
     }
-    
-   
-
 }
 .gallery-widget{
     &__items{
@@ -72,28 +69,4 @@
         clear: both
     }
 }
-.array-builder-widget{
-    .item{
-        position: relative;
-        display: inline-block;
-        margin-bottom: .5rem;
-        width: 100%;
-        height: 34px;
-        border: 1px solid cl(border-grey);
-        border-radius: 4px;
-        padding: 0 110px 0 10px;
-        line-height: 30px;
-        box-sizing: border-box;
-        white-space: nowrap;
-        background-color: cl(background-light);
-    }
-    .item__title{
-        
-    }
-    .item__buttons{
-        position: absolute;
-        top: 46%;
-        right: 10px;
-        transform: translateY(-50%);
-    }
-}
+

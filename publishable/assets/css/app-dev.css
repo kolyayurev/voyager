@@ -16487,6 +16487,27 @@ span[data-img-src]::after {
   background: var(--voyager--color-background-light);
 }
 
+.list-items .list-item {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  height: 34px;
+  border: 1px solid var(--voyager--color-border-grey);
+  border-radius: 4px;
+  padding: 0 110px 0 10px;
+  line-height: 30px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  background-color: var(--voyager--color-background-light);
+}
+.list-items .list-item__buttons {
+  position: absolute;
+  top: 46%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
 .widget-form .el-form {
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
@@ -16545,27 +16566,6 @@ span[data-img-src]::after {
 }
 .gallery-widget .clearfix:after {
   clear: both;
-}
-
-.array-builder-widget .item {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 0.5rem;
-  width: 100%;
-  height: 34px;
-  border: 1px solid var(--voyager--color-border-grey);
-  border-radius: 4px;
-  padding: 0 110px 0 10px;
-  line-height: 30px;
-  box-sizing: border-box;
-  white-space: nowrap;
-  background-color: var(--voyager--color-background-light);
-}
-.array-builder-widget .item__buttons {
-  position: absolute;
-  top: 46%;
-  right: 10px;
-  transform: translateY(-50%);
 }
 
 :root {

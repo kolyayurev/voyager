@@ -364,7 +364,8 @@ class VoyagerServiceProvider extends ServiceProvider
             'hidden',
             'coordinates',
             'list',
-            'work_time'
+            'array_builder',
+            'work_time',
         ];
 
         foreach ($formFields as $formField) {
