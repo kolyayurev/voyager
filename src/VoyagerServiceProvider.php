@@ -331,6 +331,7 @@ class VoyagerServiceProvider extends ServiceProvider
         $widgets = [
             'gallery',
             'array_builder',
+            'base_json'
         ];
 
         foreach ($widgets as $widget) {
