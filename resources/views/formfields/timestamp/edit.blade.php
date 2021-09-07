@@ -1,4 +1,3 @@
-@dump( $dataTypeContent->{$row->field})
 <input 
        @if($row->required == 1) required @endif 
        @if(isset($options->readonly)) readonly @endif
