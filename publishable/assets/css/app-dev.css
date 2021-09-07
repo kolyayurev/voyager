@@ -16412,6 +16412,7 @@ span[data-img-src]::after {
 .media-picker-formfield__single-img {
   max-width: 100%;
   max-height: 100%;
+  background: var(--voyager--color-background-light);
 }
 .media-picker-formfield__items {
   flex: 1;
