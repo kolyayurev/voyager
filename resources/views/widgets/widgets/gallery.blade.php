@@ -103,12 +103,8 @@
             </el-col>
             
         </el-row>
-        
-       
-        
-
         <el-button type="success" icon="el-icon-circle-plus-outline" @click="addItem" v-if="!isEdit" >@lang('voyager::generic.add')</el-button>
-        <el-button type="success" icon="el-icon-check" @click="saveItem" v-if="isEdit">@lang('voyager::generic.save')</el-button>
+        <el-button type="success" icon="el-icon-check" @click="saveItem" v-if="isEdit" >@lang('voyager::generic.save')</el-button>
     </el-form>
     <div class="panel-footer">
         <el-button type="primary" @click.prevent="saveForm" :loading="prLoading">@lang('voyager::generic.save')</el-button>
@@ -123,6 +119,7 @@
             el:'#{{$widgetId}}', // important
             data(){
                 return {
+                    maxItems: {{ printInt($options->max ?? 9999) }},
                     model:{
                         title: {!! printString($title->default??'') !!},
                         description: {!! printString($description->default??'') !!},
@@ -174,15 +171,18 @@
                     this.$refs.dialog.init(this.manager_options);
                 },
                 addItem(){
-                    this.$refs.vueForm.validate((valid) => {
-                        if (valid) {
-                            this.items.push({...this.model})
-                            // this.$refs.mediaManager.close() 
-                            this.clearForm() 
-                        } else {
-                            return false;
-                        }
-                    });
+                    if(this.items.length < this.maxItems)
+                        this.$refs.vueForm.validate((valid) => {
+                            if (valid) {
+                                this.items.push({...this.model})
+                                // this.$refs.mediaManager.close() 
+                                this.clearForm() 
+                            } else {
+                                return false;
+                            }
+                        });
+                    else
+                        this.warningMsg('{{ trans('voyager::widgets.messages.max_items',['count'=>$options->max]) }}');
                 },
                 editItem(key){
                     this.isEdit = true
