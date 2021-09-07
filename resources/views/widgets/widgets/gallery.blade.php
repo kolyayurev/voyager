@@ -182,7 +182,7 @@
                             }
                         });
                     else
-                        this.warningMsg('{{ trans('voyager::widgets.messages.max_items',['count'=>$options->max]) }}');
+                        this.warningMsg('{{ trans('voyager::widgets.messages.max_items',['count'=>$options->max??9999]) }}');
                 },
                 editItem(key){
                     this.isEdit = true
