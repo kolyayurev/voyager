@@ -15,6 +15,8 @@ class MenuItem extends Model
         'link' => 'translatorLink',
     ];
 
+    protected $fillable = ['id','menu_id','title','url','target','icon_class','color','parent_id' ,'order' ,'route' ,'parameters'];
+
     protected $table = 'menu_items';
 
     protected $guarded = [];
