@@ -205,10 +205,10 @@
                         ],
                         "scrollX" =>  true,
                         "scrollY" =>  false,
-                        "fixedColumns"=> [
-                            "leftColumns" => 0,
-                            "rightColumns" => 1,
-                        ],
+                        // "fixedColumns"=> [
+                        //     "leftColumns" => 0,
+                        //     "rightColumns" => 1,
+                        // ],
                     ],
                     config('voyager.dashboard.data_tables', []))
                 , true) !!}).draw();
