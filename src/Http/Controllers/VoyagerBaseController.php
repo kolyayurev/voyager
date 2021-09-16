@@ -93,8 +93,21 @@ class VoyagerBaseController extends Controller
             $this->removeRelationshipField($dataType, 'browse');
 
             if ($search->value != '' && $search->key && $search->filter) {
-                $search_filter = ($search->filter == 'equals') ? '=' : 'LIKE';
-                $search_value = ($search->filter == 'equals') ? $search->value : '%'.$search->value.'%';
+                switch ($search->filter) {
+                    case 'equals':
+                        $search_filter = '=';
+                        break;
+                    case 'less':
+                        $search_filter = '>=';
+                        break;
+                    case 'greater':
+                        $search_filter = '<=';
+                        break;
+                    default:
+                        $search_filter = 'LIKE';
+                        break;
+                }
+                $search_value = ($search->filter != 'contains') ? $search->value : '%'.$search->value.'%';
                 $query->where($search->key, $search_filter, $search_value);
             }
 

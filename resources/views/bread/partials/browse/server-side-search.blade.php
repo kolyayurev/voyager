@@ -1,20 +1,19 @@
 <form  method="get" class="form-search" id="search"  @prevet.submit="concole.log('sub')">
     <el-row :gutter="10">
         <el-col :sm="12" :md="4">
-            <el-select v-model="model.field">
-                <el-option v-for="(item,index) in fields" :label="item.name" :value="index" :key="index" >
+            <el-select v-model="model.field" @change="handleFieldChange" filterable>
+                <el-option v-for="(item,index) in fields" :key="index" :value="index" :label="item.name"   >
                 </el-option>
             </el-select>
         </el-col>
         <el-col :sm="12" :md="4">
             <el-select v-model="model.filter">
-                <el-option value="contains" value="contains" label="contains"></el-option>
-                <el-option value="equals" value="equals" label="="></el-option>
+                <el-option v-for="(filter,index) in filters" :key="index" :value="index"  :label="filter"></el-option>
             </el-select>
         </el-col>
         <el-col :xs="18" :sm="18" :md="14">
-            {{-- v-bind="field.props" --}}
-            <component :is="getFieldType()"   placeholder="{{ __('voyager::generic.search') }}" v-model="model.text" clearable></component>
+            {{-- --}}
+            <component :is="getFieldType().component"  v-bind="getFieldType().options"   placeholder="{{ __('voyager::generic.search') }}" v-model="model.text" clearable></component>
         </el-col>
         <el-col :xs="6"  :sm="6" :md="2">
             <el-button class="form-search__btn-submit"  icon="el-icon-search" @click="$el.submit()"></el-button>
@@ -43,33 +42,54 @@
                         filter: {!! printString($search->filter,'contains') !!},
                         text: {!! printString($search->value) !!},
                     },
-                    components:[
-                    {
-                        name:'el-input',
-                        options:{}
+                    filters:{
+                        contains:'contains',
+                        equals:'=',
+                        less:'>=',
+                        greater:'<=',
                     },
-                    {
-                        name:'el-date-picker',
-                        options:{
-                            type:"datetime"
-                        }
+                    components:{
+                        'text':{
+                            component:'el-input',
+                            options:{}
+                        },
+                        'color':{
+                            component:'el-color-picker',
+                            options:{}
+                        },
+                        'date':{
+                            component:'el-date-picker',
+                            options:{
+                                valueFormat:'yyyy-MM-dd'
+                            }
+                        },
+                        'timestamp':{
+                            component:'el-date-picker',
+                            options:{
+                                type:"datetime",
+                                valueFormat:'yyyy-MM-dd HH:mm:ss'
+                            }
+                        },
+                        'time':{
+                            component:'el-date-picker',
+                            options:{
+                                type:"datetime",
+                                valueFormat:'yyyy-MM-dd HH:mm:ss'
+                            }
+                        },
                     }
-                    ]
                 }
             },
             methods:{
                 getFieldType(){
-                    switch (this.fields[this.model.field].type) {
-                        case 'color':
-                            return 'el-color-picker';
-                            break;
-                        case 'date':
-                            return 'el-date-picker';
-                            break;
-                        default:
-                            return 'el-input'
-                            break;
+                    if (this.fields[this.model.field].type in this.components){
+                        return this.components[this.fields[this.model.field].type];
                     }
+                    else
+                        return this.components['text'];
+                },
+                handleFieldChange(){
+                    this.model.text = null
                 }
             }
         });
