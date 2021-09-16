@@ -6,3 +6,4 @@ Change bread browse template. You must remove server side search form  and inclu
 ```
 or rename variable in template `searchNames` to `searchableFields`
 
+>Rebuild styles and scripts
