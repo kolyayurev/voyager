@@ -417,6 +417,10 @@
                     return [];
                 }
             },
+            accept: {
+                type: String,
+                default: ""
+            },
             preSelect: {
                 type: Boolean,
                 default: true,
@@ -852,6 +856,7 @@
                 if (this.allowUpload && !dropzone.hasClass('dz-clickable')) {
                     dropzone.dropzone({
                         timeout: 180000,
+                        acceptedFiles: vm.accept,
                         url: '{{ route('voyager.media.upload') }}',
                         previewsContainer: "#uploadPreview",
                         totaluploadprogress: function(uploadProgress, totalBytes, totalBytesSent) {

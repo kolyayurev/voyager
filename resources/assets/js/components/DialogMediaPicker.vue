@@ -21,6 +21,7 @@
       :allow-rename="options.allowRename"
       :allow-crop="options.allowCrop"
       :allowed-types="options.allowedTypes"
+      :accept="options.accept"
       :pre-select="options.preSelect"
       :expanded="options.expanded"
       :show-expand-button="options.showExpandButton"
@@ -81,6 +82,7 @@ export default {
         allowRename: true,
         allowCrop: true,
         allowedTypes: [],
+        accept: '',
         preSelect:false,
         expanded: false,
         showExpandButton: true,

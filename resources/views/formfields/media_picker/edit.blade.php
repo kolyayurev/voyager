@@ -61,6 +61,7 @@ var media_picker_{{ $row->field }} = new Vue({
                 allowRename: {{ printBool($options->allow_rename ?? true) }},
                 allowCrop: {{ printBool($options->allow_crop ?? true) }},
                 allowedTypes: {!! printArray(isset($options->allowed) && is_array($options->allowed) ? $options->allowed : []) !!},
+                accept: {!! printString($options->accept??'') !!},
                 preSelect: false,
                 expanded: {{ printBool($options->expanded ?? false) }},
                 showExpandButton: true,
