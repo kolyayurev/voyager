@@ -93,8 +93,3 @@
 
 @stop
 
-@section('javascript')
-<script>
-
-</script>
-@stop

@@ -4505,6 +4505,12 @@ p#the_plugin_name{
     .form-search {
       position: relative;
       z-index: 1;
+      &__btn-submit{
+        width: 100%;
+      }
+      .el-col{
+        margin-bottom: 10px;
+      }
     }
 
   }

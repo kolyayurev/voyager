@@ -24,6 +24,9 @@ Vue.component('v-dialog-media-picker',DialogMediaPicker);
 import DialogCreateCustomBread from './components/DialogCreateCustomBread'
 Vue.component('v-dialog-create-custom-bread',DialogCreateCustomBread);
 
+// import BrowseServerSideSearch from './components/BrowseServerSideSearch'
+// Vue.component('v-browse-server-side-search',BrowseServerSideSearch);
+
 var base  = require('./mixins/base');
 
 Vue.mixin(base.default);

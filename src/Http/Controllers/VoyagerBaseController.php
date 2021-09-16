@@ -47,17 +47,20 @@ class VoyagerBaseController extends Controller
 
         $search = (object) ['value' => $request->get('s'), 'key' => $request->get('key'), 'filter' => $request->get('filter')];
 
-        $searchNames = [];
+        $searchableFields = [];
         if ($dataType->server_side) {
             $searchable = SchemaManager::describeTable(app($dataType->model_name)->getTable())->pluck('name')->toArray();
             $dataRow = Voyager::model('DataRow')->whereDataTypeId($dataType->id)->get();
             foreach ($searchable as $key => $value) {
                 $field = $dataRow->where('field', $value)->first();
-                $displayName = ucwords(str_replace('_', ' ', $value));
                 if ($field !== null) {
                     $displayName = $field->getTranslatedAttribute('display_name');
                 }
-                $searchNames[$value] = $displayName;
+                else
+                {
+                    $displayName = ucwords(str_replace('_', ' ', $value));
+                }
+                $searchableFields[$value] = (object) [ 'name' => $displayName, 'type'=>$field->type ];
             }
         }
 
@@ -173,7 +176,7 @@ class VoyagerBaseController extends Controller
             'orderBy',
             'orderColumn',
             'sortOrder',
-            'searchNames',
+            'searchableFields',
             'isServerSide',
             'defaultSearchKey',
             'usesSoftDeletes',

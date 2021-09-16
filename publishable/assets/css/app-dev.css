@@ -29153,6 +29153,12 @@ p#the_plugin_name {
   position: relative;
   z-index: 1;
 }
+.page-content.browse .form-search__btn-submit {
+  width: 100%;
+}
+.page-content.browse .form-search .el-col {
+  margin-bottom: 10px;
+}
 
 .page-content > .row > [class*=col-]:not(:first-child) {
   padding-left: 8px;
