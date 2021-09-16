@@ -227,6 +227,8 @@ class VoyagerBaseController extends Controller
         // If a column has a relationship associated with it, we do not want to show that field
         $this->removeRelationshipField($dataType, 'read');
 
+        $this->removeHiddenField($dataType, $dataTypeContent,'read');
+
         // Check permission
         $this->authorize('read', $dataTypeContent);
 
@@ -278,13 +280,14 @@ class VoyagerBaseController extends Controller
             // If Model doest exist, get data from table name
             $dataTypeContent = DB::table($dataType->name)->where('id', $id)->first();
         }
-
         foreach ($dataType->editRows as $key => $row) {
             $dataType->editRows[$key]['col_width'] = isset($row->details->width) ? $row->details->width : 100;
         }
 
         // If a column has a relationship associated with it, we do not want to show that field
         $this->removeRelationshipField($dataType, 'edit');
+        
+        $this->removeHiddenField($dataType, $dataTypeContent,'edit');
 
         // Check permission
         $this->authorize('edit', $dataTypeContent);
@@ -325,6 +328,7 @@ class VoyagerBaseController extends Controller
             $data = $model->findOrFail($id);
         }
 
+        $this->removeHiddenField($dataType, $data,'edit');
 
         // Check permission
         $this->authorize('edit', $data);
@@ -380,6 +384,8 @@ class VoyagerBaseController extends Controller
         // If a column has a relationship associated with it, we do not want to show that field
         $this->removeRelationshipField($dataType, 'add');
 
+        $this->removeHiddenField($dataType, $dataTypeContent,'add');
+
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
@@ -407,6 +413,8 @@ class VoyagerBaseController extends Controller
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
+
+        $this->removeHiddenField($dataType, app($dataType->model_name) ,'add');
 
         // Check permission
         $this->authorize('add', app($dataType->model_name));

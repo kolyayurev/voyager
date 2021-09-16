@@ -49,6 +49,18 @@ Most formfields allow you to define a default value when adding an entry:
 }
 ```
 
+## Visible only or except for some
+
+You must specify the array of ids:
+
+```php
+{
+    "only" : [1,2,3],
+    "except" : [5,8],
+}
+```
+
+
 ## Hint
 
 

@@ -2,6 +2,7 @@
 
 namespace TCG\Voyager\Http\Controllers;
 
+
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
+use TCG\Voyager\Models\DataType;
 use TCG\Voyager\Events\FileDeleted;
 use TCG\Voyager\Http\Controllers\ContentTypes\Checkbox;
 use TCG\Voyager\Http\Controllers\ContentTypes\Coordinates;
@@ -45,10 +47,8 @@ abstract class Controller extends BaseController
     public function insertUpdateData($request, $slug, $rows, $data)
     {
         $multi_select = [];
-
         // Pass $rows so that we avoid checking unused fields
         $request->attributes->add(['breadRows' => $rows->pluck('field')->toArray()]);
-
 
         /*
          * Prepare Translations and Transform data
@@ -326,5 +326,25 @@ abstract class Controller extends BaseController
 
             return !empty($value->details->validation->rule);
         });
+    }
+    /**
+     * 
+     * Remove fields for datatype, hat is not specified in `only` or `except` options
+     * 
+     */
+    protected function removeHiddenField(DataType $dataType, $dataTypeContent, $bread_type = 'browse')
+    {
+        foreach ($dataType->{$bread_type.'Rows'} as $key => $row) {
+            if (@$row->details->only && is_array($row->details->only)) {
+                if(!in_array($dataTypeContent->getKey(),$row->details->only) )
+                    $dataType->{$bread_type.'Rows'}->forget($key);
+            }
+            if (@$row->details->except && is_array($row->details->except)) {
+                if(in_array($dataTypeContent->getKey(),$row->details->except))
+                    $dataType->{$bread_type.'Rows'}->forget($key);
+            }
+        }
+        // Reindex collection
+        $dataType->{$bread_type.'Rows'} = $dataType->{$bread_type.'Rows'}->values();
     }
 }
