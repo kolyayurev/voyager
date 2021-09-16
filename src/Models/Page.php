@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use TCG\Voyager\Traits\Translatable;
 use TCG\Voyager\Traits\Widgetable;
+use TCG\Voyager\Traits\HasSeo;
+use TCG\Voyager\Traits\HasMedia;
+use TCG\Voyager\Traits\HasMetaFields;
 
 class Page extends Model
 {
-    use Translatable;
-    use Widgetable;
+    use HasSeo,HasMedia,HasMetaFields,Translatable,Widgetable;
 
-    protected $translatable = ['title', 'slug', 'body'];
+    protected $translatable = ['title','excerpt', 'body'];
 
     /**
      * Statuses.
@@ -38,7 +40,27 @@ class Page extends Model
 
         return parent::save();
     }
-
+    /**
+     * Override
+     */
+    public function getH1()
+    {
+        return $this->h1??$this->title??'';
+    }
+    /**
+     * Checks
+     */
+    public function isHome()
+    {
+        return $this->slug == 'home' ? true : false;
+    }
+    /**
+     * scopes
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('visible',true);
+    }
     /**
      * Scope a query to only include active pages.
      *

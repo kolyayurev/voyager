@@ -33,6 +33,7 @@ return [
         'slug'             => 'Slug (ЧПУ)',
         'status'           => 'Статус',
         'table_name'       => 'Название таблицы',
+        'template'         => 'Шаблон',
         'title'            => 'Название',
         'value'            => 'Значение',
         'visible'          => 'Видимость',

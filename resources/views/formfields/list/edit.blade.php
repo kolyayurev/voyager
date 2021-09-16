@@ -1,37 +1,3 @@
-@push('css')
-<style>
-    .list__items{
-        max-height: 300px;
-        overflow-y: auto;
-    }
-    .item{
-        position: relative;
-        display: inline-block;
-        margin-bottom: .5rem;
-        width: 100%;
-        height: 34px;
-        border: 1px solid #dcdfe6;
-        border-radius: 4px;
-        padding: 0 110px 0 10px;
-        line-height: 30px;
-        box-sizing: border-box;
-        white-space: nowrap;
-        background-color: #eeeeee;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-    .item__title{
-        
-    }
-    .item__buttons{
-        position: absolute;
-        top: 46%;
-        right: 10px;
-        transform: translateY(-50%);
-    }
-</style>
-@endpush
-
 @php
     $id = 'list_'.$row->field;
     $vue_instance_name = 'vue_'.$row->field.(is_field_translatable($dataTypeContent, $row)?'_i18n ':'');
@@ -40,7 +6,7 @@
 <div class="list-formfield" id="{{ $id }}">
     @include('voyager::multilingual.input-hidden-bread-edit-add')
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
-    <div class="list__items" class="list-items">
+    <div class="list-items">
         <div v-for="(item, key) in items" :key="'preview_'+key"  class="list-item"> 
             @{{ item.text }}
             <div class="list-item__buttons">

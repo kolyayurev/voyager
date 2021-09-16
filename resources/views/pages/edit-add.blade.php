@@ -34,7 +34,7 @@
         @php
             $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
             $main_rows = ['title','slug','excerpt'];
-            $top_side_rows = ['visible'];
+            $top_side_rows = ['visible','template'];
             $images_rows = ['image'];
             $text_rows = ['body'];
             $seo_rows = ['meta_title','meta_description','h1'];
