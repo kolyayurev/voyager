@@ -16,7 +16,54 @@ class MenuItemsTableSeeder extends Seeder
         $menu = Menu::where('name', 'admin')->firstOrFail();
 
 
-       
+        $contentMenuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('voyager::seeders.menu_items.content'),
+            'url'     => '',
+        ]);
+
+        if (!$contentMenuItem->exists) {
+            $contentMenuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-documentation',
+                'color'      => null,
+                'parent_id'  => null,
+                'order'      => 1,
+            ])->save();
+        }
+
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('voyager::seeders.menu_items.pages'),
+            'url'     => '',
+            'route'   => 'voyager.pages.index',
+        ]);
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-file-text',
+                'color'      => null,
+                'parent_id'  => $contentMenuItem->id,
+                'order'      => 2,
+            ])->save();
+        }
+
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('voyager::seeders.menu_items.widgets'),
+            'url'     => '',
+            'route'   => 'voyager.widgets.index',
+        ]);
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-paint-bucket',
+                'color'      => null,
+                'parent_id'  => $contentMenuItem->id,
+                'order'      => 3,
+            ])->save();
+        }
+
         $rolesUsersMenuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => __('voyager::seeders.menu_items.roles_and_users'),
@@ -29,7 +76,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-people',
                 'color'      => null,
                 'parent_id'  => null,
-                'order'      => 2,
+                'order'      => 4,
             ])->save();
         }
 
@@ -45,7 +92,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-person',
                 'color'      => null,
                 'parent_id'  => $rolesUsersMenuItem->id,
-                'order'      => 3,
+                'order'      => 5,
             ])->save();
         }
 
@@ -61,7 +108,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-lock',
                 'color'      => null,
                 'parent_id'  => $rolesUsersMenuItem->id,
-                'order'      => 4,
+                'order'      => 6,
             ])->save();
         }
         $menuItem = MenuItem::firstOrNew([
@@ -76,7 +123,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-lock',
                 'color'      => null,
                 'parent_id'  => $rolesUsersMenuItem->id,
-                'order'      => 5,
+                'order'      => 7,
             ])->save();
         }
 
@@ -92,7 +139,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-images',
                 'color'      => null,
                 'parent_id'  => null,
-                'order'      => 6,
+                'order'      => 8,
             ])->save();
         }
 
@@ -205,20 +252,6 @@ class MenuItemsTableSeeder extends Seeder
                 'order'      => 15,
             ])->save();
         }
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.widgets'),
-            'url'     => '',
-            'route'   => 'voyager.widgets.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-paint-bucket',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 16,
-            ])->save();
-        }
+        
     }
 }

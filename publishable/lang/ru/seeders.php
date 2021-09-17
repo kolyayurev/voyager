@@ -77,6 +77,7 @@ return [
         'bread'        => 'BREAD',
         'categories'   => 'Категории',
         'compass'      => 'Compass',
+        'content'      => 'Контент',
         'dashboard'    => 'Панель управления',
         'database'     => 'База данных',
         'media'        => 'Медиа',

@@ -290,23 +290,7 @@ class PagesTableSeeder extends Seeder
             ])->save();
         }
 
-        //Menu Item
-        $menu = Menu::where('name', 'admin')->firstOrFail();
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.pages'),
-            'url'     => '',
-            'route'   => 'voyager.pages.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-file-text',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 7,
-            ])->save();
-        }
+       
 
         //Permissions
         Permission::generateFor('pages');
