@@ -1,4 +1,4 @@
-<form  method="get" class="form-search" id="search"  @prevet.submit="concole.log('sub')">
+<form  method="get" class="form-search" id="search"  @keyup.enter="$el.submit()">
     <el-row :gutter="10">
         <el-col :sm="12" :md="4">
             <el-select v-model="model.field" @change="handleFieldChange" filterable>
