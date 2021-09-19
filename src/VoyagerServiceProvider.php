@@ -317,6 +317,9 @@ class VoyagerServiceProvider extends ServiceProvider
         } catch (\PDOException $e) {
             Log::error('No Database connection yet in VoyagerServiceProvider loadAuth() '.$e->getMessage());
         }
+        catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
 
         // Gates
         foreach ($this->gates as $gate) {
