@@ -16501,6 +16501,7 @@ span[data-img-src]::after {
   box-sizing: border-box;
   white-space: nowrap;
   background-color: var(--voyager--color-background-light);
+  overflow-x: hidden;
 }
 .list-items .list-item__buttons {
   position: absolute;
