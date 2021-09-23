@@ -15,7 +15,7 @@ return [
         'add_default_role_on_register' => true,
         'default_role'                 => 'user',
         'default_avatar'               => 'users/default.png',
-        'redirect'                     => '/admin',
+        'redirect'                     => '/'.env('VOYAGER_PREFIX','admin'),
     ],
 
     /*
