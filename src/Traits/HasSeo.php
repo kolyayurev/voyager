@@ -10,10 +10,10 @@ trait HasSeo
     }
     public function getMetaTitle()
     {
-        return $this->meta_title??$this->getH1()??setting('seo.title')??'';
+        return $this->meta_title??$this->getH1()??setting('seo.meta_title')??'';
     }
     public function getMetaDescription()
     {
-       return  $this->meta_description??$this->excerpt??setting('seo.description')??'';
+       return  $this->meta_description??$this->excerpt??setting('seo.meta_description')??'';
     }
 }
