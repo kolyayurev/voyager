@@ -152,6 +152,17 @@ class SettingsTableSeeder extends Seeder
                 'group'        => 'SEO',
             ])->save();
         }
+        $setting = $this->findSetting('seo.meta_keywords');
+        if (!$setting->exists) {
+            $setting->fill([
+                'display_name' => __('voyager::seeders.settings.seo.meta_keywords'),
+                'value'        => '',
+                'details'      => '',
+                'type'         => 'text',
+                'order'        => 3,
+                'group'        => 'SEO',
+            ])->save();
+        }
         $setting = $this->findSetting('seo.twitter_name');
         if (!$setting->exists) {
             $setting->fill([
@@ -159,7 +170,7 @@ class SettingsTableSeeder extends Seeder
                 'value'        => '',
                 'details'      => '',
                 'type'         => 'text',
-                'order'        => 3,
+                'order'        => 4,
                 'group'        => 'SEO',
             ])->save();
         }
@@ -170,7 +181,7 @@ class SettingsTableSeeder extends Seeder
                 'value'        => '',
                 'details'      => '',
                 'type'         => 'image',
-                'order'        => 4,
+                'order'        => 5,
                 'group'        => 'SEO',
             ])->save();
         }
@@ -181,7 +192,7 @@ class SettingsTableSeeder extends Seeder
                 'value'        => '',
                 'details'      => '',
                 'type'         => 'text',
-                'order'        => 5,
+                'order'        => 6,
                 'group'        => 'SEO',
             ])->save();
         }
@@ -192,7 +203,7 @@ class SettingsTableSeeder extends Seeder
                 'value'        => '',
                 'details'      => '',
                 'type'         => 'text',
-                'order'        => 6,
+                'order'        => 7,
                 'group'        => 'SEO',
             ])->save();
         }

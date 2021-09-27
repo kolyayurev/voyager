@@ -18,6 +18,6 @@ trait HasSeo
     }
     public function getKeywords()
     {
-        return $this->meta_keywords??$this->getH1()??setting('seo.keywords')??'';
+        return $this->meta_keywords??$this->getH1()??setting('seo.meta_keywords')??'';
     }
 }

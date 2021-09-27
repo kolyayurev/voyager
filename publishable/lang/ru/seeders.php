@@ -116,6 +116,7 @@ return [
         'seo'  => [
             'meta_title'=>'Мета заголовок (по умолчанию)',
             'meta_description'=>'Мета описание (по умолчанию)',
+            'meta_keywords'    => 'Meta Keywords (по умолчанию)',
             'twitter_name'=>'Twitter name',
             'logo'=>'Логотип',
             'yandex_verification'=>'Яндекс.ВебМастер (код верификации)',
