@@ -196,7 +196,20 @@ class PagesTableSeeder extends Seeder
                 'order'        => 10,
             ])->save();
         }
-
+        $dataRow = $this->dataRow($pageDataType, 'meta_keywords');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'text',
+                'display_name' => __('voyager::seeders.data_rows.meta_keywords'),
+                'required'     => 0,
+                'browse'       => 0,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'order'        => 11,
+            ])->save();
+        }
         $dataRow = $this->dataRow($pageDataType, 'h1');
         if (!$dataRow->exists) {
             $dataRow->fill([
@@ -208,7 +221,7 @@ class PagesTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 11,
+                'order'        => 12,
             ])->save();
         }
 
@@ -232,7 +245,7 @@ class PagesTableSeeder extends Seeder
                         'ACTIVE'   => 'ACTIVE',
                     ],
                 ],
-                'order' => 12,
+                'order' => 13,
             ])->save();
         }
 
@@ -247,7 +260,7 @@ class PagesTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'order'        => 13,
+                'order'        => 14,
             ])->save();
         }
 
@@ -262,7 +275,7 @@ class PagesTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'order'        => 14,
+                'order'        => 15,
             ])->save();
         }
 
@@ -286,7 +299,7 @@ class PagesTableSeeder extends Seeder
                     "base_path"=> "/pages/{pk}/",
                     "hide_thumbnails"=> true,
                 ],
-                'order'        => 15,
+                'order'        => 16,
             ])->save();
         }
 

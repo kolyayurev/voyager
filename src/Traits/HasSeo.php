@@ -16,4 +16,8 @@ trait HasSeo
     {
        return  $this->meta_description??$this->excerpt??setting('seo.meta_description')??'';
     }
+    public function getKeywords()
+    {
+        return $this->meta_keywords??$this->getH1()??setting('seo.keywords')??'';
+    }
 }

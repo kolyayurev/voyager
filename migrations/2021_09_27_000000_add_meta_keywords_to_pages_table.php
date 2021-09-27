@@ -14,7 +14,7 @@ class AddMetaKeywordsToPagesTable extends Migration
     public function up()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->string('meta_keywords')->nullable()->after('slug');
+            $table->string('meta_keywords')->nullable()->after('meta_description');
         });
     }
 
