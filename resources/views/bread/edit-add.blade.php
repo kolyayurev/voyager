@@ -26,7 +26,7 @@
             $main_rows = ['title','slug','excerpt'];
             $top_side_rows = ['visible'];
             $images_rows = ['image','photos'];
-            $seo_rows = ['meta_title','meta_description','h1'];
+            $seo_rows = ['meta_title','meta_description','meta_keywords','h1'];
             $exclude_rows = array_merge($main_rows,$top_side_rows,$images_rows,$seo_rows);
             $others_rows = $dataTypeRows->whereNotIn('field',$exclude_rows)->pluck('field')->toArray();
         @endphp
