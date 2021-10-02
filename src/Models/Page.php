@@ -45,7 +45,10 @@ class Page extends Model
      */
     public function getH1()
     {
-        return $this->h1??$this->title??'';
+        if(Voyager::translatable($this))
+            return $this->getTranslatedAttribute('h1')??$this->getTranslatedAttribute('title')??'';
+        else
+            return $this->h1??$this->title??'';
     }
     /**
      * Checks
