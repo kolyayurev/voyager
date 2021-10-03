@@ -60,6 +60,19 @@ You must specify the array of ids:
 }
 ```
 
+## Visible only or except for some role
+
+You must specify the array of name roles:
+
+```php
+{
+    "roles":{
+        "only" : ["admin"],
+        "except" : ["moderator"]
+    }
+}
+```
+
 
 ## Hint
 

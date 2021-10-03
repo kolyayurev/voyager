@@ -343,6 +343,17 @@ abstract class Controller extends BaseController
                 if(in_array($dataTypeContent->getKey(),$row->details->except))
                     $dataType->{$bread_type.'Rows'}->forget($key);
             }
+            if (@$row->details->roles) {
+                $roles = $row->details->roles;
+                if (@$roles->only && is_array($roles->only)) {
+                    if(!auth()->user()->hasRole($roles->only))
+                        $dataType->{$bread_type.'Rows'}->forget($key);
+                }
+                if (@$roles->except && is_array($roles->except)) {
+                    if(auth()->user()->hasRole($roles->except))
+                        $dataType->{$bread_type.'Rows'}->forget($key);
+                }
+            }
         }
         // Reindex collection
         $dataType->{$bread_type.'Rows'} = $dataType->{$bread_type.'Rows'}->values();
