@@ -10,7 +10,7 @@ use TCG\Voyager\Traits\Translatable;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Widget extends Model
+class Widget extends BaseModel
 {
     use Translatable;
 

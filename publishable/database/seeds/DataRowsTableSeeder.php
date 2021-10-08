@@ -451,7 +451,25 @@ class DataRowsTableSeeder extends Seeder
                 'order'        => 1,
             ])->save();
         }
-
+        $dataRow = $this->dataRow($widgetDataType, 'visible');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'checkbox',
+                'display_name' => __('voyager::seeders.data_rows.visible'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details'      => [
+                        "on" => "Видно",
+                        "off" => "Скрыто",
+                        "checked"=> true
+                ],
+                'order' => 2,
+            ])->save();
+        }
         $dataRow = $this->dataRow($widgetDataType, 'name');
         if (!$dataRow->exists) {
             $dataRow->fill([
@@ -463,7 +481,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 2,
+                'order'        => 3,
                 'details'      => [
                     'validation' => [
                         'rule'  => 'required|max:255',
@@ -490,7 +508,7 @@ class DataRowsTableSeeder extends Seeder
                         'rule'  => 'unique:widgets,slug',
                     ],
                 ],
-                'order' => 3,
+                'order' => 4,
             ])->save();
         }
         $dataRow = $this->dataRow($widgetDataType, 'handler');
@@ -504,7 +522,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 4,
+                'order'        => 5,
                 'details'      => [
                     'validation' => [
                         'rule'  => 'required',
@@ -523,7 +541,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 5,
+                'order'        => 6,
             ])->save();
         }
         $dataRow = $this->dataRow($widgetDataType, 'table_name');
@@ -537,7 +555,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 6,
+                'order'        => 7,
             ])->save();
         }
         $dataRow = $this->dataRow($widgetDataType, 'foreign_key');
@@ -551,7 +569,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 7,
+                'order'        => 8,
             ])->save();
         }
         $dataRow = $this->dataRow($widgetDataType, 'details');
@@ -565,7 +583,7 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'order'        => 8,
+                'order'        => 9,
                 'details'      => [
                     "language" => "json"
                 ]
@@ -582,9 +600,10 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'order'        => 9,
+                'order'        => 10,
             ])->save();
         }
+
     }
 
     /**

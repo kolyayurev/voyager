@@ -34,7 +34,7 @@
         @php
             $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
             $main_rows = ['name','slug','description','value'];
-            $top_side_rows = ['handler','table_name','foreign_key'];
+            $top_side_rows = ['visible','handler','table_name','foreign_key'];
             $editor_rows   = ['details'];
             $exclude_rows = array_merge($main_rows,$top_side_rows, $editor_rows );
             $count_others = $dataTypeRows->whereNotIn('field',$exclude_rows)->count();
@@ -157,7 +157,11 @@
                                                     @endforeach
                                                 @endif
                                             </div>
-                                            @break    
+                                            @break
+                                            @default
+                                            @if (in_array($row->field, $top_side_rows))
+                                                @include('voyager::bread.partials.edit-row')
+                                            @endif
                                     @endswitch
                                 @endforeach
                             </div>

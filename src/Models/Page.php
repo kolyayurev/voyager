@@ -12,11 +12,11 @@ use TCG\Voyager\Traits\HasSeo;
 use TCG\Voyager\Traits\HasMedia;
 use TCG\Voyager\Traits\HasMetaFields;
 
-class Page extends Model
+class Page extends BaseModel
 {
     use HasSeo,HasMedia,HasMetaFields,Translatable,Widgetable;
 
-    protected $translatable = ['title','excerpt', 'body'];
+    protected $translatable = ['title','excerpt', 'body','meta_title','meta_description','meta_keywords','h1'];
 
     /**
      * Statuses.
@@ -58,13 +58,6 @@ class Page extends Model
     public function isHome()
     {
         return $this->slug == 'home' ? true : false;
-    }
-    /**
-     * scopes
-     */
-    public function scopeVisible($query)
-    {
-        return $query->where('visible',true);
     }
     /**
      * Scope a query to only include active pages.

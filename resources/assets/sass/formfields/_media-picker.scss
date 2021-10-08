@@ -43,6 +43,10 @@
         border: 1px solid cl(border-grey);
         overflow: hidden;
         background: cl(background-light);
+        cursor: pointer;
+        &:hover{
+            border: 1px solid cl(primary);
+        }
         .media-picker-formfield__item-img{
             display: none;
         }

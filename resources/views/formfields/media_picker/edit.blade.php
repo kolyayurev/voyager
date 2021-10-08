@@ -4,10 +4,10 @@
 <div id="media_picker_{{ $row->field }}" class="media-picker-formfield">
     <div class="media-picker-formfield__wrap">
         <ul class="media-picker-formfield__items" >
-            <li v-for="file in getSelectedFiles()" :key="file" class="media-picker-formfield__item" >
+            <li v-for="file in getFiles()" :key="file" class="media-picker-formfield__item" v-on:dblclick="openFile(file)">
                 <div class="media-picker-formfield__item-icon">
                     <template v-if="fileIs(file, 'image')">
-                        <div class="media-picker-formfield__item-img" :style="imgIcon('{{ Str::finish(Storage::disk(config('voyager.storage.disk'))->url('/'), '/') }}'+file)"></div>
+                        <div class="media-picker-formfield__item-img" :style="imgIcon(storagePath+file)"></div>
                     </template>
                     <template v-else-if="fileIs(file, 'video')">
                         <i class="icon voyager-video"></i>
@@ -39,6 +39,17 @@
     </div>
     <input type="hidden" name="{{ $row->field }}" :value="{{ is_array($content)? json_encode(printArray($content)) : $content }}">
     <v-dialog-media-picker v-model="content" ref="dialog"></v-dialog-media-picker>
+    <!-- Image Modal -->
+    <el-dialog
+        v-if="selected_file && fileIs(selected_file, 'image')"
+        class="dialog modal-info"
+        top="10vh"
+        :title="getFileName(selected_file)"
+        :visible.sync="dialogImageShow"
+        >
+        <img :src="storagePath+selected_file" class="img img-responsive" style="margin: 0 auto;">
+    </el-dialog>
+    <!-- End Image Modal -->
 </div>
 @push('javascript')
 <script>
@@ -68,14 +79,23 @@ var media_picker_{{ $row->field }} = new Vue({
                 element: 'input[name="{{ $row->field }}"]',
                 details: {!! printObject($options ?? new class{}) !!},
             },
+            dialogImageShow: false,
             content: {!! is_array($content)? printArray($content) : $content !!},
+            selected_file: null,
+            storagePath: {!! printString(Str::finish(Storage::disk(config('voyager.storage.disk'))->url('/'), '/')) !!},
         }
     },
     methods:{
         openMediaPicker(){
             this.$refs.dialog.init(this.options);
         },
-        getSelectedFiles: function() {
+        openFile(file){
+            if(this.fileIs(file,'image')){
+                this.selected_file = file;
+                this.dialogImageShow = true;
+            }
+        },
+        getFiles: function() {
             if (!this.options.allowMultiSelect) {
                 var content = [];
                 if (this.content != '') {

@@ -16441,6 +16441,10 @@ span[data-img-src]::after {
   border: 1px solid var(--voyager--color-border-grey);
   overflow: hidden;
   background: var(--voyager--color-background-light);
+  cursor: pointer;
+}
+.media-picker-formfield__item:hover {
+  border: 1px solid var(--voyager--color-primary);
 }
 .media-picker-formfield__item .media-picker-formfield__item-img {
   display: none;

@@ -1,3 +1,7 @@
+## Upgrade to 1.20.13
+
+>Rebuild styles
+
 ## Upgrade to 1.20.3
 
 Change bread browse template. You must remove server side search form  and include

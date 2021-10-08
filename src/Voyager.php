@@ -152,7 +152,7 @@ class Voyager
         if(is_bread_translatable($model))
             $model->withTranslation();
 
-        $widget = $model->where('slug','=',$slug)->first();
+        $widget = $model->where('slug','=',$slug)->visible()->first();
         
         if(empty($widget))
             return $default;

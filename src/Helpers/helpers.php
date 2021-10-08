@@ -8,9 +8,10 @@ if (!function_exists('setting')) {
 }
 
 if (!function_exists('widget')) {
-    function widget($slug, $default = null)
+    function widget($slug, $default = null,$isCollection = false)
     {
-        return TCG\Voyager\Facades\Voyager::widgetData($slug, $default);
+        $data =  TCG\Voyager\Facades\Voyager::widgetData($slug, $default);
+        return $isCollection?collect($data):$data;
     }
 }
 
