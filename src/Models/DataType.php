@@ -29,6 +29,7 @@ class DataType extends Model
         'description',
         'generate_permissions',
         'server_side',
+        'per_page',
         'widgetable',
         'order_column',
         'order_display_column',
@@ -323,6 +324,16 @@ class DataType extends Model
     public function setOrderDirectionAttribute($value)
     {
         $this->attributes['details'] = collect($this->details)->merge(['order_direction' => $value]);
+    }
+
+    public function getPerPageAttribute()
+    {
+        return $this->details->per_page ?? 15;
+    }
+
+    public function setPerPageAttribute($value)
+    {
+        $this->attributes['details'] = collect($this->details)->merge(['per_page' => $value]);
     }
 
     public function getScopeAttribute()

@@ -170,36 +170,64 @@
                                     <label for="generate_permissions">{{ __('voyager::bread.generate_permissions') }}</label><br>
                                     <?php $checked = (isset($dataType->generate_permissions) && $dataType->generate_permissions == 1) || (isset($generate_permissions) && $generate_permissions); ?>
                                     <input type="checkbox"
-                                           name="generate_permissions"
-                                           class="toggleswitch"
-                                           data-on="{{ __('voyager::generic.yes') }}"
-                                           data-off="{{ __('voyager::generic.no') }}"
-                                           @if($checked) checked @endif >
+                                        name="generate_permissions"
+                                        class="toggleswitch"
+                                        data-on="{{ __('voyager::generic.yes') }}"
+                                        data-off="{{ __('voyager::generic.no') }}"
+                                        @if($checked) checked @endif >
                                 </div>
                                 <div class="col-md-2 form-group">
                                     <label for="server_side">{{ __('voyager::bread.server_pagination') }}</label><br>
                                     <?php $checked = (isset($dataType->server_side) && $dataType->server_side == 1) || (isset($server_side) && $server_side); ?>
                                     <input type="checkbox"
-                                           name="server_side"
-                                           class="toggleswitch"
-                                           data-on="{{ __('voyager::generic.yes') }}"
-                                           data-off="{{ __('voyager::generic.no') }}"
-                                           @if($checked) checked @endif >
+                                            name="server_side"
+                                            class="toggleswitch"
+                                            data-on="{{ __('voyager::generic.yes') }}"
+                                            data-off="{{ __('voyager::generic.no') }}"
+                                            @if($checked) checked @endif >
                                 </div>
+                                
                                 <div class="col-md-2 form-group">
                                     <label for="server_side">{{ __('voyager::bread.has_widgets') }}</label><br>
                                     @php
-                                         $checked = (isset($dataType->widgetable) && $dataType->widgetable == 1);
+                                        $checked = (isset($dataType->widgetable) && $dataType->widgetable == 1);
                                     @endphp
                                     <input type="checkbox"
-                                           name="widgetable"
-                                           class="toggleswitch"
-                                           data-on="{{ __('voyager::generic.yes') }}"
-                                           data-off="{{ __('voyager::generic.no') }}"
-                                           @if($checked) checked @endif >
+                                        name="widgetable"
+                                        class="toggleswitch"
+                                        data-on="{{ __('voyager::generic.yes') }}"
+                                        data-off="{{ __('voyager::generic.no') }}"
+                                        @if($checked) checked @endif >
                                 </div>
                             </div>
                             <div class="row clearfix">
+                                
+                                <div class="col-md-3 form-group">
+                                    <label for="default_search_key">{{ __('voyager::bread.default_search_key') }}</label>
+                                    <span class="voyager-question"
+                                          aria-hidden="true"
+                                          data-toggle="tooltip"
+                                          data-placement="right"
+                                          title="{{ __('voyager::bread.default_search_key_ph') }}"></span>
+                                    <select name="default_search_key" class="select2 form-control">
+                                        <option value="">-- {{ __('voyager::generic.none') }} --</option>
+                                        @foreach($fieldOptions as $tbl)
+                                        <option value="{{ $tbl['field'] }}"
+                                                @if(isset($dataType) && $dataType->default_search_key == $tbl['field']) selected @endif
+                                        >{{ $tbl['field'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="per_page">{{ __('voyager::bread.per_page') }}</label>
+                                    <span class="voyager-question"
+                                          aria-hidden="true"
+                                          data-toggle="tooltip"
+                                          data-placement="right"
+                                          title="{{ __('voyager::bread.per_page_ph') }}"></span>
+                                    <input type="text" class="form-control" name="per_page" placeholder="{{ __('voyager::bread.per_page') }}"
+                                            value="{{ $dataType->per_page ?? 15 }}">
+                                </div>
                                 <div class="col-md-3 form-group">
                                     <label for="order_column">{{ __('voyager::bread.order_column') }}</label>
                                     <span class="voyager-question"
@@ -243,22 +271,8 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="col-md-3 form-group">
-                                    <label for="default_search_key">{{ __('voyager::bread.default_search_key') }}</label>
-                                    <span class="voyager-question"
-                                          aria-hidden="true"
-                                          data-toggle="tooltip"
-                                          data-placement="right"
-                                          title="{{ __('voyager::bread.default_search_key_ph') }}"></span>
-                                    <select name="default_search_key" class="select2 form-control">
-                                        <option value="">-- {{ __('voyager::generic.none') }} --</option>
-                                        @foreach($fieldOptions as $tbl)
-                                        <option value="{{ $tbl['field'] }}"
-                                                @if(isset($dataType) && $dataType->default_search_key == $tbl['field']) selected @endif
-                                        >{{ $tbl['field'] }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                
+                                
                                 <div class="col-md-3 form-group">
                                     <label for="default_widget_search_key">{{ __('voyager::bread.default_widget_search_key') }}</label>
                                     <span class="voyager-question"

@@ -116,11 +116,11 @@ class VoyagerBaseController extends Controller
                 $dataTypeContent = call_user_func([
                     $query->orderBy($orderBy, $querySortOrder),
                     $getter,
-                ]);
+                ],$dataType->per_page);
             } elseif ($model->timestamps) {
-                $dataTypeContent = call_user_func([$query->latest($model::CREATED_AT), $getter]);
+                $dataTypeContent = call_user_func([$query->latest($model::CREATED_AT), $getter],$dataType->per_page);
             } else {
-                $dataTypeContent = call_user_func([$query->orderBy($model->getKeyName(), 'DESC'), $getter]);
+                $dataTypeContent = call_user_func([$query->orderBy($model->getKeyName(), 'DESC'), $getter],$dataType->per_page);
             }
 
             // Replace relationships' keys for labels and create READ links if a slug is provided.
