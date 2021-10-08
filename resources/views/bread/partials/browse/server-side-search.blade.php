@@ -82,7 +82,7 @@
             },
             methods:{
                 getFieldType(){
-                    if (this.fields[this.model.field].type in this.components){
+                    if (this.model.field && this.fields[this.model.field].type in this.components){
                         return this.components[this.fields[this.model.field].type];
                     }
                     else
