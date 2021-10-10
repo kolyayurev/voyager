@@ -121,3 +121,20 @@ if (!function_exists('printBool')) {
         return json_encode($bool ? true : false);
     }
 }
+
+if (!function_exists('printByField')) {
+    function printByField($type,$value)
+    {
+        switch ($type) {
+            case 'select_multiple':
+                return $value;
+                break;
+            case 'checkbox':
+                return json_encode((int)$value);
+                break;
+            default:
+                return json_encode($value);
+                break;
+        }
+    }
+}

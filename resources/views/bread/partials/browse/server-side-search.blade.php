@@ -12,8 +12,21 @@
             </el-select>
         </el-col>
         <el-col :xs="18" :sm="18" :md="14">
-            {{-- --}}
-            <component :is="getFieldType().component"  v-bind="getFieldType().options"   placeholder="{{ __('voyager::generic.search') }}" v-model="model.text" clearable></component>
+            <component :is="componentName"  v-bind="componentOptions"   placeholder="{{ __('voyager::generic.search') }}" v-model="model.text" clearable>
+              <template v-if="['select_dropdown','select_multiple','radio_btn'].includes(fieldType) && fieldDetails.options">
+                <el-option
+                    v-for="(item,key) in fieldDetails.options"
+                    :key="key"
+                    :label="item"
+                    :value="key">
+                </el-option>
+              </template>
+              <template v-if="['checkbox'].includes(fieldType)">
+                <el-option  :label="fieldDetails.off??'@lang('voyager::generic.no')'" :value="0"></el-option>
+                <el-option  :label="fieldDetails.on??'@lang('voyager::generic.yes')'" :value="1"></el-option>
+              </template>
+            
+            </component>
         </el-col>
         <el-col :xs="6"  :sm="6" :md="2">
             <el-button class="form-search__btn-submit"  icon="el-icon-search" @click="$el.submit()"></el-button>
@@ -21,7 +34,7 @@
     </el-row>
     <input type="hidden" v-model="model.field"  name="key">
     <input type="hidden" v-model="model.filter"  name="filter">
-    <input type="hidden" v-model="model.text"  name="s">
+    <input type="hidden" :value="printValue(model.text)"  name="s">
     
     @if (Request::has('sort_order') && Request::has('order_by'))
         <input type="hidden" name="sort_order" value="{{ Request::get('sort_order') }}">
@@ -40,11 +53,12 @@
                     model:{
                         field: {!! printString($search->key,$defaultSearchKey) !!},
                         filter: {!! printString($search->filter,'contains') !!},
-                        text: {!! printString($search->value) !!},
+                        text: {!! printByField($search->type,$search->value) !!},
                     },
                     filters:{
                         contains:'contains',
                         equals:'=',
+                        not:'!=',
                         less:'>=',
                         greater:'<=',
                     },
@@ -77,19 +91,63 @@
                                 valueFormat:'yyyy-MM-dd HH:mm:ss'
                             }
                         },
+                        'select_dropdown':{
+                            component:'el-select',
+                        },
+                        'select_multiple':{
+                            component:'el-select',
+                            options: {
+                                multiple: true
+                            }
+                        },
+                        'checkbox':{
+                            component:'el-select',
+                            options:{}
+                        },
+                        'radio_btn':{
+                            component:'el-select',
+                        },
                     }
                 }
             },
-            methods:{
-                getFieldType(){
-                    if (this.model.field && this.fields[this.model.field].type in this.components){
-                        return this.components[this.fields[this.model.field].type];
+            computed:{
+                fieldType(){
+                    return this.model.field ? this.fields[this.model.field].type : 'text';
+                },
+                fieldDetails(){
+                    if (this.model.field){
+                        return this.fields[this.model.field].details;
                     }
-                    else
-                        return this.components['text'];
+                },
+                componentName(){
+                    return this.getComponent().component;
+                },
+                componentOptions(){
+                    return this.getComponent().options??{};
+                },
+            },
+            methods:{
+                getComponent(){
+                    let type = this.fieldType
+                    return  this.components[this.model.field && type in this.components ? type : 'text'];
+                },
+                printValue(value){
+                    if(Array.isArray(value))
+                        return JSON.stringify(value);
+                    if(typeof value == "boolean")
+                        return value ? 1 : 0;
+
+                    return value;
                 },
                 handleFieldChange(){
-                    this.model.text = null
+                    switch (this.fieldType) {
+                        case 'checkbox':
+                            this.model.text = 0
+                            break;
+                        default:
+                            this.model.text = null
+                            break;
+                    }
                 }
             }
         });

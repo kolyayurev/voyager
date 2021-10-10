@@ -2,7 +2,9 @@
 
 namespace TCG\Voyager\Http\Controllers;
 
+use Arr;
 use Exception;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,14 +47,13 @@ class VoyagerBaseController extends Controller
 
         $getter = $dataType->server_side ? 'paginate' : 'get';
 
-        $search = (object) ['value' => $request->get('s'), 'key' => $request->get('key'), 'filter' => $request->get('filter')];
-
+        $type = null;
         $searchableFields = [];
         if ($dataType->server_side) {
             $searchable = SchemaManager::describeTable(app($dataType->model_name)->getTable())->pluck('name')->toArray();
-            $dataRow = Voyager::model('DataRow')->whereDataTypeId($dataType->id)->get();
+            $dataRows = Voyager::model('DataRow')->whereDataTypeId($dataType->id)->get();
             foreach ($searchable as $key => $value) {
-                $field = $dataRow->where('field', $value)->first();
+                $field = $dataRows->where('field', $value)->first();
                 if ($field !== null) {
                     $displayName = $field->getTranslatedAttribute('display_name');
                 }
@@ -60,10 +61,14 @@ class VoyagerBaseController extends Controller
                 {
                     $displayName = ucwords(str_replace('_', ' ', $value));
                 }
-                $searchableFields[$value] = (object) [ 'name' => $displayName, 'type'=>$field->type ];
+                $searchableFields[$value] = (object) [ 'name' => $displayName, 'type'=> $field->type, 'details' => $field->details];
+
+                if($request->get('key') && $field->type == $request->get('key'))
+                    $type = $field->type;
             }
         }
-
+        $search = (object) [ 'key' => $request->get('key'), 'filter' => $request->get('filter'), 'value' => $request->get('s'),  'type'=> $type ];
+        
         $orderBy = $request->get('order_by', $dataType->order_column);
         $sortOrder = $request->get('sort_order', $dataType->order_direction);
         $usesSoftDeletes = false;
@@ -96,6 +101,9 @@ class VoyagerBaseController extends Controller
                 switch ($search->filter) {
                     case 'equals':
                         $search_filter = '=';
+                        break;
+                    case 'not':
+                        $search_filter = '!=';
                         break;
                     case 'less':
                         $search_filter = '>=';
@@ -179,7 +187,6 @@ class VoyagerBaseController extends Controller
         if (view()->exists("voyager::$slug.browse")) {
             $view = "voyager::$slug.browse";
         }
-
         return Voyager::view($view, compact(
             'actions',
             'dataType',
@@ -319,14 +326,12 @@ class VoyagerBaseController extends Controller
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
-
         return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
     }
 
     // POST BR(E)AD
     public function update(Request $request, $id)
     {
-
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
