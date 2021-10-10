@@ -39,8 +39,17 @@ trait HasMetaFields
     {
         $this->attributes[$this->getMetaFieldHolder()] = collect($this->{$this->getMetaFieldHolder()})->merge([$name => $value]);
     }
-    public function getMetaField($name)
+    public function getMetaField($name,$default = null)
     {
-        return $this->{$this->getMetaFieldHolder()}->{$name} ?? null;
+        return $this->{$this->getMetaFieldHolder()}->{$name} ?? $default;
     }
+    public function deleteMetaField($name)
+    {
+        unset($this->{$this->getMetaFieldHolder()}->{$name});
+    }
+    public function hasMetaField($name)
+    {
+        return property_exists($this->{$this->getMetaFieldHolder()},$name);
+    }
+    
 }

@@ -129,6 +129,10 @@ if (!function_exists('printByField')) {
             case 'select_multiple':
                 return $value;
                 break;
+            case 'belongsTo':
+                $value = (int)$value;
+                return json_encode($value > 0? $value : null);
+                break;
             case 'checkbox':
                 return json_encode((int)$value);
                 break;

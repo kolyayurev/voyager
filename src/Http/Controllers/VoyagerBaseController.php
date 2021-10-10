@@ -46,8 +46,12 @@ class VoyagerBaseController extends Controller
         $this->authorize('browse', app($dataType->model_name));
 
         $getter = $dataType->server_side ? 'paginate' : 'get';
+        $relations = $dataType->browseRows->where('type','relationship');
 
-
+        foreach ($relations as $relation) {
+            if($relation->getMetaField('type') == 'belongsTo')
+            $dataType->browseRows->where('field',@$relation->details->column)->first()->setMetaField('relationship',(object) [ 'field'=> $relation->field, 'name' => $relation->display_name ]) ;
+        }
         $type = null;
         $searchableFields = [];
         if ($dataType->server_side) {
@@ -57,15 +61,18 @@ class VoyagerBaseController extends Controller
                 $field = $dataRows->where('field', $value)->first();
                 if ($field !== null) {
                     $displayName = $field->getTranslatedAttribute('display_name');
-                    $searchableFields[$value] = (object) [ 'name' => $displayName, 'type'=> $field->type, 'details' => $field->details];
+                    if($field->hasMetaField('relationship'))
+                        $searchableFields[$value] = (object) [ 'name' => $field->getMetaField('relationship')->name, 'type'=> 'belongsTo', 'details' => $field->details];
+                    else
+                        $searchableFields[$value] = (object) [ 'name' => $displayName, 'type'=> $field->type, 'details' => $field->details];
 
-                    if($request->get('key') && $field->type == $request->get('key'))
-                        $type = $field->type;
+                    if($request->get('key') && $field->field == $request->get('key'))
+                        $type = $searchableFields[$value]->type;
                 }
             }
         }
         $search = (object) [ 'key' => $request->get('key'), 'filter' => $request->get('filter'), 'value' => $request->get('s'),  'type'=> $type ];
-        
+
         $orderBy = $request->get('order_by', $dataType->order_column);
         $sortOrder = $request->get('sort_order', $dataType->order_direction);
         $usesSoftDeletes = false;
@@ -868,21 +875,19 @@ class VoyagerBaseController extends Controller
     {
         $slug = $this->getSlug($request);
         $page = $request->input('page');
-        $on_page = 50;
+        $on_page = $request->input('on_page', 50);
         $search = $request->input('search', false);
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
         $method = $request->input('method', 'add');
 
         $model = app($dataType->model_name);
-        if ($method != 'add') {
+        if (!in_array($method,['add','browse'])) {
             $model = $model->find($request->input('id'));
         }
-
         $this->authorize($method, $model);
 
         $rows = $dataType->{$method.'Rows'};
-        
         foreach ($rows as $key => $row) {
             if ($row->field === $request->input('type')) {
                 $options = $row->details;

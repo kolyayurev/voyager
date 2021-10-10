@@ -7,11 +7,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Database\Schema\SchemaManager;
 use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Traits\Translatable;
+use TCG\Voyager\Traits\{Translatable,HasMetaFields};
 
 class DataType extends Model
 {
-    use Translatable;
+    use Translatable,HasMetaFields;
 
     protected $translatable = ['display_name_singular', 'display_name_plural'];
 
@@ -265,6 +265,10 @@ class DataType extends Model
             return $model->adminFields();
         }
     }
+    protected function getMetaFieldHolder():string
+    {
+        return 'details';
+    }
 
     public function setDetailsAttribute($value)
     {
@@ -278,72 +282,72 @@ class DataType extends Model
 
     public function getOrderColumnAttribute()
     {
-        return $this->details->order_column ?? null;
+        return $this->getMetaField('order_column');
     }
 
     public function setOrderColumnAttribute($value)
     {
-        $this->attributes['details'] = collect($this->details)->merge(['order_column' => $value]);
+        $this->setMetaField('order_column',$value);
     }
 
     public function getOrderDisplayColumnAttribute()
     {
-        return $this->details->order_display_column ?? null;
+        return $this->getMetaField('order_display_column');
     }
 
     public function setOrderDisplayColumnAttribute($value)
     {
-        $this->attributes['details'] = collect($this->details)->merge(['order_display_column' => $value]);
+        $this->setMetaField('order_display_column',$value);
     }
 
     public function getDefaultSearchKeyAttribute()
     {
-        return $this->details->default_search_key ?? null;
+        return $this->getMetaField('default_search_key');
     }
 
     public function setDefaultSearchKeyAttribute($value)
     {
-        $this->attributes['details'] = collect($this->details)->merge(['default_search_key' => $value]);
+        $this->setMetaField('default_search_key',$value);
     }
 
     public function getDefaultWidgetSearchKeyAttribute()
     {
-        return $this->details->default_widget_search_key ?? null;
+        return $this->getMetaField('default_widget_search_key');
     }
 
     public function setDefaultWidgetSearchKeyAttribute($value)
     {
-        $this->attributes['details'] = collect($this->details)->merge(['default_widget_search_key' => $value]);
+        $this->setMetaField('default_widget_search_key',$value);
     }
 
     public function getOrderDirectionAttribute()
     {
-        return $this->details->order_direction ?? 'desc';
+        return $this->getMetaField('order_direction','desc');
     }
 
     public function setOrderDirectionAttribute($value)
     {
-        $this->attributes['details'] = collect($this->details)->merge(['order_direction' => $value]);
+        $this->setMetaField('order_direction',$value);
     }
 
     public function getPerPageAttribute()
     {
-        return $this->details->per_page ?? 15;
+        return $this->getMetaField('per_page',15);
     }
 
     public function setPerPageAttribute($value)
     {
-        $this->attributes['details'] = collect($this->details)->merge(['per_page' => $value]);
+        $this->setMetaField('per_page',$value);
     }
 
     public function getScopeAttribute()
     {
-        return $this->details->scope ?? null;
+        return $this->getMetaField('scope');
     }
 
     public function setScopeAttribute($value)
     {
-        $this->attributes['details'] = collect($this->details)->merge(['scope' => $value]);
+        $this->setMetaField('scope',$value);
     }
     /**
      * checks

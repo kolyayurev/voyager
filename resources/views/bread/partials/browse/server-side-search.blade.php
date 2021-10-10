@@ -12,7 +12,11 @@
             </el-select>
         </el-col>
         <el-col :xs="18" :sm="18" :md="14">
-            <component :is="componentName"  v-bind="componentOptions"   placeholder="{{ __('voyager::generic.search') }}" v-model="model.text" clearable>
+            <component :is="componentName"  v-bind="componentOptions"   placeholder="{{ __('voyager::generic.search') }}" 
+                        v-model="model.text" clearable
+                        v-on:focus="isRelationField ? handleRelationSearch() : null"
+                        :remote-method="isRelationField ? handleRelationSearch : null"
+                        >
               <template v-if="['select_dropdown','select_multiple','radio_btn'].includes(fieldType) && fieldDetails.options">
                 <el-option
                     v-for="(item,key) in fieldDetails.options"
@@ -24,6 +28,14 @@
               <template v-if="['checkbox'].includes(fieldType)">
                 <el-option  :label="fieldDetails.off??'@lang('voyager::generic.no')'" :value="0"></el-option>
                 <el-option  :label="fieldDetails.on??'@lang('voyager::generic.yes')'" :value="1"></el-option>
+              </template>
+              <template v-if="['belongsTo'].includes(fieldType)">
+                <el-option
+                    v-for="item in relationData"
+                    :key="item.id"
+                    :label="item.text"
+                    :value="item.id">
+                </el-option>
               </template>
             
             </component>
@@ -62,6 +74,7 @@
                         less:'>=',
                         greater:'<=',
                     },
+                    relationData:[],
                     components:{
                         'text':{
                             component:'el-input',
@@ -107,17 +120,30 @@
                         'radio_btn':{
                             component:'el-select',
                         },
+                        'belongsTo':{
+                            component:'el-select',
+                            options:{
+                                filterable:true,
+                                remote:true,
+                            }
+                        }
                     }
                 }
             },
             computed:{
+                isRelationField(){
+                    return this.fieldType == 'belongsTo' ? true : false;
+                },
                 fieldType(){
-                    return this.model.field ? this.fields[this.model.field].type : 'text';
+                    return this.currentField ? this.currentField.type : 'text';
                 },
                 fieldDetails(){
-                    if (this.model.field){
-                        return this.fields[this.model.field].details;
+                    if (this.currentField){
+                        return this.currentField.details;
                     }
+                },
+                currentField(){
+                    return this.model.field ? this.fields[this.model.field] : false;
                 },
                 componentName(){
                     return this.getComponent().component;
@@ -125,6 +151,10 @@
                 componentOptions(){
                     return this.getComponent().options??{};
                 },
+            },
+            beforeMount(){
+                if(this.isRelationField)
+                    this.handleRelationSearch();
             },
             methods:{
                 getComponent(){
@@ -144,10 +174,32 @@
                         case 'checkbox':
                             this.model.text = 0
                             break;
+                        case 'belongsTo':
+                            this.handleRelationSearch();
                         default:
                             this.model.text = null
                             break;
                     }
+                },
+                handleRelationSearch(query = null){
+                    var _this = this;
+                    var url = '{{ route('voyager.' . $dataType->slug.'.relation') }}';
+                    var config = {
+                        params:{ 
+                            search: query,
+                            type: this.fieldDetails.relationship.field, 
+                            page: 1,
+                            on_page: 1000,
+                            method: 'browse'
+                        }
+                    };
+                    axios
+                        .get(url, config)
+                        .then(response => {
+                            console.log(response)
+                            _this.relationData = response.data.results
+                        });
+                  
                 }
             }
         });

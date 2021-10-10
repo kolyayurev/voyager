@@ -1,1 +1,1010 @@
-@charset "UTF-8";@font-face{font-family:voyager;src:url(voyager-assets?path=fonts/voyager.eot);src:url(voyager-assets?path=fonts/voyager.eot?#iefix) format("embedded-opentype"),url(voyager-assets?path=fonts/voyager.woff) format("woff"),url(voyager-assets?path=fonts/voyager.ttf) format("truetype"),url(voyager-assets?path=fonts/voyager.svg#voyager) format("svg");font-weight:400;font-style:normal}[data-icon]:before{content:attr(data-icon)}[class*=" voyager-"]:before,[class^=voyager-]:before,[data-icon]:before{font-family:voyager!important;font-style:normal!important;font-weight:400!important;font-variant:normal!important;text-transform:none!important;speak:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.voyager-bread:before{content:"a"}.voyager-helm:before{content:"b"}.voyager-play:before{content:"c"}.voyager-activity:before{content:"d"}.voyager-company:before{content:"e"}.voyager-file-text:before{content:"f"}.voyager-folder:before{content:"g"}.voyager-paw:before{content:"h"}.voyager-sort:before{content:"o"}.voyager-sort-asc:before{content:"p"}.voyager-sort-desc:before{content:"q"}.voyager-handle:before{content:"m"}.voyager-hammer:before{content:"n"}.voyager-images:before{content:"i"}.voyager-categories:before{content:"j"}.voyager-group:before{content:"k"}.voyager-person:before{content:"s"}.voyager-people:before{content:"t"}.voyager-power:before{content:"u"}.voyager-tools:before{content:"v"}.voyager-anchor:before{content:"w"}.voyager-double-down:before{content:"x"}.voyager-double-up:before{content:"y"}.voyager-double-left:before{content:"z"}.voyager-double-right:before{content:"A"}.voyager-window-list:before{content:"B"}.voyager-x:before{content:"C"}.voyager-dot:before{content:"D"}.voyager-dot-2:before{content:"E"}.voyager-dot-3:before{content:"F"}.voyager-list:before{content:"G"}.voyager-list-add:before{content:"H"}.voyager-pie-chart:before{content:"I"}.voyager-watch:before{content:"J"}.voyager-data:before{content:"K"}.voyager-music:before{content:"L"}.voyager-settings:before{content:"N"}.voyager-video:before{content:"O"}.voyager-trash:before{content:"P"}.voyager-tv:before{content:"Q"}.voyager-lock:before{content:"R"}.voyager-news:before{content:"M"}.voyager-bag:before{content:"S"}.voyager-upload:before{content:"T"}.voyager-refresh:before{content:"U"}.voyager-character:before{content:"W"}.voyager-move:before{content:"X"}.voyager-paypal:before{content:"V"}.voyager-paper-plane:before{content:"Y"}.voyager-ticket:before{content:"Z"}.voyager-youtube-play:before{content:"0"}.voyager-boat:before{content:"1"}.voyager-check:before{content:"l"}.voyager-alarm-clock:before{content:"2"}.voyager-controller:before{content:"4"}.voyager-pizza:before{content:"5"}.voyager-backpack:before{content:"6"}.voyager-barbeque:before{content:"7"}.voyager-bomb:before{content:"8"}.voyager-book-download:before{content:"9"}.voyager-browser:before{content:"!"}.voyager-brush:before{content:'"'}.voyager-bubble-hear:before{content:"#"}.voyager-polaroid:before{content:"$"}.voyager-crop:before{content:"&"}.voyager-dashboard:before{content:"'"}.voyager-hotdog:before{content:"("}.voyager-laptop:before{content:")"}.voyager-paint-bucket:before{content:","}.voyager-photo:before{content:"-"}.voyager-photos:before{content:"."}.voyager-receipt:before{content:"/"}.voyager-buy:before{content:":"}.voyager-lightbulb:before{content:";"}.voyager-archive:before{content:"?"}.voyager-paperclip:before{content:"@"}.voyager-warning:before{content:"["}.voyager-basket:before{content:"]"}.voyager-bell:before{content:"^"}.voyager-book:before{content:"_"}.voyager-chat:before{content:"`"}.voyager-down-circled:before{content:"{"}.voyager-location:before{content:"}"}.voyager-forward:before{content:"~"}.voyager-flashlight:before{content:"\\"}.voyager-trophy:before{content:""}.voyager-diamond:before{content:""}.voyager-credit-cards:before{content:""}.voyager-shop:before{content:""}.voyager-sound:before{content:""}.voyager-study:before{content:""}.voyager-pen:before{content:""}.voyager-params:before{content:""}.voyager-fire:before{content:""}.voyager-dollar:before{content:""}.voyager-bulb:before{content:""}.voyager-lab:before{content:""}.voyager-cup:before{content:""}.voyager-megaphone:before{content:""}.voyager-heart:before{content:""}.voyager-bubble:before{content:""}.voyager-search:before{content:""}.voyager-tag:before{content:""}.voyager-world:before{content:"%"}.voyager-camera:before{content:"*"}.voyager-calendar:before{content:"|"}.voyager-mail:before{content:""}.voyager-phone:before{content:""}.voyager-star:before{content:""}.voyager-star-half:before{content:""}.voyager-star-half-1:before{content:""}.voyager-star-two:before{content:""}.voyager-medal-rank-star:before{content:""}.voyager-facebook:before{content:""}.voyager-google-plus:before{content:""}.voyager-twitter:before{content:""}.voyager-github:before{content:""}.voyager-code:before{content:""}.voyager-pie-graph:before{content:""}.voyager-javascript:before{content:""}.voyager-wand:before{content:""}.voyager-wineglass:before{content:""}.voyager-milestone:before{content:""}.voyager-terminal:before{content:""}.voyager-plug:before{content:""}.voyager-gift:before{content:""}.voyager-markdown:before{content:""}.voyager-beer:before{content:""}.voyager-credit-card:before{content:""}.voyager-bolt:before{content:""}.voyager-external:before{content:""}.voyager-magnet:before{content:""}.voyager-certificate:before{content:""}.voyager-cloud-download:before{content:""}.voyager-campfire:before{content:""}.voyager-new:before{content:""}.voyager-skull:before{content:""}.voyager-telephone:before{content:""}.voyager-trees:before{content:""}.voyager-bar-chart:before{content:""}.voyager-check-circle:before{content:""}.voyager-exclamation:before{content:""}.voyager-font:before{content:""}.voyager-puzzle:before{content:""}.voyager-smile:before{content:""}.voyager-frown:before{content:""}.voyager-meh:before{content:""}.voyager-leaf:before{content:""}.voyager-info-circled:before{content:""}.voyager-underline:before{content:""}.voyager-wallet:before{content:""}.voyager-truck:before{content:""}.voyager-eye:before{content:""}.voyager-sun:before{content:""}.voyager-barbell:before{content:""}.voyager-bookmark:before{content:""}.voyager-volume-up:before{content:""}.voyager-volume-down:before{content:""}.voyager-wifi:before{content:""}.voyager-pause:before{content:""}.voyager-resize-full:before{content:""}.voyager-resize-small:before{content:""}.voyager-download:before{content:""}.voyager-droplet:before{content:""}.voyager-umbrella:before{content:""}.voyager-harddrive:before{content:""}.voyager-css3:before{content:""}.voyager-html5:before{content:""}.voyager-tree:before{content:""}.voyager-file-code:before{content:""}.voyager-bug:before{content:""}.voyager-rocket:before{content:""}.voyager-key:before{content:"3"}.voyager-question:before{content:"+"}.voyager-cursor:before{content:"<"}.voyager-lifebuoy:before{content:"="}.voyager-thumbs-up:before{content:">"}.voyager-thumb-tack:before{content:""}.voyager-edit:before{content:""}.voyager-angle-down:before{content:""}.voyager-angle-left:before{content:""}.voyager-angle-right:before{content:""}.voyager-angle-up:before{content:""}.voyager-home:before{content:""}.voyager-pirate-swords:before{content:""}.voyager-pirate:before{content:""}.voyager-rum:before{content:""}.voyager-cannon:before{content:""}.voyager-hook:before{content:""}.voyager-kraken:before{content:""}.voyager-lighthouse:before{content:""}.voyager-pirate-hat:before{content:""}.voyager-rum-1:before{content:""}.voyager-ship:before{content:""}.voyager-treasure:before{content:""}.voyager-treasure-open:before{content:""}.voyager-whale:before{content:""}.voyager-compass:before{content:""}.voyager-logbook:before{content:""}.voyager-plus:before{content:""}.voyager-documentation:before{content:"r"}.voyager-belt:before{content:""}.voyager-zoom-in:before{content:""}.voyager-zoom-out:before{content:""}.voyager-scissors:before{content:""}.voyager-github-icon:before{content:""}:root{--voyager--color-primary:var(--voyager--color-blue);--voyager--color-primary--rgb:var(--voyager--color-blue--rgb);--voyager--color-danger:var(--voyager--color-red);--voyager--color-danger--rgb:var(--voyager--color-red--rgb);--voyager--color-warning:var(--voyager--color-orange);--voyager--color-warning--rgb:var(--voyager--color-orange--rgb);--voyager--color-success:var(--voyager--color-green);--voyager--color-success--rgb:var(--voyager--color-green--rgb);--voyager--color-blue:#22a7f0;--voyager--color-blue--rgb:34,167,240;--voyager--color-red:#fa2a00;--voyager--color-red--rgb:250,42,0;--voyager--color-orange:#f39c12;--voyager--color-orange--rgb:243,156,18;--voyager--color-green:#2ecc71;--voyager--color-green--rgb:46,204,113;--voyager--color-indigo:#8965ee;--voyager--color-indigo--rgb:137,101,238;--voyager--color-grey:#9f9f9f;--voyager--color-grey--rgb:159,159,159;--voyager--color-light-grey:#f9f9f9;--voyager--color-light-grey--rgb:249,249,249;--voyager--color-white:#fff;--voyager--color-white--rgb:255,255,255;--voyager--color-black:#232323;--voyager--color-black--rgb:35,35,35;--voyager--color-border-grey:#dcdfe6;--voyager--color-border-grey--rgb:220,223,230;--voyager--color-border-light-grey:#f9f9f9;--voyager--color-border-light-grey--rgb:249,249,249;--voyager--color-border-white:#fff;--voyager--color-border-white--rgb:255,255,255;--voyager--color-background-light:#f9f9f9;--voyager--color-background-light--rgb:249,249,249;--voyager--color-background-white:#fff;--voyager--color-background-white--rgb:255,255,255;--voyager--color-background-dark-gray:#ececec;--voyager--color-background-dark-gray--rgb:236,236,236;--voyager--color-text-black:#232323;--voyager--color-text-black--rgb:35,35,35;--voyager--color-text-gray:#76838f;--voyager--color-text-gray--rgb:118,131,143;--voyager--color-text-dark-gray:#555;--voyager--color-text-dark-gray--rgb:85,85,85;--voyager--color-text-light-gray:#f9f9f9;--voyager--color-text-light-gray--rgb:249,249,249;--voyager--color-text-white:#fff;--voyager--color-text-white--rgb:255,255,255}body{position:relative}.admin-controls{position:fixed;z-index:100001}.admin-controls.top-left{top:10px;left:10px}.admin-controls.bottom-left{bottom:10px;left:10px}.admin-controls.top-right{top:10px;right:10px}.admin-controls.bottom-right{bottom:10px;right:10px}.admin-controls__switch{position:relative;border:0;width:50px;height:25px;color:#fff;font-size:25px;line-height:1em;background-color:#a0a0a0}.admin-controls__switch:after{position:absolute;top:0;left:0;display:flex;align-items:center;justify-content:center;width:100%;height:100%;content:"x";font-family:voyager}.admin-controls__switch.open:after{content:"y"}.admin-controls__buttons{display:none;flex-direction:column-reverse;align-items:center;padding-top:5px}.admin-controls__buttons.open{display:flex}.admin-controls__button{display:flex;justify-content:center;align-items:center;border-radius:50%;width:50px;height:50px;background-color:silver;text-decoration:none;color:#000;font-weight:900;font-size:25px;opacity:.8}.admin-controls__button.-browse,.admin-controls__button.-browse:hover,.admin-controls__button.-danger,.admin-controls__button.-danger:hover,.admin-controls__button.-edit,.admin-controls__button.-edit:hover,.admin-controls__button.-primary,.admin-controls__button.-primary:hover,.admin-controls__button.-success,.admin-controls__button.-success:hover,.admin-controls__button.-warning,.admin-controls__button.-warning:hover{color:#fff}.admin-controls__button.-edit,.admin-controls__button.-primary{background-color:var(--voyager--color-primary)}.admin-controls__button.-browse,.admin-controls__button.-warning{background-color:var(--voyager--color-warning)}.admin-controls__button.-danger{background-color:var(--voyager--color-danger)}.admin-controls__button.-success{background-color:var(--voyager--color-success)}.admin-controls__button:hover{text-decoration:none;color:#000;opacity:1}.admin-controls__button:not(:last-child){margin-top:5px}.admin-controls [class^=voyager-]{display:inline-flex}
+@charset "UTF-8";
+@font-face {
+  font-family: "voyager";
+  src: url("voyager-assets?path=fonts/voyager.eot");
+  src: url("voyager-assets?path=fonts/voyager.eot?#iefix") format("embedded-opentype"), url("voyager-assets?path=fonts/voyager.woff") format("woff"), url("voyager-assets?path=fonts/voyager.ttf") format("truetype"), url("voyager-assets?path=fonts/voyager.svg#voyager") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[data-icon]:before {
+  font-family: "voyager" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^=voyager-]:before,
+[class*=" voyager-"]:before {
+  font-family: "voyager" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.voyager-bread:before {
+  content: "a";
+}
+
+.voyager-helm:before {
+  content: "b";
+}
+
+.voyager-play:before {
+  content: "c";
+}
+
+.voyager-activity:before {
+  content: "d";
+}
+
+.voyager-company:before {
+  content: "e";
+}
+
+.voyager-file-text:before {
+  content: "f";
+}
+
+.voyager-folder:before {
+  content: "g";
+}
+
+.voyager-paw:before {
+  content: "h";
+}
+
+.voyager-sort:before {
+  content: "o";
+}
+
+.voyager-sort-asc:before {
+  content: "p";
+}
+
+.voyager-sort-desc:before {
+  content: "q";
+}
+
+.voyager-handle:before {
+  content: "m";
+}
+
+.voyager-hammer:before {
+  content: "n";
+}
+
+.voyager-images:before {
+  content: "i";
+}
+
+.voyager-categories:before {
+  content: "j";
+}
+
+.voyager-group:before {
+  content: "k";
+}
+
+.voyager-person:before {
+  content: "s";
+}
+
+.voyager-people:before {
+  content: "t";
+}
+
+.voyager-power:before {
+  content: "u";
+}
+
+.voyager-tools:before {
+  content: "v";
+}
+
+.voyager-anchor:before {
+  content: "w";
+}
+
+.voyager-double-down:before {
+  content: "x";
+}
+
+.voyager-double-up:before {
+  content: "y";
+}
+
+.voyager-double-left:before {
+  content: "z";
+}
+
+.voyager-double-right:before {
+  content: "A";
+}
+
+.voyager-window-list:before {
+  content: "B";
+}
+
+.voyager-x:before {
+  content: "C";
+}
+
+.voyager-dot:before {
+  content: "D";
+}
+
+.voyager-dot-2:before {
+  content: "E";
+}
+
+.voyager-dot-3:before {
+  content: "F";
+}
+
+.voyager-list:before {
+  content: "G";
+}
+
+.voyager-list-add:before {
+  content: "H";
+}
+
+.voyager-pie-chart:before {
+  content: "I";
+}
+
+.voyager-watch:before {
+  content: "J";
+}
+
+.voyager-data:before {
+  content: "K";
+}
+
+.voyager-music:before {
+  content: "L";
+}
+
+.voyager-settings:before {
+  content: "N";
+}
+
+.voyager-video:before {
+  content: "O";
+}
+
+.voyager-trash:before {
+  content: "P";
+}
+
+.voyager-tv:before {
+  content: "Q";
+}
+
+.voyager-lock:before {
+  content: "R";
+}
+
+.voyager-news:before {
+  content: "M";
+}
+
+.voyager-bag:before {
+  content: "S";
+}
+
+.voyager-upload:before {
+  content: "T";
+}
+
+.voyager-refresh:before {
+  content: "U";
+}
+
+.voyager-character:before {
+  content: "W";
+}
+
+.voyager-move:before {
+  content: "X";
+}
+
+.voyager-paypal:before {
+  content: "V";
+}
+
+.voyager-paper-plane:before {
+  content: "Y";
+}
+
+.voyager-ticket:before {
+  content: "Z";
+}
+
+.voyager-youtube-play:before {
+  content: "0";
+}
+
+.voyager-boat:before {
+  content: "1";
+}
+
+.voyager-check:before {
+  content: "l";
+}
+
+.voyager-alarm-clock:before {
+  content: "2";
+}
+
+.voyager-controller:before {
+  content: "4";
+}
+
+.voyager-pizza:before {
+  content: "5";
+}
+
+.voyager-backpack:before {
+  content: "6";
+}
+
+.voyager-barbeque:before {
+  content: "7";
+}
+
+.voyager-bomb:before {
+  content: "8";
+}
+
+.voyager-book-download:before {
+  content: "9";
+}
+
+.voyager-browser:before {
+  content: "!";
+}
+
+.voyager-brush:before {
+  content: '"';
+}
+
+.voyager-bubble-hear:before {
+  content: "#";
+}
+
+.voyager-polaroid:before {
+  content: "$";
+}
+
+.voyager-crop:before {
+  content: "&";
+}
+
+.voyager-dashboard:before {
+  content: "'";
+}
+
+.voyager-hotdog:before {
+  content: "(";
+}
+
+.voyager-laptop:before {
+  content: ")";
+}
+
+.voyager-paint-bucket:before {
+  content: ",";
+}
+
+.voyager-photo:before {
+  content: "-";
+}
+
+.voyager-photos:before {
+  content: ".";
+}
+
+.voyager-receipt:before {
+  content: "/";
+}
+
+.voyager-buy:before {
+  content: ":";
+}
+
+.voyager-lightbulb:before {
+  content: ";";
+}
+
+.voyager-archive:before {
+  content: "?";
+}
+
+.voyager-paperclip:before {
+  content: "@";
+}
+
+.voyager-warning:before {
+  content: "[";
+}
+
+.voyager-basket:before {
+  content: "]";
+}
+
+.voyager-bell:before {
+  content: "^";
+}
+
+.voyager-book:before {
+  content: "_";
+}
+
+.voyager-chat:before {
+  content: "`";
+}
+
+.voyager-down-circled:before {
+  content: "{";
+}
+
+.voyager-location:before {
+  content: "}";
+}
+
+.voyager-forward:before {
+  content: "~";
+}
+
+.voyager-flashlight:before {
+  content: "\\";
+}
+
+.voyager-trophy:before {
+  content: "";
+}
+
+.voyager-diamond:before {
+  content: "";
+}
+
+.voyager-credit-cards:before {
+  content: "";
+}
+
+.voyager-shop:before {
+  content: "";
+}
+
+.voyager-sound:before {
+  content: "";
+}
+
+.voyager-study:before {
+  content: "";
+}
+
+.voyager-pen:before {
+  content: "";
+}
+
+.voyager-params:before {
+  content: "";
+}
+
+.voyager-fire:before {
+  content: "";
+}
+
+.voyager-dollar:before {
+  content: "";
+}
+
+.voyager-bulb:before {
+  content: "";
+}
+
+.voyager-lab:before {
+  content: "";
+}
+
+.voyager-cup:before {
+  content: "";
+}
+
+.voyager-megaphone:before {
+  content: "";
+}
+
+.voyager-heart:before {
+  content: "";
+}
+
+.voyager-bubble:before {
+  content: "";
+}
+
+.voyager-search:before {
+  content: "";
+}
+
+.voyager-tag:before {
+  content: "";
+}
+
+.voyager-world:before {
+  content: "%";
+}
+
+.voyager-camera:before {
+  content: "*";
+}
+
+.voyager-calendar:before {
+  content: "|";
+}
+
+.voyager-mail:before {
+  content: "";
+}
+
+.voyager-phone:before {
+  content: "";
+}
+
+.voyager-star:before {
+  content: "";
+}
+
+.voyager-star-half:before {
+  content: "";
+}
+
+.voyager-star-half-1:before {
+  content: "";
+}
+
+.voyager-star-two:before {
+  content: "";
+}
+
+.voyager-medal-rank-star:before {
+  content: "";
+}
+
+.voyager-facebook:before {
+  content: "";
+}
+
+.voyager-google-plus:before {
+  content: "";
+}
+
+.voyager-twitter:before {
+  content: "";
+}
+
+.voyager-github:before {
+  content: "";
+}
+
+.voyager-code:before {
+  content: "";
+}
+
+.voyager-pie-graph:before {
+  content: "";
+}
+
+.voyager-javascript:before {
+  content: "";
+}
+
+.voyager-wand:before {
+  content: "";
+}
+
+.voyager-wineglass:before {
+  content: "";
+}
+
+.voyager-milestone:before {
+  content: "";
+}
+
+.voyager-terminal:before {
+  content: "";
+}
+
+.voyager-plug:before {
+  content: "";
+}
+
+.voyager-gift:before {
+  content: "";
+}
+
+.voyager-markdown:before {
+  content: "";
+}
+
+.voyager-beer:before {
+  content: "";
+}
+
+.voyager-credit-card:before {
+  content: "";
+}
+
+.voyager-bolt:before {
+  content: "";
+}
+
+.voyager-external:before {
+  content: "";
+}
+
+.voyager-magnet:before {
+  content: "";
+}
+
+.voyager-certificate:before {
+  content: "";
+}
+
+.voyager-cloud-download:before {
+  content: "";
+}
+
+.voyager-campfire:before {
+  content: "";
+}
+
+.voyager-new:before {
+  content: "";
+}
+
+.voyager-skull:before {
+  content: "";
+}
+
+.voyager-telephone:before {
+  content: "";
+}
+
+.voyager-trees:before {
+  content: "";
+}
+
+.voyager-bar-chart:before {
+  content: "";
+}
+
+.voyager-check-circle:before {
+  content: "";
+}
+
+.voyager-exclamation:before {
+  content: "";
+}
+
+.voyager-font:before {
+  content: "";
+}
+
+.voyager-puzzle:before {
+  content: "";
+}
+
+.voyager-smile:before {
+  content: "";
+}
+
+.voyager-frown:before {
+  content: "";
+}
+
+.voyager-meh:before {
+  content: "";
+}
+
+.voyager-leaf:before {
+  content: "";
+}
+
+.voyager-info-circled:before {
+  content: "";
+}
+
+.voyager-underline:before {
+  content: "";
+}
+
+.voyager-wallet:before {
+  content: "";
+}
+
+.voyager-truck:before {
+  content: "";
+}
+
+.voyager-eye:before {
+  content: "";
+}
+
+.voyager-sun:before {
+  content: "";
+}
+
+.voyager-barbell:before {
+  content: "";
+}
+
+.voyager-bookmark:before {
+  content: "";
+}
+
+.voyager-volume-up:before {
+  content: "";
+}
+
+.voyager-volume-down:before {
+  content: "";
+}
+
+.voyager-wifi:before {
+  content: "";
+}
+
+.voyager-pause:before {
+  content: "";
+}
+
+.voyager-resize-full:before {
+  content: "";
+}
+
+.voyager-resize-small:before {
+  content: "";
+}
+
+.voyager-download:before {
+  content: "";
+}
+
+.voyager-droplet:before {
+  content: "";
+}
+
+.voyager-umbrella:before {
+  content: "";
+}
+
+.voyager-harddrive:before {
+  content: "";
+}
+
+.voyager-css3:before {
+  content: "";
+}
+
+.voyager-html5:before {
+  content: "";
+}
+
+.voyager-tree:before {
+  content: "";
+}
+
+.voyager-file-code:before {
+  content: "";
+}
+
+.voyager-bug:before {
+  content: "";
+}
+
+.voyager-rocket:before {
+  content: "";
+}
+
+.voyager-key:before {
+  content: "3";
+}
+
+.voyager-question:before {
+  content: "+";
+}
+
+.voyager-cursor:before {
+  content: "<";
+}
+
+.voyager-lifebuoy:before {
+  content: "=";
+}
+
+.voyager-thumbs-up:before {
+  content: ">";
+}
+
+.voyager-thumb-tack:before {
+  content: "";
+}
+
+.voyager-edit:before {
+  content: "";
+}
+
+.voyager-angle-down:before {
+  content: "";
+}
+
+.voyager-angle-left:before {
+  content: "";
+}
+
+.voyager-angle-right:before {
+  content: "";
+}
+
+.voyager-angle-up:before {
+  content: "";
+}
+
+.voyager-home:before {
+  content: "";
+}
+
+.voyager-pirate-swords:before {
+  content: "";
+}
+
+.voyager-pirate:before {
+  content: "";
+}
+
+.voyager-rum:before {
+  content: "";
+}
+
+.voyager-cannon:before {
+  content: "";
+}
+
+.voyager-hook:before {
+  content: "";
+}
+
+.voyager-kraken:before {
+  content: "";
+}
+
+.voyager-lighthouse:before {
+  content: "";
+}
+
+.voyager-pirate-hat:before {
+  content: "";
+}
+
+.voyager-rum-1:before {
+  content: "";
+}
+
+.voyager-ship:before {
+  content: "";
+}
+
+.voyager-treasure:before {
+  content: "";
+}
+
+.voyager-treasure-open:before {
+  content: "";
+}
+
+.voyager-whale:before {
+  content: "";
+}
+
+.voyager-compass:before {
+  content: "";
+}
+
+.voyager-logbook:before {
+  content: "";
+}
+
+.voyager-plus:before {
+  content: "";
+}
+
+.voyager-documentation:before {
+  content: "r";
+}
+
+.voyager-belt:before {
+  content: "";
+}
+
+.voyager-zoom-in:before {
+  content: "";
+}
+
+.voyager-zoom-out:before {
+  content: "";
+}
+
+.voyager-scissors:before {
+  content: "";
+}
+
+.voyager-github-icon:before {
+  content: "";
+}
+
+:root {
+  --voyager--color-primary: var(--voyager--color-blue);
+  --voyager--color-primary--rgb: var(--voyager--color-blue--rgb);
+  --voyager--color-danger: var(--voyager--color-red);
+  --voyager--color-danger--rgb: var(--voyager--color-red--rgb);
+  --voyager--color-warning: var(--voyager--color-orange);
+  --voyager--color-warning--rgb: var(--voyager--color-orange--rgb);
+  --voyager--color-success: var(--voyager--color-green);
+  --voyager--color-success--rgb: var(--voyager--color-green--rgb);
+  --voyager--color-blue: #22A7F0;
+  --voyager--color-blue--rgb: 34, 167, 240;
+  --voyager--color-red: #FA2A00;
+  --voyager--color-red--rgb: 250, 42, 0;
+  --voyager--color-orange: #f39c12;
+  --voyager--color-orange--rgb: 243, 156, 18;
+  --voyager--color-green: #2ecc71;
+  --voyager--color-green--rgb: 46, 204, 113;
+  --voyager--color-indigo: #8965EE;
+  --voyager--color-indigo--rgb: 137, 101, 238;
+  --voyager--color-grey: #9F9F9F;
+  --voyager--color-grey--rgb: 159, 159, 159;
+  --voyager--color-light-grey: #f9f9f9;
+  --voyager--color-light-grey--rgb: 249, 249, 249;
+  --voyager--color-white: #FFFFFF;
+  --voyager--color-white--rgb: 255, 255, 255;
+  --voyager--color-black: #232323;
+  --voyager--color-black--rgb: 35, 35, 35;
+  --voyager--color-border-grey: #dcdfe6;
+  --voyager--color-border-grey--rgb: 220, 223, 230;
+  --voyager--color-border-light-grey: #f9f9f9;
+  --voyager--color-border-light-grey--rgb: 249, 249, 249;
+  --voyager--color-border-white: #ffffff;
+  --voyager--color-border-white--rgb: 255, 255, 255;
+  --voyager--color-background-light: #f9f9f9;
+  --voyager--color-background-light--rgb: 249, 249, 249;
+  --voyager--color-background-white: #ffffff;
+  --voyager--color-background-white--rgb: 255, 255, 255;
+  --voyager--color-background-dark-gray: #ECECEC;
+  --voyager--color-background-dark-gray--rgb: 236, 236, 236;
+  --voyager--color-text-black: #232323;
+  --voyager--color-text-black--rgb: 35, 35, 35;
+  --voyager--color-text-gray: #76838f;
+  --voyager--color-text-gray--rgb: 118, 131, 143;
+  --voyager--color-text-dark-gray: #555555;
+  --voyager--color-text-dark-gray--rgb: 85, 85, 85;
+  --voyager--color-text-light-gray: #F9F9F9;
+  --voyager--color-text-light-gray--rgb: 249, 249, 249;
+  --voyager--color-text-white: #ffffff;
+  --voyager--color-text-white--rgb: 255, 255, 255;
+}
+
+body {
+  position: relative;
+}
+
+.admin-controls {
+  position: fixed;
+  z-index: 100001;
+}
+.admin-controls.top-left {
+  top: 10px;
+  left: 10px;
+}
+.admin-controls.bottom-left {
+  bottom: 10px;
+  left: 10px;
+}
+.admin-controls.top-right {
+  top: 10px;
+  right: 10px;
+}
+.admin-controls.bottom-right {
+  bottom: 10px;
+  right: 10px;
+}
+.admin-controls__switch {
+  position: relative;
+  border: 0;
+  width: 50px;
+  height: 25px;
+  color: white;
+  font-size: 25px;
+  line-height: 1em;
+  background-color: #a0a0a0;
+}
+.admin-controls__switch::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  content: "x";
+  font-family: "voyager";
+}
+.admin-controls__switch.open::after {
+  content: "y";
+}
+.admin-controls__buttons {
+  display: none;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding-top: 5px;
+}
+.admin-controls__buttons.open {
+  display: flex;
+}
+.admin-controls__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: #c0c0c0;
+  text-decoration: none;
+  color: black;
+  font-weight: 900;
+  font-size: 25px;
+  opacity: 0.8;
+}
+.admin-controls__button.-primary, .admin-controls__button.-edit, .admin-controls__button.-warning, .admin-controls__button.-browse, .admin-controls__button.-danger, .admin-controls__button.-success {
+  color: white;
+}
+.admin-controls__button.-primary:hover, .admin-controls__button.-edit:hover, .admin-controls__button.-warning:hover, .admin-controls__button.-browse:hover, .admin-controls__button.-danger:hover, .admin-controls__button.-success:hover {
+  color: white;
+}
+.admin-controls__button.-primary, .admin-controls__button.-edit {
+  background-color: var(--voyager--color-primary);
+}
+.admin-controls__button.-warning, .admin-controls__button.-browse {
+  background-color: var(--voyager--color-warning);
+}
+.admin-controls__button.-danger {
+  background-color: var(--voyager--color-danger);
+}
+.admin-controls__button.-success {
+  background-color: var(--voyager--color-success);
+}
+.admin-controls__button:hover {
+  text-decoration: none;
+  color: black;
+  opacity: 1;
+}
+.admin-controls__button:not(:last-child) {
+  margin-top: 5px;
+}
+.admin-controls [class^=voyager-] {
+  display: inline-flex;
+}

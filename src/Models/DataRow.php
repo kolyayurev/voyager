@@ -3,11 +3,11 @@
 namespace TCG\Voyager\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use TCG\Voyager\Traits\Translatable;
+use TCG\Voyager\Traits\{Translatable,HasMetaFields};
 
 class DataRow extends Model
 {
-    use Translatable;
+    use Translatable,HasMetaFields;
 
     protected $table = 'data_rows';
 
@@ -16,6 +16,11 @@ class DataRow extends Model
     public $timestamps = false;
 
     protected $translatable = ['display_name'];
+
+    protected function getMetaFieldHolder():string
+    {
+        return 'details';
+    }
 
     public function rowBefore()
     {
