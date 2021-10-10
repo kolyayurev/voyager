@@ -47,24 +47,21 @@ class VoyagerBaseController extends Controller
 
         $getter = $dataType->server_side ? 'paginate' : 'get';
 
+
         $type = null;
         $searchableFields = [];
         if ($dataType->server_side) {
             $searchable = SchemaManager::describeTable(app($dataType->model_name)->getTable())->pluck('name')->toArray();
-            $dataRows = Voyager::model('DataRow')->whereDataTypeId($dataType->id)->get();
+            $dataRows = $dataType->browseRows;
             foreach ($searchable as $key => $value) {
                 $field = $dataRows->where('field', $value)->first();
                 if ($field !== null) {
                     $displayName = $field->getTranslatedAttribute('display_name');
-                }
-                else
-                {
-                    $displayName = ucwords(str_replace('_', ' ', $value));
-                }
-                $searchableFields[$value] = (object) [ 'name' => $displayName, 'type'=> $field->type, 'details' => $field->details];
+                    $searchableFields[$value] = (object) [ 'name' => $displayName, 'type'=> $field->type, 'details' => $field->details];
 
-                if($request->get('key') && $field->type == $request->get('key'))
-                    $type = $field->type;
+                    if($request->get('key') && $field->type == $request->get('key'))
+                        $type = $field->type;
+                }
             }
         }
         $search = (object) [ 'key' => $request->get('key'), 'filter' => $request->get('filter'), 'value' => $request->get('s'),  'type'=> $type ];
