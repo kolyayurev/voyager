@@ -21,7 +21,7 @@
         {{ __('voyager::media.files_more', ['count' => (count($files) - 3)]) }}
     @endif
 @elseif (is_array($files) && count($files) == 0)
-    {{ trans_choice('voyager::media.files', 0) }}
+    {{ trans_choice('voyager::media.files_none') }}
 @elseif ($dataTypeContent->{$row->field} != '')
     @if (property_exists($row->details, 'show_as_images') && $row->details->show_as_images)
         <img src="@if( !filter_var($dataTypeContent->{$row->field}, FILTER_VALIDATE_URL)){{ Voyager::image( $dataTypeContent->{$row->field} ) }}@else{{ $dataTypeContent->{$row->field} }}@endif" style="width:50px">
@@ -29,5 +29,5 @@
         {{ $dataTypeContent->{$row->field} }}
     @endif
 @else
-    {{ trans_choice('voyager::media.files', 0) }}
+    {{ trans_choice('voyager::media.files_none') }}
 @endif
