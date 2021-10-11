@@ -16,7 +16,7 @@
         aria-hidden="true"
         data-toggle="tooltip"
         data-placement="right"
-        title="{{ $row->details->hint }}"></span>
+        title="{{ __($row->details->hint) }}"></span>
     @endif
     @if (!isset($row->details->vue) || (isset($row->details->vue) && $row->details->vue === false) )
         @include('voyager::multilingual.input-hidden-bread-edit-add')

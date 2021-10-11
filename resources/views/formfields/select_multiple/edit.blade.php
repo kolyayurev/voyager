@@ -32,7 +32,7 @@ $dataTypeContent->{$row->field} = json_decode($dataTypeContent->{$row->field})
                 <?php $selected = 'selected="selected"'; ?>
             @endif
             <option value="{{ $key }}" {!! $selected !!}>
-                {{ $label }}
+                {{ __($label) }}
             </option>
         @endforeach
     @endif

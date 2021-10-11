@@ -46,12 +46,13 @@ class VoyagerBaseController extends Controller
         $this->authorize('browse', app($dataType->model_name));
 
         $getter = $dataType->server_side ? 'paginate' : 'get';
-        $relations = $dataType->browseRows->where('type','relationship');
 
+        $relations = $dataType->browseRows->where('type','relationship');
         foreach ($relations as $relation) {
-            if($relation->getMetaField('type') == 'belongsTo')
-            $dataType->browseRows->where('field',@$relation->details->column)->first()->setMetaField('relationship',(object) [ 'field'=> $relation->field, 'name' => $relation->display_name ]) ;
+            if($relation->getMetaField('type') == 'belongsTo' && $dataType->browseRows->where('field',@$relation->details->column)->count())
+            $dataType->browseRows->where('field',@$relation->details->column)->first()->setMetaField('has_relation',(object) [ 'field'=> $relation->field, 'name' => $relation->display_name ]) ;
         }
+
         $type = null;
         $searchableFields = [];
         if ($dataType->server_side) {
@@ -61,8 +62,8 @@ class VoyagerBaseController extends Controller
                 $field = $dataRows->where('field', $value)->first();
                 if ($field !== null) {
                     $displayName = $field->getTranslatedAttribute('display_name');
-                    if($field->hasMetaField('relationship'))
-                        $searchableFields[$value] = (object) [ 'name' => $field->getMetaField('relationship')->name, 'type'=> 'belongsTo', 'details' => $field->details];
+                    if($field->hasMetaField('has_relation'))
+                        $searchableFields[$value] = (object) [ 'name' => $field->getMetaField('has_relation')->name, 'type'=> 'belongsTo', 'details' => $field->details];
                     else
                         $searchableFields[$value] = (object) [ 'name' => $displayName, 'type'=> $field->type, 'details' => $field->details];
 

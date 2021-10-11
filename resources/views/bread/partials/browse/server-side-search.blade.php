@@ -187,7 +187,7 @@
                     var config = {
                         params:{ 
                             search: query,
-                            type: this.fieldDetails.relationship.field, 
+                            type: this.fieldDetails.has_relation.field, 
                             page: 1,
                             on_page: 1000,
                             method: 'browse'

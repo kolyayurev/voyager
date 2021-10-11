@@ -6,3 +6,9 @@ if (!function_exists('__')) {
         return trans($key, $par);
     }
 }
+if (!function_exists('vtrans')) {
+    function vtrans($key, array $par = [])
+    {
+        return trans('voyager::'.$key, $par);
+    }
+}

@@ -17,6 +17,6 @@
         @endif
 
         <input type="checkbox" name="{{ $row->field }}[{{$key}}]" {!! $checked ? 'checked="checked"' : '' !!} value="{{$key}}" id="{{$key}}"/>
-        <label for="{{$key}}">{{$label}}</label>
+        <label for="{{$key}}">{{__($label)}}</label>
     @endforeach
 @endif

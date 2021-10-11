@@ -8,7 +8,7 @@
 @if (!empty(json_decode($dataTypeContent->{$row->field})))
     @foreach(json_decode($dataTypeContent->{$row->field}) as $item)
         @if (@$row->details->options->{$item})
-            {{ $row->details->options->{$item} . (!$loop->last ? ', ' : '') }}
+            {{ __($row->details->options->{$item}) . (!$loop->last ? ', ' : '') }}
         @endif
     @endforeach
 @else
