@@ -135,7 +135,6 @@
                             <li><a href="{{ route('voyager.'.Str::slug($options->table).'.show',['id'=>$query_res->{$options->key}]) }}" target="_blank"> {{ $query_res->{$options->label} }}</a></li>
                         @endforeach
                     </ul>
-
                 @else
                     <p>{{ __('voyager::generic.no_results') }}</p>
                 @endif
@@ -177,6 +176,23 @@
                 @endif
 
             @else
+                @php
+                    $selected_values = isset($dataTypeContent) ? $dataTypeContent->belongsToMany($options->model, $options->pivot_table, $options->foreign_pivot_key ?? null, $options->related_pivot_key ?? null, $options->parent_key ?? null, $options->key)->get()->map(function ($item, $key) use ($options) {
+                        return $item->{$options->key};
+                    })->all() : array();
+                    $relationshipOptions = app($options->model)->all();
+                    $selected_values = old($relationshipField, $selected_values);
+                @endphp
+                @if(isset($options->readonly)) 
+                    <input type="hidden" name="{{ $relationshipField }}[]"  value="{!! printArray($selected_values) !!}">
+                    <ul>
+                        @foreach ($relationshipOptions as $relationshipOption)
+                            @if (in_array($relationshipOption->{$options->key}, $selected_values))
+                            <li><a href="{{ route('voyager.'.Str::slug($options->table).'.show',['id'=>$relationshipOption->{$options->key}]) }}" target="_blank"> {{ $relationshipOption->{$options->label} }}</a></li>
+                            @endif
+                        @endforeach
+                    </ul>
+                @else
                 <select
                     class="form-control @if(isset($options->taggable) && $options->taggable === 'on') select2-taggable @else select2-ajax @endif"
                     name="{{ $relationshipField }}[]" multiple
@@ -191,13 +207,7 @@
                     @endif
                 >
 
-                        @php
-                            $selected_values = isset($dataTypeContent) ? $dataTypeContent->belongsToMany($options->model, $options->pivot_table, $options->foreign_pivot_key ?? null, $options->related_pivot_key ?? null, $options->parent_key ?? null, $options->key)->get()->map(function ($item, $key) use ($options) {
-                                return $item->{$options->key};
-                            })->all() : array();
-                            $relationshipOptions = app($options->model)->all();
-                        $selected_values = old($relationshipField, $selected_values);
-                        @endphp
+                       
 
                         @if(!$row->required)
                             <option value="">{{__('voyager::generic.none')}}</option>
@@ -208,11 +218,9 @@
                         @endforeach
 
                 </select>
-
+                @endif
             @endif
-
         @endif
-
     @else
 
         cannot make relationship because {{ $options->model }} does not exist.
