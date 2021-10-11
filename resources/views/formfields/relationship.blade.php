@@ -184,10 +184,10 @@
                     $selected_values = old($relationshipField, $selected_values);
                 @endphp
                 @if(isset($options->readonly)) 
-                    <input type="hidden" name="{{ $relationshipField }}[]"  value="{!! printArray($selected_values) !!}">
                     <ul>
                         @foreach ($relationshipOptions as $relationshipOption)
                             @if (in_array($relationshipOption->{$options->key}, $selected_values))
+                            <input type="hidden" name="{{ $relationshipField }}[]"  value="{!! printInt($relationshipOption->{$options->key}) !!}">
                             <li><a href="{{ route('voyager.'.Str::slug($options->table).'.show',['id'=>$relationshipOption->{$options->key}]) }}" target="_blank"> {{ $relationshipOption->{$options->label} }}</a></li>
                             @endif
                         @endforeach
