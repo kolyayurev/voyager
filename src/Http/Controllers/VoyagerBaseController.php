@@ -45,7 +45,10 @@ class VoyagerBaseController extends Controller
         // Check permission
         $this->authorize('browse', app($dataType->model_name));
 
-        $getter = $dataType->server_side ? 'paginate' : 'get';
+        // Check if server side pagination is enabled
+        $isServerSide = isset($dataType->server_side) && $dataType->server_side;
+
+        $getter = $isServerSide ? 'paginate' : 'get';
 
         $relations = $dataType->browseRows->where('type','relationship');
         foreach ($relations as $relation) {
@@ -55,7 +58,7 @@ class VoyagerBaseController extends Controller
 
         $type = null;
         $searchableFields = [];
-        if ($dataType->server_side) {
+        if ($isServerSide) {
             $searchable = SchemaManager::describeTable(app($dataType->model_name)->getTable())->pluck('name')->toArray();
             $dataRows = $dataType->browseRows;
             foreach ($searchable as $key => $value) {
@@ -129,11 +132,11 @@ class VoyagerBaseController extends Controller
                 $dataTypeContent = call_user_func([
                     $query->orderBy($orderBy, $querySortOrder),
                     $getter,
-                ],$dataType->per_page);
+                ],$isServerSide?$dataType->per_page:'*');
             } elseif ($model->timestamps) {
-                $dataTypeContent = call_user_func([$query->latest($model::CREATED_AT), $getter],$dataType->per_page);
+                $dataTypeContent = call_user_func([$query->latest($model::CREATED_AT), $getter],$isServerSide?$dataType->per_page:'*');
             } else {
-                $dataTypeContent = call_user_func([$query->orderBy($model->getKeyName(), 'DESC'), $getter],$dataType->per_page);
+                $dataTypeContent = call_user_func([$query->orderBy($model->getKeyName(), 'DESC'), $getter],$isServerSide?$dataType->per_page:'*');
             }
 
             // Replace relationships' keys for labels and create READ links if a slug is provided.
@@ -150,8 +153,7 @@ class VoyagerBaseController extends Controller
         // Eagerload Relations
         $this->eagerLoadRelations($dataTypeContent, $dataType, 'browse', $isModelTranslatable);
 
-        // Check if server side pagination is enabled
-        $isServerSide = isset($dataType->server_side) && $dataType->server_side;
+        
 
         // Check if a default search key is set
         $defaultSearchKey = $dataType->default_search_key ?? null;
