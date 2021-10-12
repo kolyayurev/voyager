@@ -151,6 +151,7 @@
                         allowRename: {{ printBool($manager_options->allow_rename ?? true) }},
                         allowCrop: {{ printBool($manager_options->allow_crop ?? true) }},
                         allowedTypes: {!! printArray(isset($manager_options->allowed) && is_array($manager_options->allowed) ? $manager_options->allowed : ["image"]) !!},
+                        accept: {!! printString($manager_options->accept??'') !!},
                         preSelect: false,
                         expanded: {{ printBool($manager_options->expanded ?? true) }},
                         showExpandButton: true,
