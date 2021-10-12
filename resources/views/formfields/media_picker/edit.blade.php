@@ -26,7 +26,7 @@
                     </template>
                 </div>
                 <div class="media-picker-formfield__item-details">
-                    <div class="media-picker-formfield__item-title">@{{ getFileName(file) }}</h4>
+                    <div class="media-picker-formfield__item-title">@{{ getFileName(file) }}</div>
                 </div>
             </li>
             <div class="media-picker-formfield__empty" v-if="!content || !content.length">
