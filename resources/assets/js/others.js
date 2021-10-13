@@ -154,8 +154,8 @@ $(document).ready(function () {
         }
         $this.closest('.panel').toggleClass('is-fullscreen');
     });
-
-    $('.datepicker').datetimepicker({locale:locale});
+ 
+    $('.datepicker').datetimepicker();
 
     // Save shortcut
     $(document).keydown(function (e) {

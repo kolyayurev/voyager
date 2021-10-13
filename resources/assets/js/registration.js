@@ -16,6 +16,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 
+window.moment = require('moment');
+window.moment.locale(locale);
+
 Vue.component('draggable',require('vuedraggable').default);
 Vue.component('editor',require('@tinymce/tinymce-vue').default);
 Vue.component('admin-menu', require('./components/admin_menu.vue').default);
