@@ -131,7 +131,7 @@ if (!function_exists('printByField')) {
                 break;
             case 'belongsTo':
                 $value = (int)$value;
-                return json_encode($value > 0? $value : null);
+                return json_encode($value > 0 ? $value : null);
                 break;
             case 'checkbox':
                 return json_encode((int)$value);
@@ -140,5 +140,36 @@ if (!function_exists('printByField')) {
                 return json_encode($value);
                 break;
         }
+    }
+}
+
+if (!function_exists('defaultBreadDetails')) {
+    function defaultBreadDetails($fieldName,$table)
+    {
+        $details = new class{};
+        switch ($fieldName) {
+            case 'meta_title':
+            case 'meta_description':
+            case 'meta_keywords':
+            case 'h1':
+                $details->validation = (object)[
+                    "rule" =>  "nullable|max:255"
+                ];
+                break;
+            case 'visible':
+                $details->on = __('voyager::form.visible.on');
+                $details->off = __('voyager::form.visible.off');
+                $details->checked = true;
+                break;
+            case 'slug':
+                $details->slugify = (object)[
+                        "origin"=> "name"
+                ];
+                $details->validation = (object)[
+                    "rule"=> "unique:".$table.",slug"
+                ];
+                break;
+        }
+        return $details;
     }
 }

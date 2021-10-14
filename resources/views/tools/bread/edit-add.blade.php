@@ -1,5 +1,4 @@
 @extends('voyager::master')
-
 @if (isset($dataType->id))
     @section('page_title', __('voyager::bread.edit_bread_for_table', ['table' => $dataType->name]))
     @php
@@ -369,6 +368,7 @@
                                                @if(isset($dataRow->browse) && $dataRow->browse)
                                                    checked="checked"
                                                @elseif($data['key'] == 'PRI')
+                                               @elseif(in_array($data['field'],['meta_title','meta_description','meta_keywords','h1','sort_order','meta_fields']))
                                                @elseif($data['type'] == 'timestamp' && $data['field'] == 'updated_at')
                                                @elseif(!isset($dataRow->browse))
                                                    checked="checked"
@@ -376,20 +376,53 @@
                                         <label for="field_browse_{{ $data['field'] }}">{{ __('voyager::generic.browse') }}</label><br/>
                                         <input type="checkbox"
                                                id="field_read_{{ $data['field'] }}"
-                                               name="field_read_{{ $data['field'] }}" @if(isset($dataRow->read) && $dataRow->read) checked="checked" @elseif($data['key'] == 'PRI')@elseif($data['type'] == 'timestamp' && $data['field'] == 'updated_at')@elseif(!isset($dataRow->read)) checked="checked" @endif>
+                                               name="field_read_{{ $data['field'] }}" 
+                                               @if(isset($dataRow->read) && $dataRow->read) 
+                                               checked="checked" 
+                                               @elseif($data['key'] == 'PRI')
+                                               @elseif(in_array($data['field'],['sort_order','meta_fields']))
+                                               @elseif($data['type'] == 'timestamp' && $data['field'] == 'updated_at')
+                                               @elseif(!isset($dataRow->read)) 
+                                               checked="checked" 
+                                               @endif>
                                         <label for="field_read_{{ $data['field'] }}">{{ __('voyager::generic.read') }}</label><br/>
                                         <input type="checkbox"
                                                id="field_edit_{{ $data['field'] }}"
-                                               name="field_edit_{{ $data['field'] }}" @if(isset($dataRow->edit) && $dataRow->edit) checked="checked" @elseif($data['key'] == 'PRI')@elseif($data['type'] == 'timestamp' && $data['field'] == 'updated_at')@elseif(!isset($dataRow->edit)) checked="checked" @endif>
+                                               name="field_edit_{{ $data['field'] }}" 
+                                               @if(isset($dataRow->edit) && $dataRow->edit) 
+                                               checked="checked" 
+                                               @elseif($data['key'] == 'PRI')
+                                               @elseif(in_array($data['field'],['sort_order','meta_fields']))
+                                               @elseif($data['type'] == 'timestamp' && $data['field'] == 'updated_at')
+                                               @elseif(!isset($dataRow->edit)) 
+                                               checked="checked" 
+                                               @endif>
                                         <label for="field_edit_{{ $data['field'] }}">{{ __('voyager::generic.edit') }}</label><br/>
                                         <input type="checkbox"
                                                id="field_add_{{ $data['field'] }}"
-                                               name="field_add_{{ $data['field'] }}" @if(isset($dataRow->add) && $dataRow->add) checked="checked" @elseif($data['key'] == 'PRI')@elseif($data['type'] == 'timestamp' && $data['field'] == 'created_at')@elseif($data['type'] == 'timestamp' && $data['field'] == 'updated_at')@elseif(!isset($dataRow->add)) checked="checked" @endif>
-                                            <label for="field_add_{{ $data['field'] }}">{{ __('voyager::generic.add') }}</label><br/>
+                                               name="field_add_{{ $data['field'] }}" 
+                                               @if(isset($dataRow->add) && $dataRow->add) 
+                                               checked="checked" 
+                                               @elseif($data['key'] == 'PRI')
+                                               @elseif(in_array($data['field'],['sort_order','meta_fields']))
+                                               @elseif($data['type'] == 'timestamp' && $data['field'] == 'created_at')
+                                               @elseif($data['type'] == 'timestamp' && $data['field'] == 'updated_at')
+                                               @elseif(!isset($dataRow->add)) 
+                                               checked="checked" 
+                                               @endif>
+                                        <label for="field_add_{{ $data['field'] }}">{{ __('voyager::generic.add') }}</label><br/>
                                         <input type="checkbox"
                                                id="field_delete_{{ $data['field'] }}"
-                                               name="field_delete_{{ $data['field'] }}" @if(isset($dataRow->delete) && $dataRow->delete) checked="checked" @elseif($data['key'] == 'PRI')@elseif($data['type'] == 'timestamp' && $data['field'] == 'updated_at')@elseif(!isset($dataRow->delete)) checked="checked" @endif>
-                                                <label for="field_delete_{{ $data['field'] }}">{{ __('voyager::generic.delete') }}</label><br/>
+                                               name="field_delete_{{ $data['field'] }}" 
+                                               @if(isset($dataRow->delete) && $dataRow->delete) 
+                                               checked="checked" 
+                                               @elseif($data['key'] == 'PRI')
+                                               @elseif(in_array($data['field'],['sort_order','meta_fields']))
+                                               @elseif($data['type'] == 'timestamp' && $data['field'] == 'updated_at')
+                                               @elseif(!isset($dataRow->delete)) 
+                                               checked="checked" 
+                                               @endif>
+                                        <label for="field_delete_{{ $data['field'] }}">{{ __('voyager::generic.delete') }}</label><br/>
                                     </div>
                                     <div class="col-xs-2">
                                         <input type="hidden" name="field_{{ $data['field'] }}" value="{{ $data['field'] }}">
@@ -399,27 +432,41 @@
                                                    name="field_input_type_{{ $data['field'] }}">
                                         @else
                                             <select name="field_input_type_{{ $data['field'] }}">
+                                                @php
+                                                    if(in_array($data['field'],['meta_description']))
+                                                    $defaultFieldType = 'text_area';
+                                                    elseif(in_array($data['field'],['visible']))
+                                                    $defaultFieldType = 'checkbox';
+                                                    else
+                                                    $defaultFieldType = 'text';
+                                                @endphp
                                                 @foreach (Voyager::formFields() as $formField)
                                                     @php
-                                                    $selected = (isset($dataRow->type) && $formField->getCodename() == $dataRow->type) || (!isset($dataRow->type) && $formField->getCodename() == 'text');
+                                                    $selected = 
+                                                        (isset($dataRow->type) && $formField->getCodename() == $dataRow->type) || (!isset($dataRow->type) && $formField->getCodename() ==  $defaultFieldType);
                                                     @endphp
                                                     <option value="{{ $formField->getCodename() }}" {{ $selected ? 'selected' : '' }}>
                                                         {{ $formField->getName() }}
                                                     </option>
+                                                    
                                                 @endforeach
                                             </select>
                                         @endif
                                     </div>
                                     <div class="col-xs-2">
+                                        @php
+                                            $defaultDisplayName = Lang::has('voyager::fields.'.$data['field'])?__('voyager::fields.'.$data['field']):ucwords(str_replace('_', ' ', $data['field']));
+                                        @endphp
                                         @if($isModelTranslatable)
                                             @include('voyager::multilingual.input-hidden', [
                                                 'isModelTranslatable' => true,
                                                 '_field_name'         => 'field_display_name_' . $data['field'],
-                                                '_field_trans' => $dataRow ? get_field_translations($dataRow, 'display_name') : json_encode([config('voyager.multilingual.default') => ucwords(str_replace('_', ' ', $data['field']))]),
+                                                '_field_trans' => $dataRow ? get_field_translations($dataRow, 'display_name') : json_encode([config('voyager.multilingual.default') => $defaultDisplayName]),
                                             ])
                                         @endif
                                         <input type="text" class="form-control"
-                                               value="{{ $dataRow->display_name ?? ucwords(str_replace('_', ' ', $data['field'])) }}"
+                                                required
+                                               value="{{ $dataRow->display_name ?? $defaultDisplayName }}"
                                                name="field_display_name_{{ $data['field'] }}">
                                     </div>
                                     <div class="col-xs-4">
@@ -430,7 +477,7 @@
                                                   class="resizable-editor"
                                                   data-editor="json"
                                                   name="field_details_{{ $data['field'] }}">
-                                            {{ json_encode(isset($dataRow->details) ? $dataRow->details : new class{}) }}
+                                            {{ json_encode(isset($dataRow->details) ? $dataRow->details : defaultBreadDetails($data['field'],$dataType->name ?? $table)) }}
                                         </textarea>
                                     </div>
                                 </div>
