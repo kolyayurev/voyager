@@ -184,6 +184,8 @@
                     $selected_values = old($relationshipField, $selected_values);
                 @endphp
                 @if(isset($options->readonly)) 
+                    @if ($relationshipOption->count())
+                        
                     <ul>
                         @foreach ($relationshipOptions as $relationshipOption)
                             @if (in_array($relationshipOption->{$options->key}, $selected_values))
@@ -192,6 +194,9 @@
                             @endif
                         @endforeach
                     </ul>
+                    @else
+                    <p>{{ __('voyager::generic.no_results') }}</p>
+                    @endif
                 @else
                 <select
                     class="form-control @if(isset($options->taggable) && $options->taggable === 'on') select2-taggable @else select2-ajax @endif"
