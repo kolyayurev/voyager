@@ -184,8 +184,7 @@
                     $selected_values = old($relationshipField, $selected_values);
                 @endphp
                 @if(isset($options->readonly)) 
-                    @if ($relationshipOption->count())
-                        
+                    @if ($relationshipOptions->count())
                     <ul>
                         @foreach ($relationshipOptions as $relationshipOption)
                             @if (in_array($relationshipOption->{$options->key}, $selected_values))
