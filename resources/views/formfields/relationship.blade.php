@@ -182,19 +182,22 @@
                     })->all() : array();
                     $relationshipOptions = app($options->model)->all();
                     $selected_values = old($relationshipField, $selected_values);
+                    $relationshipOptions = $relationshipOptions->filter(function ($option, $key) use ($options,$selected_values) {
+                        return in_array($option->{$options->key}, $selected_values);
+                    });
                 @endphp
                 @if(isset($options->readonly)) 
                     @if ($relationshipOptions->count())
-                    <ul>
+                    <ul style="padding-left: 0">
                         @foreach ($relationshipOptions as $relationshipOption)
-                            @if (in_array($relationshipOption->{$options->key}, $selected_values))
-                            <input type="hidden" name="{{ $relationshipField }}[]"  value="{!! printInt($relationshipOption->{$options->key}) !!}">
-                            <li><a href="{{ route('voyager.'.Str::slug($options->table).'.show',['id'=>$relationshipOption->{$options->key}]) }}" target="_blank"> {{ $relationshipOption->{$options->label} }}</a></li>
-                            @endif
+                            <li class="form-control" style="margin-bottom: 5px">
+                                <input type="hidden" name="{{ $relationshipField }}[]"  value="{!! printInt($relationshipOption->{$options->key}) !!}">
+                                <a href="{{ route('voyager.'.Str::slug($options->table).'.show',['id'=>$relationshipOption->{$options->key}]) }}" target="_blank"> {{ $relationshipOption->{$options->label} }}</a>
+                            </li>
                         @endforeach
                     </ul>
                     @else
-                    <p>{{ __('voyager::generic.no_results') }}</p>
+                    <p class="form-control">{{ __('voyager::generic.no_results') }}</p>
                     @endif
                 @else
                 <select
