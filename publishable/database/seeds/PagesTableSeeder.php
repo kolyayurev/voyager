@@ -297,6 +297,7 @@ class PagesTableSeeder extends Seeder
                         "image"
                     ],
                     "base_path"=> "/pages/{pk}/",
+                    "rename"=> "{random:10}",
                     "hide_thumbnails"=> true,
                 ],
                 'order'        => 16,
