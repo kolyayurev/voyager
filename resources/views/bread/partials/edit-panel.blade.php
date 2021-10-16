@@ -11,10 +11,13 @@
 
 @if ($visible)
 <x-voyager::panel :col="$col" :type="$type" :fresh="$fresh" :title="$title" :header="$header" :hidden="$hidden">
-    @foreach($dataTypeRows as $row)
-        @if (in_array($row->field, $fields))
-            @include('voyager::bread.partials.edit-row')
-        @endif
+    @foreach($fields as $field)
+        @php
+            $row = $dataTypeRows->where('field',$field)->first();
+            if(empty($row))
+                continue;
+        @endphp
+        @include('voyager::bread.partials.edit-row')
     @endforeach
 </x-voyager::panel>
 @endif
