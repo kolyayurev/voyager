@@ -105,7 +105,10 @@
                         <select id="m_target" class="form-control" name="target">
                             <option value="_self" selected="selected">{{ __('voyager::menu_builder.open_same') }}</option>
                             <option value="_blank">{{ __('voyager::menu_builder.open_new') }}</option>
-                        </select>
+                        </select><br>
+                        {{-- <label for="details">{{ __('voyager::menu_builder.details') }}</label> --}}
+                        {{-- <div id="m_details" class="ace_editor min_height_100" name="details"></div>
+                        <textarea data-language="json" name="details" id="m_details_textarea" class="hidden"></textarea> --}}
                         <input type="hidden" name="menu_id" value="{{ $menu->id }}">
                         <input type="hidden" name="id" id="m_id" value="">
                     </div>
@@ -169,6 +172,7 @@
                 $m_route_type  = $('#m_route_type'),
                 $m_route       = $('#m_route'),
                 $m_parameters  = $('#m_parameters'),
+                // $m_details     = ace.edit('m_details');
                 $m_icon_class  = $('#m_icon_class'),
                 $m_color       = $('#m_color'),
                 $m_target      = $('#m_target'),
@@ -225,6 +229,7 @@
                     $m_icon_class.val(_src.data('icon_class'));
                     $m_color.val(_src.data('color'));
                     $m_id.val(id);
+                    // $m_details.session.setValue(helpers.isValidJson(_src.data('details'))?JSON.parse(_src.data('details')):'{}');
 
                     if(translatable){
                         $_str_i18n = $("#title" + id + "_i18n").val();
@@ -282,6 +287,7 @@
                 $('#delete_form')[0].action = '{{ route('voyager.menus.item.destroy', ['menu' => $menu->id, 'id' => '__id']) }}'.replace('__id', id);
                 $('#delete_modal').modal('show');
             });
+            
 
 
             /**

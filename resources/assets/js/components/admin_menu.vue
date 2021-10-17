@@ -2,8 +2,11 @@
     <ul class="nav navbar-nav">
         <li v-for="(item, i) in items" :class="classes(item)" :key="i">
             <a :target="item.target" :href="item.children.length > 0 ? '#'+item.id+'-dropdown-element' : item.href" :style="'color:'+color(item)" v-bind:data-toggle="item.children.length > 0 ? 'collapse' : false" :aria-expanded="item.children.length > 0 ? String(item.active) : false">
-                <span :class="'icon '+item.icon_class"></span>
-                <span class="title">{{ item.title }}</span>
+                <span :class="'icon '+item.icon_class">
+                    <span class="badge badge-primary" :class="'badge-:'+badgeColor(item)" v-if="item.badge && item.badge.value">{{ item.badge.value }}</span>
+                </span>
+                <span class="title"> {{ item.title }}   </span>
+               
             </a>
             <div v-if="item.children.length > 0" :id="item.id+'-dropdown-element'" :class="'panel-collapse collapse' + (item.active ? ' in' : ' ')">
                 <div class="panel-body">
@@ -33,6 +36,13 @@ export default {
 
 
             return classes.join(' ');
+        },
+        badgeColor: function(item) {
+            if (item.badge && item.badge.color) {
+                return item.badge.color;
+            }
+
+            return 'info';
         },
         color: function(item) {
             if (item.color && item.color != '#000000') {

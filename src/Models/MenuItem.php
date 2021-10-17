@@ -5,17 +5,17 @@ namespace TCG\Voyager\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
-use TCG\Voyager\Traits\Translatable;
+use TCG\Voyager\Traits\{Translatable,HasMetaFields};
 
 class MenuItem extends Model
 {
-    use Translatable;
+    use Translatable,HasMetaFields;
 
     protected $translatorMethods = [
         'link' => 'translatorLink',
     ];
 
-    protected $fillable = ['id','menu_id','title','url','target','icon_class','color','parent_id' ,'order' ,'route' ,'parameters'];
+    protected $fillable = ['id','menu_id','title','url','target','icon_class','color','parent_id' ,'order' ,'route' ,'parameters','details'];
 
     protected $table = 'menu_items';
 
@@ -90,6 +90,22 @@ class MenuItem extends Model
         return $url;
     }
 
+    protected function getMetaFieldHolder():string
+    {
+        return 'details';
+    }
+
+    public function setDetailsAttribute($value)
+    {
+        $this->attributes['details'] = json_encode($value);
+    }
+
+    public function getDetailsAttribute($value)
+    {
+        return json_decode(!empty($value) ? $value : '{}');
+    }
+
+   
     public function getParametersAttribute()
     {
         return json_decode($this->attributes['parameters']);

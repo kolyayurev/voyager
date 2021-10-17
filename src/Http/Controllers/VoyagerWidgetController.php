@@ -31,7 +31,6 @@ class VoyagerWidgetController extends VoyagerBaseController
 
     public function moderate_update(Request $request,$id)
     {
-        // dd($request->all());
         // Check permission
         $this->authorize('moderate', Voyager::model('Widget'));
 

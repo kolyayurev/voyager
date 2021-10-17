@@ -122,7 +122,7 @@ class VoyagerMenuController extends Controller
     }
 
     protected function prepareParameters($parameters)
-    {
+    {   
         switch (Arr::get($parameters, 'type')) {
             case 'route':
                 $parameters['url'] = null;
@@ -135,6 +135,9 @@ class VoyagerMenuController extends Controller
 
         if (isset($parameters['type'])) {
             unset($parameters['type']);
+        }
+        if (isset($parameters['details'])) {
+            $parameters['details'] = json_decode(str_replace(["\n","\r","\"\"\""], '',$parameters['details']));
         }
 
         return $parameters;

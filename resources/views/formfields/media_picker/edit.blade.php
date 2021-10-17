@@ -42,7 +42,7 @@
     <!-- Image Modal -->
     <el-dialog
         v-if="selected_file && fileIs(selected_file, 'image')"
-        class="dialog modal-info"
+        class="dialog modal-info dialog-image-preview"
         top="10vh"
         :title="getFileName(selected_file)"
         :visible.sync="dialogImageShow"
@@ -74,7 +74,7 @@ var media_picker_{{ $row->field }} = new Vue({
                 allowedTypes: {!! printArray(isset($options->allowed) && is_array($options->allowed) ? $options->allowed : []) !!},
                 accept: {!! printString($options->accept??'') !!},
                 preSelect: false,
-                expanded: {{ printBool($options->expanded ?? false) }},
+                expanded: {{ printBool($options->expanded ?? true) }},
                 showExpandButton: true,
                 element: 'input[name="{{ $row->field }}"]',
                 details: {!! printObject($options ?? new class{}) !!},

@@ -23,8 +23,7 @@ class VoyagerSettingsController extends Controller
         $settings = [];
         $settings[__('voyager::settings.group_general')] = [];
         foreach ($data as $d) {
-            // dd($d);
-            if(auth()->user()->can('browse_group',$d))
+
             {
                 if ($d->group == '' || $d->group == __('voyager::settings.group_general')) {
                     $settings[__('voyager::settings.group_general')][] = $d;
@@ -266,7 +265,6 @@ class VoyagerSettingsController extends Controller
         $groups->each(function ($item, $key) {
            Permission::generateSettingsGroup(Str::lower($item));
         });
-        // dd($groups);
         return redirect()->route('voyager.settings.index')->with([
             'message'    => __('voyager::settings.successfully_created'),
             'alert-type' => 'success',

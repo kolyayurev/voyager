@@ -17270,6 +17270,13 @@ a:hover {
   text-align: center;
   font-size: 1.1em;
   display: inline-block;
+  position: relative;
+}
+.app-container .content-container .side-menu .navbar-nav li a .icon .badge {
+  top: 0%;
+  left: 100%;
+  transform: translate(-80%);
+  z-index: 1;
 }
 
 .app-container .content-container .side-menu .navbar-nav li a .title {
@@ -30180,6 +30187,11 @@ ul.checkbox label {
   width: 100%;
 }
 
+.ace_editor.min_height_100 {
+  min-height: 100px;
+  width: 100%;
+}
+
 /********** End ACE editor defaults **********/
 .btn-success i.voyager-plus {
   position: relative;
@@ -33566,4 +33578,8 @@ div.cropper-container img {
   .media-picker__content {
     flex-direction: column;
   }
+}
+
+[class^=col-md-] .panel:last-child, [class*=" col-md-"] .panel:last-child {
+  margin-bottom: 0;
 }

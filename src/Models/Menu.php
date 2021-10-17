@@ -53,7 +53,7 @@ class Menu extends Model
     public static function display($menuName, $type = null, array $options = [])
     {
         // GET THE MENU - sort collection in blade
-        $menu = \Cache::remember('voyager_menu_'.$menuName, \Carbon\Carbon::now()->addDays(30), function () use ($menuName) {
+        $menu = \Cache::remember('voyager_menu_'.$menuName, config('voyager.menu.'.$menuName.'.cache'), function () use ($menuName) {
             return static::where('name', '=', $menuName)
             ->with(['parent_items.children' => function ($q) {
                 $q->orderBy('order');
@@ -90,6 +90,7 @@ class Menu extends Model
         if (!isset($options->locale)) {
             $options->locale = app()->getLocale();
         }
+
 
         if ($type === '_json') {
             return $items;
@@ -132,6 +133,11 @@ class Menu extends Model
                 // Exclude dashboard
                 $item->active = false;
             }
+            // if($item->hasMetaField('badge')){
+            //     $badge = $item->getMetaField('badge');
+            //     // dd($badge);
+            //     // app()->call('App\Http\Controllers\Controller@test',['p'=>'sss']);
+            // }
 
             if ($item->children->count() > 0) {
                 $item->setRelation('children', static::processItems($item->children));

@@ -75,7 +75,17 @@ var setImageValue = function(url){
   $('.mce-btn.mce-open').parent().find('.mce-textbox').val(url);
 }
 
+var isValidJson =  function (json) {
+    try {
+        JSON.parse(json);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
 exports.setImageValue = setImageValue;
 exports.displayAlert = displayAlert;
 exports.displayAlerts = displayAlerts;
 exports.bootstrapAlerter = bootstrapAlerter;
+exports.isValidJson = isValidJson;

@@ -3,7 +3,14 @@
   z-index: 100001 !important;
 }
 .dialog .el-dialog {
+  width: 100%;
+  max-width: 1200px;
   border-radius: 4px;
+}
+@media only screen and (max-width: 1200px) {
+  .dialog .el-dialog {
+    max-width: 95vw;
+  }
 }
 .dialog .el-dialog__header {
   padding: 15px 20px;
@@ -23,14 +30,12 @@
   background-color: var(--voyager--color-primary);
 }
 
-.dialog-media-picker .el-dialog {
-  width: 100%;
-  max-width: 1200px;
+.dialog-create-custom-bread .el-dialog {
+  min-width: 750px;
 }
 
-.dialog-create-custom-bread .el-dialog {
-  width: 100%;
-  max-width: 750px;
+.dialog-image-preview .el-dialog {
+  width: auto;
 }
 
 .modal-info .el-dialog__header {

@@ -16,6 +16,7 @@
                 data-color="{{ $item->color }}"
                 data-route="{{ $item->route }}"
                 data-parameters="{{ json_encode($item->parameters) }}"
+                {{-- data-details="{{ json_encode($item->details) }}" --}}
             >
                 <i class="voyager-edit"></i> {{ __('voyager::generic.edit') }}
             </div>
