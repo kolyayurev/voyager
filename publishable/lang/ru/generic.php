@@ -94,6 +94,7 @@ return [
     'successfully_restored'  => 'Успешное восстановление',
     'successfully_updated'   => 'Успешное обновление',
     'successfully_created'   => 'Успешно создано',
+    'successfully_status_updated'  => 'Статус успешно обновлен',
     'sweet_success'          => 'Успешно!',
     'timestamp'              => 'Временная метка',
     'title'                  => 'Название',
