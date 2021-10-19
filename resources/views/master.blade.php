@@ -130,6 +130,9 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
     var fallbackLocale = '{{ config('app.fallback_locale')}}';
 </script>
 <script type="text/javascript" src="{{ voyager_asset(config('app.debug')?'js/app-dev.js':'js/app.js') }}"></script>
+@if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->
+    @foreach(config('voyager.additional_js') as $js)<script type="text/javascript" src="{{ asset($js) }}"></script>@endforeach
+@endif
 
 <script>
     @if(Session::has('alerts'))
@@ -153,9 +156,6 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
 </script>
 @include('voyager::media.manager')
 
-@if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->
-    @foreach(config('voyager.additional_js') as $js)<script type="text/javascript" src="{{ asset($js) }}"></script>@endforeach
-@endif
 
 @stack('vue')
 @yield('javascript')
