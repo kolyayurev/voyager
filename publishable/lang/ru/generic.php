@@ -30,7 +30,7 @@ return [
     'default'                => 'По умолчанию',
     'delete'                 => 'Удалить',
     'delete_confirm'         => 'Да, удалить!',
-    'delete_question'        => 'Вы действительно хотите удалить это?',
+    'delete_question'        => 'Вы действительно хотите удалить это',
     'delete_this_confirm'    => 'Да, удалить это',
     'descending'             => 'По убыванию',
     'deselect_all'           => 'Отменить выделение',
