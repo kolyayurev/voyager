@@ -18,7 +18,7 @@ abstract class AbstractHandler implements HandlerInterface
     protected $viewDefaultEdit   = 'voyager::formfields.text.edit';
     protected $viewDefaultRead   = 'voyager::formfields.text.read';
     protected $viewDefaultBrowse = 'voyager::formfields.text.browse';
-
+    //TODO: vue alternative
     protected $codename;
     protected $supports = [];
 
