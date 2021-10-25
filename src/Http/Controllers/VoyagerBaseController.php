@@ -322,6 +322,18 @@ class VoyagerBaseController extends Controller
         // Check permission
         $this->authorize('edit', $dataTypeContent);
 
+        // Actions
+        $actions = [];
+        if (!empty($dataTypeContent)) {
+            foreach (Voyager::actions() as $action) {
+                $action = new $action($dataType, $dataTypeContent);
+
+                if ($action->shouldActionDisplayOnDataType() && $action->shouldDisplayOnEditPage()) {
+                    $actions[] = $action;
+                }
+            }
+        }
+
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
@@ -333,7 +345,8 @@ class VoyagerBaseController extends Controller
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','actions'));
     }
 
     // POST BR(E)AD
