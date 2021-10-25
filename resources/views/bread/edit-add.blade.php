@@ -64,20 +64,8 @@
                 @endif
                 </div>
                 {{-- END OTHERS --}}
-               
-                <div class="row">
-                    <x-voyager::panel  :header="false" >
-                        @section('submit-buttons')
-                            <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
-                        @stop
-                        @yield('submit-buttons')
-                        @foreach($actions as $action)
-                            @if (!method_exists($action, 'massAction'))
-                                @include('voyager::bread.partials.edit-add.actions', ['action' => $action])
-                            @endif
-                        @endforeach
-                    </x-voyager::panel>
-                </div>
+                @include('voyager::bread.partials.edit-add.actions')
+                
         </form>
 
         <iframe id="form_target" name="form_target" style="display:none"></iframe>

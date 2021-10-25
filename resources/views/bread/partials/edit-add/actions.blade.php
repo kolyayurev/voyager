@@ -1,12 +1,14 @@
-@if($dataTypeContent)
-    @php
-        // need to recreate object because policy might depend on record data
-        $class = get_class($action);
-        $action = new $class($dataType, $dataTypeContent);
-    @endphp
-    @can ($action->getPolicy(),$dataTypeContent)
-        <a href="{{ $action->getRoute($dataType->name) }}" title="{{ $action->getTitle() }}" {!! $action->convertAttributesToHtml() !!}>
-            <i class="{{ $action->getIcon() }}"></i> <span class="hidden-xs hidden-sm">{{ $action->getTitle() }}</span>
-        </a>
-    @endcan
-@endif
+<div class="row">
+    <x-voyager::panel  :header="false" >
+        @section('submit-buttons')
+            <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
+            @foreach($actions as $action)
+                @if (!method_exists($action, 'massAction'))
+                    @include('voyager::bread.partials.edit-add.action', ['action' => $action])
+                @endif
+            @endforeach
+        @stop
+        @yield('submit-buttons')
+    </x-voyager::panel>
+</div>
+
