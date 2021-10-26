@@ -482,6 +482,7 @@
             }
         },
         methods: {
+           
             getFiles: function() {
                 var vm = this;
                 vm.is_loading = true;
@@ -673,6 +674,9 @@
                     // return JSON.parse(this.hidden_element.value);
                     return this.localValue;
                 }
+            },
+            getSelectedFilesData(){
+                return this.selected_files;
             },
             renameFile: function(object) {
                 var vm = this;
