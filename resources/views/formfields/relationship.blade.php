@@ -13,10 +13,11 @@
                     $relationshipData = (isset($data)) ? $data : $dataTypeContent;
                     $model = app($options->model);
                     $query = $model::where($options->key,$relationshipData->{$options->column})->first();
+                    $relatedDataType = Voyager::model('DataType')->where('model_name',$options->model)->first();
                 @endphp
 
                 @if(isset($query))
-                    <p>{{ $query->{$options->label} }}</p>
+                    <p><a class="" href="{{ route('voyager.'.Str::slug($relatedDataType?$relatedDataType->slug:$query->getTable()).'.edit',$query->getKey()) }}" target="_blank">{{ $query->{$options->label} }}</a></p>
                 @else
                     <p>{{ __('voyager::generic.no_results') }}</p>
                 @endif
