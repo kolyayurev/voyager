@@ -793,7 +793,6 @@
                     vm.openFile(vm.selected_files[i]);
                 }
             },
-            
             bytesToSize: function(bytes) {
 				var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 				if (bytes == 0) return '0 Bytes';
