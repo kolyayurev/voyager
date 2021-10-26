@@ -25,14 +25,20 @@
                 @php
                     $model = app($options->model);
                     $query = $model::where($options->key,$dataTypeContent->{$options->column})->first();
+                    $relatedDataType = Voyager::model('DataType')->where('model_name',$options->model)->first()
                 @endphp
                 @if(isset($options->readonly)) 
-                
-                <a href="{{ route('voyager.'.Str::slug($query->getTable()).'.edit',$query->getKey()) }}" target="_blank">@lang('voyager::generic.browse')</a>
-                <input   
-                    type="hidden" name="{{ $options->column}}"  value="{{ $query->{$options->column} }}">
-                <input  readonly 
-                    type="text" class="form-control"  value="{{ $query->{$options->label} }}">
+                    @php
+                        $value =  $query->getKey()??null;
+                        $label =  $query->{$options->label}??null;
+                    @endphp
+                    @if($value)
+                        <a href="{{ route('voyager.'.Str::slug($relatedDataType?$relatedDataType->slug:$query->getTable()).'.edit',$query->getKey()) }}" target="_blank">@lang('voyager::generic.browse')</a>
+                    @endif
+                    <input   
+                        type="hidden" name="{{ $options->column }}"  value="{{ $value }}">
+                    <input  readonly 
+                        type="text" class="form-control"  value="{{ $label }}">
                 @else
                     @php
                         $query = $model::where($options->key, old($options->column, $dataTypeContent->{$options->column}))->get();
