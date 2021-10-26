@@ -55,7 +55,7 @@ export default {
 	},
 	methods:{
     getSelectedFilesData(){
-      return this.$refs.media_manager.getSelectedFilesData();
+      return this.$refs.media_manager?this.$refs.media_manager.getSelectedFilesData():null;
     },
     init(options){
       this.setOptions(options).openDialog();
