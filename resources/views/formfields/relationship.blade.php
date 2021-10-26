@@ -28,7 +28,7 @@
                 @endphp
                 @if(isset($options->readonly)) 
                 
-                <a href="{{ route('voyager.'.Str::slug($query->getTable()).'.edit',$query->getKey()) }}" target="_blank">Перейти</a>
+                <a href="{{ route('voyager.'.Str::slug($query->getTable()).'.edit',$query->getKey()) }}" target="_blank">@lang('voyager::generic.browse')</a>
                 <input   
                     type="hidden" name="{{ $options->column}}"  value="{{ $query->{$options->column} }}">
                 <input  readonly 
