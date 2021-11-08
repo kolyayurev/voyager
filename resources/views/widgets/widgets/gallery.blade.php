@@ -45,8 +45,8 @@
     <input type="hidden" name="{{$row->field}}" class="form-control is-vue" :value="printObject(items)" data-vue-instance="{{ $vue_instance_name }}"/>
     <draggable class="gallery-widget__items" v-if="items.length" v-model="items">
         <el-card :body-style="{ padding: '0px'}" v-for="(item, key) in items" :key="key">
-            <div class="image-box">
-                <img :src="storageLink(item.url)" class="image">
+            <div class="image-box" >
+                <img v-if="item.url" :src="storageLink(item.url)" class="image">
             </div>
             <div style="padding: 14px;">
                 <span>@{{ item.title }}</span>
@@ -127,10 +127,10 @@
                     },
                     rules: {
                         title: [
-                            { required: true, message: 'Обязательное поле', trigger: 'blur' },
+                            { required: {!! printBool(isset($title->required) && $title->required === false ? false : true)  !!}, message: 'Обязательное поле', trigger: 'blur' },
                         ],
                         url: [
-                            { required: true, message: 'Обязательное поле', trigger: 'change' },
+                            { required: {!! printBool(isset($url->required) && $url->required === false ? false : true)  !!}, message: 'Обязательное поле', trigger: 'change' },
                         ],
                     },
                     items: {!! printArray(old('value',$dataTypeContent->value)) !!},
