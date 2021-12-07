@@ -30,7 +30,7 @@
                 @endphp
                 @if(isset($options->readonly)) 
                     @php
-                        $value =  $query->getKey()??null;
+                        $value =  $query?$query->getKey()??null:null
                         $label =  $query->{$options->label}??null;
                     @endphp
                     @if($value)
