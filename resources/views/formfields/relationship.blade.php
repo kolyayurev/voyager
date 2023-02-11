@@ -26,11 +26,11 @@
                 @php
                     $model = app($options->model);
                     $query = $model::where($options->key,$dataTypeContent->{$options->column})->first();
-                    $relatedDataType = Voyager::model('DataType')->where('model_name',$options->model)->first()
+                    $relatedDataType = Voyager::model('DataType')->where('model_name',$options->model)->first();
                 @endphp
                 @if(isset($options->readonly)) 
                     @php
-                        $value =  $query?$query->getKey()??null:null
+                        $value =  $query?($query->getKey()??null):null;
                         $label =  $query->{$options->label}??null;
                     @endphp
                     @if($value)
