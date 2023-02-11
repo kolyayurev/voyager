@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Constraint;
 use Intervention\Image\Facades\Image;
-use League\Flysystem\Util;
 use TCG\Voyager\Facades\Voyager;
 
 class VoyagerController extends Controller
@@ -77,7 +76,7 @@ class VoyagerController extends Controller
     public function assets(Request $request)
     {
         try {
-            $path = dirname(__DIR__, 3).'/publishable/assets/'.Util::normalizeRelativePath(urldecode($request->path));
+            $path = dirname(__DIR__, 3).'/publishable/assets/'.static::normalizeRelativePath(urldecode($request->path));
         } catch (\LogicException $e) {
             abort(404);
         }
@@ -100,5 +99,62 @@ class VoyagerController extends Controller
         }
 
         return response('', 404);
+    }
+
+    /**
+     * Normalize relative directories in a path.
+     *
+     * @param string $path
+     *
+     * @throws LogicException
+     *
+     * @return string
+     */
+    public static function normalizeRelativePath($path)
+    {
+        $path = str_replace('\\', '/', $path);
+        $path = static::removeFunkyWhiteSpace($path);
+
+        $parts = [];
+
+        foreach (explode('/', $path) as $part) {
+            switch ($part) {
+                case '':
+                case '.':
+                break;
+
+            case '..':
+                if (empty($parts)) {
+                    throw new LogicException(
+                        'Path is outside of the defined root, path: [' . $path . ']'
+                    );
+                }
+                array_pop($parts);
+                break;
+
+            default:
+                $parts[] = $part;
+                break;
+            }
+        }
+
+        return implode('/', $parts);
+    }
+
+    /**
+     * Removes unprintable characters and invalid unicode characters.
+     *
+     * @param string $path
+     *
+     * @return string $path
+     */
+    protected static function removeFunkyWhiteSpace($path) {
+        // We do this check in a loop, since removing invalid unicode characters
+        // can lead to new characters being created.
+        while (preg_match('#\p{C}+|^\./#u', $path)) {
+            $path = preg_replace('#\p{C}+|^\./#u', '', $path);
+        }
+
+        return $path;
     }
 }
