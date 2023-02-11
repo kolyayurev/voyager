@@ -14,7 +14,7 @@ Made with ❤️ by [The Control Group](https://www.thecontrolgroup.com)
 
 Website & Documentation: https://voyager.devdojo.com/
 
-Local [documentation](./docs/introduction.md).
+Local [documentation](./docs/summary.md).
 
 Video Tutorial Here: https://voyager.devdojo.com/academy/
 
