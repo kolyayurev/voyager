@@ -1,12 +1,12 @@
 {
     "name": "kolyayurev/voyager",
-    "description": "A Laravel Admin Package for The Control Group to make your life easier and steer your project in the right direction",
+    "description": "A Laravel Admin Package for The Control Group, fork by kolyayurev",
     "keywords": ["laravel", "admin", "panel"],
     "license": "MIT",
     "homepage": "https://voyager.devdojo.com/",
     "support": {
-        "issues": "https://github.com/the-control-group/voyager/issues",
-        "source": "https://github.com/the-control-group/voyager"
+        "issues": "https://github.com/kolyayurev/voyager/issues",
+        "source": "https://github.com/kolyayurev/voyager"
     },
     "authors": [
         {
