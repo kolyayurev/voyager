@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use League\Flysystem\Plugin\ListWith;
 use TCG\Voyager\Events\MediaFileAdded;
 use TCG\Voyager\Facades\Voyager;
 
@@ -54,40 +53,46 @@ class VoyagerMediaController extends Controller
         $dir = $this->directory.$folder;
 
         $files = [];
-        $storage = Storage::disk($this->filesystem)->addPlugin(new ListWith());
-        $storageItems = $storage->listWith(['mimetype'], $dir);
+        $storage = Storage::disk($this->filesystem);
+        $storageItems = $storage->listContents($dir);
 
         foreach ($storageItems as $item) {
-            if ($item['type'] == 'dir') {
+            $basename = pathinfo($item->path(), PATHINFO_FILENAME);
+
+            if ($item->isDir()) {
                 $files[] = [
-                    'name'          => $item['basename'],
+                    'name'          => $basename,
                     'type'          => 'folder',
-                    'path'          => Storage::disk($this->filesystem)->url($item['path']),
-                    'relative_path' => $item['path'],
+                    'path'          => $storage->url($item->path()),
+                    'relative_path' => $item->path(),
                     'items'         => '',
                     'last_modified' => '',
                 ];
             } else {
-                if (empty(pathinfo($item['path'], PATHINFO_FILENAME)) && !config('voyager.hidden_files')) {
+                if (empty($basename) && !config('voyager.hidden_files')) {
                     continue;
                 }
-                // Its a thumbnail and thumbnails should be hidden
-                if (Str::endsWith($item['filename'], $thumbnail_names)) {
-                    $thumbnails[] = $item;
-                    continue;
-                }
-                $files[] = [
-                    'name'          => $item['basename'],
-                    'filename'      => $item['filename'],
-                    'type'          => $item['mimetype'] ?? 'file',
-                    'path'          => Storage::disk($this->filesystem)->url($item['path']),
-                    'relative_path' => $item['path'],
-                    'size'          => $item['size'],
-                    'last_modified' => $item['timestamp'],
+                $filename = Str::afterLast($item->path(),'/');
+
+                $itemArray = [
+                    'name'          => $basename,
+                    'filename'      => $filename,
+                    'type'          => Storage::mimeType( $item->path()) ?? 'file',
+                    'path'          => $storage->url($item->path()),
+                    'relative_path' => $item->path(),
+                    'size'          => $item->fileSize(),
+                    'last_modified' => $item->lastModified(),
                     'thumbnails'    => [],
                 ];
+                // Its a thumbnail and thumbnails should be hidden
+                if (Str::endsWith($filename, $thumbnail_names)) {
+                    $thumbnails[] = $itemArray;
+                    continue;
+                }
+                $files[] = $itemArray;
             }
         }
+//        dd($files);
 
         foreach ($files as $key => $file) {
             foreach ($thumbnails as $thumbnail) {
