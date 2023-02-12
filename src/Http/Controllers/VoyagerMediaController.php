@@ -137,13 +137,12 @@ class VoyagerMediaController extends Controller
         $error = '';
 
         foreach ($request->get('files') as $file) {
-            $file_path = $path.$file['name'];
             if ($file['type'] == 'folder') {
-                if (!Storage::disk($this->filesystem)->deleteDirectory($file_path)) {
+                if (!Storage::disk($this->filesystem)->deleteDirectory($file['relative_path'])) {
                     $error = __('voyager::media.error_deleting_folder');
                     $success = false;
                 }
-            } elseif (!Storage::disk($this->filesystem)->delete($file_path)) {
+            } elseif (!Storage::disk($this->filesystem)->delete($file['relative_path'])) {
                 $error = __('voyager::media.error_deleting_file');
                 $success = false;
             }
